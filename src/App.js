@@ -6,6 +6,8 @@ import Products from './components/Pages/Products';
 import AboutUs from './components/Pages/AboutUs';
 import ContactUs from './components/Pages/ContactUs';
 import SignIn from './components/auth/SignIn';
+import Chat from './components/chat/App'
+import Comment from './components/comment/commentBox'
 function App() {
   return (
     <div className="App">
@@ -19,6 +21,8 @@ function App() {
           <Route path='/contactus'component={ContactUs}/>
           <Route path='/aboutus'component={AboutUs}/> 
           <Route path='/signin'component={SignIn}/> 
+          <Route path='/chat' component={Chat}/>
+          <Route path='/comment' component={Comment}/>
         </Switch>
         <Footer/>
     </BrowserRouter>
