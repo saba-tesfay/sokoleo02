@@ -1,9 +1,15 @@
-import { firestore } from "firebase";
-
-export const ProductSearch=(res)=>{
+export const ProductSearch=(searchvalue)=>{
     return (dispatch,getState,{getFirebase,getFirestore})=>{
-        getState.firestore.get({ collection: 'sellerupload' })
-        
+        console.log("my action saerc",searchvalue)
+        dispatch({type:'SEARCH_RESULTS',searchvalue});
+        // const firestore=getFirestore();
+        // firestore.collection('sellerUpload').where('productName'==searchvalue).get().then(()=>{
+        //     dispatch({type:'SEARCH_RESULTS',searchvalue});
+        // }).catch((err)=>{
+        //     dispatch({type:'SEARCH_RESULTS_NONE',err});
+        // })
+       
     }
-    }
+    
+}
     

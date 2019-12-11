@@ -1,7 +1,7 @@
 import firebase from 'firebase'
 import 'firebase/firestore'
-import 'firebase/auth'
-
+import 'firebase/auth';
+import "firebase/storage";
 const  config = {
     apiKey: "AIzaSyBOjePErZKi3pXZEeo9uZGwxp-BaP1cJR0",
     authDomain: "sokoleo-e6620.firebaseapp.com",
@@ -12,7 +12,11 @@ const  config = {
     appId: "1:1065457542399:web:2ead50b36b016ea98ed8ca",
     measurementId: "G-KHJ0K8VN5T"
   };
-  // Initialize Firebase
+  // // Initialize Firebase
+  
   firebase.initializeApp(config);
+   firebase.storage();
   firebase.firestore().settings({timestampsInSnapshots:true});
-  export default  firebase;
+
+  export { firebase as default };
+ 
