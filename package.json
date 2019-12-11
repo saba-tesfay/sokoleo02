@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd": "^3.26.0",
     "bootstrap": "^4.4.1",
+<<<<<<< HEAD
     "firebase": "^7.5.0",
     "google-maps-react": "^2.0.2",
+=======
+    "firebase": "^7.5.2",
+>>>>>>> master
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-geocode": "^0.2.1",
