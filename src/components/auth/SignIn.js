@@ -1,59 +1,83 @@
-import React from 'react'
-import bg_1 from '../../images/bg_1.jpg';
-import product_1 from '../../images/product_1.jpg'
+import bg_1 from '../../images/bg_1.jpg'
+import bg_2 from '../../images/bg_2.jpg'
+import {Input} from 'antd'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { signIn } from '../../store/actions/authActions'
+import{Redirect} from 'react-router-dom'
+import 'antd/dist/antd.css'; 
 // import './signin.css'
-export default function SignIn() {
+class SignIn extends Component {
+  state = {
+    email: '',
+    password: ''
+  }
+  handleChange = (e) => {
+    this.setState({
+      [e.target.id]: e.target.value
+    })
+  }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.signIn(this.state)
+  }
+  render() {
+    const { authError,auth } = this.props;
+    if(auth.uid) return<Redirect to='/'/>
     return (
  <div>
+     <section class="ftco-section contact-section bg-light">
 <div class="container">
-  <h2>Carousel Example</h2>
-  <div id="myCarousel" class="carousel slide" data-ride="carousel" style={{width:'50%',backgroundColor:'red'}}>
+
+<div class="row block-9">
   
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"/>
-      <li data-target="#myCarousel" data-slide-to="1"/>
-      <li data-target="#myCarousel" data-slide-to="2"/>
-      <li data-target="#myCarousel" data-slide-to="2" style={{Color:'red'}}/>
-    </ol>
+<div class="col-md-6 order-md-last d-flex " >
+<form action="#" class="bg-white p-5 contact-form"  style={{height:'400px'}} onSubmit={this.handleSubmit}>
+<div class="form-group col-md-13  d-flex pl-0" style={{marginTop:'70px'}}>
+<input type="text" style={{width:'100px'}}class="form-control" placeholder="Zip" />
+<input type="text"class="form-control" id="email" placeholder="Email" onChange={this.handleChange}/>
+</div>
+<Input.Password className="psw-input" id="password" placeholder="input password" style={{height:'40px',marginBottom:'20px'}}onChange={this.handleChange}/>
 
-    <div class="carousel-inner" >
+<div class="form-group ">
+<input style={{marginTop:'10px',marginBottom:'20px' , marginLeft:'100px'}}type="submit" value="Sign In" class="btn btn-primary py-3 px-5"/>
+</div>
+        <div className="center red-text">
+              { authError ? <p>{authError}</p> : null }
+            </div>
+</form>
 
-      <div class="item active" style={{color:'red'}}>
-      <img  src={product_1} alt="Colorlib Template"/>
-        <div class="carousel-caption">
-          <h3>Los Angeles</h3>
-          <p>LA is always so much fun!</p>
-        </div>
-      </div>
+</div>
 
-      <div class="item">
-      <img  class="img-fluid" src={product_1} alt="Colorlib Template"/>
-        <div class="carousel-caption">
-          <h3>Chicago</h3>
-          <p>Thank you, Chicago!</p>
-        </div>
-      </div>
-    
-      <div class="item">
-      <img  class="img-fluid" src={product_1} alt="Colorlib Template"/>
-        <div class="carousel-caption">
-          <h3>New York</h3>
-          <p>We love the Big Apple!</p>
-        </div>
-      </div>
-  
-    </div>
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right"></span>
-      <span class="sr-only">Next</span>
-    </a>
+<div class="col-md-6 order-md-last d-flex" >
+  <div class="home-slider owl-carousel" >
+                    <div class="slider-item" style={{backgroundImage: `url(${bg_1})`}} >                    
+                           </div>
+                <div class="slider-item" style={{backgroundImage: `url(${bg_2})`}}>
+                   
+                    </div>
+                </div>
+
   </div>
 </div>
+</div>
+</section>
 
 </div>
 )
 }
+}
+const mapStateToProps = (state) => {
+  return{
+    authError: state.auth.authError,
+    auth:state.firebase.auth
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signIn: (creds) => dispatch(signIn(creds))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
