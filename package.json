@@ -6,8 +6,12 @@
     "antd": "^3.26.0",
     "bootstrap": "^4.4.1",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "firebase": "^7.5.0",
     "google-maps-react": "^2.0.2",
+=======
+    "firebase": "^7.5.2",
+>>>>>>> master
 =======
     "firebase": "^7.5.2",
 >>>>>>> master
