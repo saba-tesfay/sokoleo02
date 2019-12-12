@@ -9,7 +9,6 @@ import SignIn from './components/auth/SignIn';
 import SignUpSeller from './components/auth/SignUpSeller';
 import SignUpBuyer from './components/auth/SignUpBuyer';
 import Home from './components/Pages/HomePage'
-import Sample from './components/Pages/Sample'
 function App() {
   return (
     <div className="App">
@@ -21,7 +20,6 @@ function App() {
           {/* <Route path='/products'component={MyChat}/>
   <Route path='/'component={Profile}/> */}
           <Route path='/contactus'component={ContactUs}/>
-          <Route path='/sample'component={Sample}/>
           <Route path='/aboutus'component={AboutUs}/> 
           <Route path='/signin'component={SignIn}/> 
           <Route path='/signupBuyer'component={SignUpBuyer}/> 
