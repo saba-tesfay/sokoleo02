@@ -82,12 +82,3 @@
   .currentMember > .Message-content .text {
     background-color: orangered ;
   }
-  
-  form {
-    display: flex !important;  
-  }
-
-  button{
-    background-color: #49b84c;
-    border:0;
-  }

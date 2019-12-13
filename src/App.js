@@ -7,9 +7,8 @@ import AboutUs from './components/Pages/AboutUs';
 import ContactUs from './components/Pages/ContactUs';
 import SellerUpload from './components/Pages/SellerUpload';
 import Map from './components/Pages/Map';
-import SignIn from './components/auth/SignIn';
- 
-  import Chat from './components/chat/App'
+import SignIn from './components/auth/SignIn'; 
+import Chat from './components/chat/App'
 import Comment from './components/comment/commentBox'
 import SignUpSeller from './components/auth/SignUpSeller';
 import SignUpBuyer from './components/auth/SignUpBuyer';
