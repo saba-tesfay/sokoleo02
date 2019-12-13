@@ -3,6 +3,15 @@ import {connect } from 'react-redux';
 import Send from '../img/play.png'
 import {addComment} from '../../store/actions/addComment'
 import Attach from '../img/attach.png'
+import styled from 'styled-components';
+
+export const Form = styled.form`
+display: flex !important;  
+`;
+const Button=styled.button`
+background-color: #49b84c;
+border:0;
+`;
  class CommentForm extends Component {
    state = {
       comment:''
@@ -26,7 +35,7 @@ import Attach from '../img/attach.png'
   render() {
     return (
     <div className="Input pt-3 pl-4" style={{backgroundColor: '#49B84C'}}>
-        <form method="post" onSubmit={this.onSubmit}>
+        <Form method="post Input" onSubmit={this.onSubmit}>
           <img src={Attach} height={40}/>
           <input
             style={{
@@ -38,9 +47,9 @@ import Attach from '../img/attach.png'
               className="form-control commendandchatinput"
               placeholder="Your Comment"
           />
-              <img src={Send} height={40} />
+              <Button> <img src={Send} height={40} /></Button>
            
-        </form>
+        </Form>
       </div>
     );
   }
