@@ -2,8 +2,8 @@ import {Component} from "react";
 import React from "react";
 import styled from 'styled-components';
 
-export const Form = styled.form`
-display: flex !important;  
+const Form = styled.form`
+  text-align: center;
 `;
 
 class Input extends Component {
@@ -21,7 +21,7 @@ class Input extends Component {
   render() {
     return (
       <div className="Input p-3 " style={{backgroundColor: '#49B84C'}}>
-        <Form onSubmit={e => this.onSubmit(e)} className="py-0">
+        <form onSubmit={e => this.onSubmit(e)} className="py-0">
           <input
             onChange={e => this.onChange(e)}
             value={this.state.text}
@@ -30,7 +30,7 @@ class Input extends Component {
             autofocus="true"
           />
           <button> ➤</button>
-        </Form>
+        </form>
       </div>
     );
   }
