@@ -9,25 +9,44 @@ import {listProducts} from'../../store/actions/productActions';
 import {ProductSearch} from '../../store/actions/ProductSearchAction'
 import {compose} from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
+// const {seller}=this.props
 class Products extends Component {
   state={
     search:'',
-    location:''
+    location:'',
+    value:[]
   }
- handelChange=(e)=>{
-    this.setState({
-      [e.target.id]:e.target.value
-    })
-     }
- handleSubmit=(e)=>{
-     e.preventDefault();
-      this.props.ProductSearch(this.state)
-      console.log(  this.state)
-     }
  
+ handelChange=(e)=>{
+    // this.setState({
+    //   [e.target.id]:e.target.value
+    // })
+     }
+     handleSubmit=(e)=>{
+      e.preventDefault();
+   this.search(this.props,e.target.value,e.target.id)
+         this.props.history.push('/')
+         console.log(this.state)
+      }
+       search=(props,searchvalue,id)=>{
+        const {seller}=props;
+        console.log("waa",seller[0].productName)
+        const works = seller.filter((val)=>{
+          console.log(val.productName)
+          if(id==='search')
+           return (val.name.includes(searchvalue)||val.description.includes(searchvalue))
+           else{
+            return (val.description.includes(searchvalue))
+           }
+        });
+        this.setState({
+          value:works
+        })
+        console.log("ndjjsd",this.state.value)
+       }
   render() {
-    const {sellerDetails}=this.props;
-    console.log("detail",this.props)
+    const {seller,location}=this.props;
+    console.log("detail",{seller},{location})
     return (
       <div>
 <div class="hero-wrap hero-bread"  style ={{ backgroundImage:`url(${bg_1})`}}>
@@ -55,34 +74,36 @@ class Products extends Component {
 </div>
 </div>
 </div>
-<div class="input-group"  >
+<form onSubmit={this.handleSubmit}>
+<div class="input-group" >
 <i class="ion-ios-search searchicon"></i>
-  <input type="text" class="search-input-productpage" id='search' onChange={this.handelChange} placeholder="Search seller name or product name" />
+  <input type="text" class="search-input-productpage" id='search'  onChange={this.handleSubmit} placeholder="Search seller name or product name" />
   <i class="ion-ios-pin locationicon"></i>
-  <input type="text" class="location-search-input-productpage" id='location' onChange={this.handelChange}  placeholder="Location"/>
-  <button class="search-button" onSubmit={this.handleSubmit} >search</button>
+  <input type="text" class="location-search-input-productpage" id='location' onChange={this.handleSubmit}  placeholder="Location"/>
+  <button class="search-button"  >search</button>
 </div>
+</form>
 </section>
-<ListProducts sellerDetails={sellerDetails}/>
+    {this.state.value.length===0?(<ListProducts seller={seller}/>):(<ListProducts seller={this.state.value}/>)}
  </div>
     )
   }
 }
-
-const mapStateToProps=(state,ownProps)=>{
-  console.log("prod",ownProps);
-  const id=ownProps.match.params.id;
-  console.log(id)
-  const  sellerDetails=state.firestore.ordered.sellerUpload
-  console.log("all details",sellerDetails)
-const sellerDetail=sellerDetails ? sellerDetails[id]:null;
-console.log('singledetail',sellerDetail)
+const mapStateToProps=(state)=>{
   return {
-    sellerDetails:sellerDetail
+    seller:state.firestore.ordered.sellerUpload,
+    location:state.firestore.ordered.sellerLocation
+
   }
 }
-export default compose(connect(mapStateToProps),  firestoreConnect([
-  {collection:'sellerUpload'}
+const mapDispatchToProps=(dispatch)=>{
+  return {
+    ProductSearch:(searchvalue)=>dispatch(ProductSearch(searchvalue))
+  }
+}
+export default compose(connect(mapStateToProps,mapDispatchToProps),  firestoreConnect([
+  {collection:'sellerUpload',orderedBy:['time','desc']},
+  {collection:'sellerLocation',orderedBy:['time','desc']},
 ]))(Products);
 
 
