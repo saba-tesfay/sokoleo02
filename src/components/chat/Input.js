@@ -1,6 +1,7 @@
 import {Component} from "react";
 import React from "react";
-
+import {connect } from 'react-redux'
+import {addMessage} from '../../store/actions/chatAction'
 class Input extends Component {
   state = {
     text: ""
@@ -11,9 +12,10 @@ class Input extends Component {
   onSubmit(e) {
     e.preventDefault();
     this.setState({text: ""});
-    this.props.onSendMessage(this.state.text);
+    this.props.addMessage(this.state)
   }
   render() {
+    console.log('FFFFFFFFFFFFF',this.state);
     return (
       <div className="Input p-3 " style={{backgroundColor: '#49B84C'}}>
         <form onSubmit={e => this.onSubmit(e)} className="py-0">
@@ -22,7 +24,6 @@ class Input extends Component {
             value={this.state.text}
             type="text"
             placeholder="Type your message...."
-            autofocus="true"
           />
           <button> ➤</button>
         </form>
@@ -31,4 +32,11 @@ class Input extends Component {
   }
 }
 
-export default Input;
+const mapDispatchToProps=(dispatch)=>{
+  return{
+      addMessage:(message)=>dispatch(addMessage(message))
+  }
+  //what we done here is we add addMessage to this componenet as prop
+  //then 
+}
+export default connect(null,mapDispatchToProps)(Input);

@@ -15,9 +15,6 @@ function App() {
         <Navbar/>
         <Switch>
           <Route exact path='/'component={Products} />
-          {/* <Route path='/products'component={Home}/>
-          <Route path='/products'component={MyChat}/>
-  <Route path='/'component={Profile}/>*/}
           <Route path='/contactus'component={ContactUs}/>
           <Route path='/aboutus'component={AboutUs}/> 
           <Route path='/signin'component={SignIn}/> 

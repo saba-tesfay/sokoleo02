@@ -12,7 +12,9 @@ const ImageFormatter=(props)=>{
 }
 const commentList=({comments})=>{
   // comments.Object.keys(comments).length
-  console.log('commentss list',comments);
+  // let len=comments;
+ 
+  console.log('commentss listyyyy',comments);
     return (
         <div className="commentList">
           <div class="hero-wrap hero-bread"  style ={{ backgroundImage:`url(${Fruit})`}}>
@@ -30,26 +32,25 @@ const commentList=({comments})=>{
                <ImageFormatter src={likesIcon} alt="comment"/>
                like</p>
             <Link to='/comment' className="px-5 flex-fill font-weight-bold text-dark">
-              <ImageFormatter src={commentIcon} alt="comment" />
-              {/* {comments.length} */}
-             {/* { comments.length}:2?0 */}
+              <ImageFormatter src={commentIcon} alt="comment" />              
                comment
             </Link>
             <Link  to='/chat'className="px-5 flex-fill font-weight-bold text-dark">
             <ImageFormatter src={messageIcon} alt="comment" />             
               send message</Link>
           </div>
-          {/* <h4 className="mb-4 font-weight-bold">
-        Comment{comments.length > 0 ? "s" : ""}
-      </h4> */}
+     { comments && console.log("zxvddgd", comments.length)}
       {comments=== 0  ? (
         <div className="alert text-center alert-info">
           Be the first to comment
         </div>
       ) : null}
         { comments && comments.map((comment)=>(
-            <Comment comment={comment} key={comment.id}/>
+            <Comment comment={comment} key={comment.id}>
+               
+            </Comment>
           ))}
+          
         </div>
       );
 }

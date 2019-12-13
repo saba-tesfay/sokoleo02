@@ -23,8 +23,8 @@ import './commentStyle.css'
  const mapStateToProps=(state)=>{
    console.log("state from comment box",state);
    return{
-     comments:state.firestore.ordered.haha
+     comments:state.firestore.ordered.comments
    }
  }
  export default compose(connect(mapStateToProps),
- firestoreConnect([{collection:'haha'}]))(commentBox);
+ firestoreConnect([{collection:'comments'}]))(commentBox);
