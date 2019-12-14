@@ -4,8 +4,7 @@ export const addComment = (comment) =>
         const firestore=getFirestore();
         firestore.collection('haha').add({
             ...comment,
-            msg:''
-  
+            createdAt:new Date()  
         }).then(()=>{
             dispatch({type:'ADD-COMMENT',comment})
         }).catch((err)=>{
