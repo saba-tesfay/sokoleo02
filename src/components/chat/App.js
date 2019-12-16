@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Messages from './messages'
 import Input from "./Input";
 import './App.css'
+import Fruit from '../img/bg_1.jpg'; 
 import messageIcon from '../img/message.png'
 import likesIcon from '../img/likes.png'
 import commentIcon from '../img/comments_48px.png'
@@ -23,6 +24,7 @@ class App extends Component {
     })
     this.setState({messages: messages})
     this.props.addChatMessage(this.state)
+ 
   }
     state = { 
         messages: [
@@ -36,14 +38,17 @@ class App extends Component {
             }
           ],
           member: {
+ 
             username: 'you',
             color: '#B2D5B4',
             cn:'Messages-message'
+ 
           }
-          
      }
      render() {
+
        const {addChatMessage}=this.props
+ 
         return (
           <div className="App">
             <div class="hero-wrap hero-bread"  style ={{ backgroundImage:`url(${Fruit})`}}>
@@ -75,7 +80,6 @@ class App extends Component {
               currentMember={this.state.member}
             />
             <Input
-              onSendMessage={this.onSendMessage}
             />
           </div>
         );
@@ -88,3 +92,4 @@ const mapDispatchToProps=(dispatch)=>{
 }
  
 export default connect(null,mapDispatchToProps)(App);
+ 

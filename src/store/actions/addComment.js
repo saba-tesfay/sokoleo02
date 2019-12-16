@@ -5,12 +5,11 @@ export const addComment = (comment) =>
         firestore.collection('comments').add({
             ...comment,
             createdAt:new Date()  
+ 
         }).then(()=>{
             dispatch({type:'ADD-COMMENT',comment})
         }).catch((err)=>{
             dispatch({type:'ADD-COMMENT-ERROR',err});
         })
-        
-
      }
  }

@@ -27,8 +27,11 @@
     margin-top: 10px !important;
   }
   
+ 
+ 
   .currentMember {
     /*justify-content: flex-end !important;*/
+ 
     flex-direction: row-reverse !important;
     text-align: right !important;
   }
@@ -98,4 +101,4 @@
     left: -19px;
     top: 6px;
   }
-  
+ 

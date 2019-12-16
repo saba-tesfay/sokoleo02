@@ -1,5 +1,7 @@
 const initState={
-    comments:[ ]
+ 
+    comments:[]     
+ 
 }
 const commentReducer=(state=initState,action)=>{
   switch(action.type){

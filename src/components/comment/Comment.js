@@ -3,6 +3,7 @@ import Img from '../../images/about.jpg'
 import './commentStyle.css'
 export default function Comment(props) {
   const { msg , comment } = props.comment;
+  console.log("commenettttttttt",props)
   const author='Jone Man'
 
   return (
@@ -18,7 +19,8 @@ export default function Comment(props) {
       <div className="media-body px-2 shadow-sm rounded bg-white  ">
         <div className="d-flex flex-row bd-highlight   p-1">
             <p className="   font-weight-bold pr-2">{author}</p>
-             < p className=" font-weight-bold  textDays" > . 2 days ago</p>           
+             < p className=" font-weight-bold  textDays" > . 2 days ago</p>  
+             {/* {moment(project.createrAt.toDate()).calendar()}          */}
         </div>  
         <div className='  '>{comment}</div>    
         

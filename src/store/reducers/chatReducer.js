@@ -1,3 +1,4 @@
+ 
 const intialState={
     message:'how are you',
 }
@@ -16,5 +17,6 @@ const chatReducer=(state=intialState,action)=>{
 
     }
 return state
+ 
 }
-export default chatReducer;
+ 
