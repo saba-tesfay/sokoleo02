@@ -25,7 +25,7 @@ class Products extends Component {
      handleSubmit=(e)=>{
       e.preventDefault();
    this.search(this.props,e.target.value,e.target.id)
-         this.props.history.push('/')
+        //  this.props.history.push('/')
          console.log(this.state)
       }
        search=(props,searchvalue,id)=>{
@@ -52,8 +52,8 @@ class Products extends Component {
 <div class="hero-wrap hero-bread"  style ={{ backgroundImage:`url(${bg_1})`}}>
 <div class="container">
 <div class="row no-gutters slider-text align-items-center justify-content-center">
-<div class="col-md-9 ftco-animate text-center">
-<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Products</span></p>
+<div class="col-md-9 text-center">
+<p class="breadcrumbs"><span class="mr-2"><a href="/">Home</a></span> <span>Products</span></p>
 <h1 class="mb-0 bread">Products</h1>
 </div>
 </div>
@@ -89,9 +89,13 @@ class Products extends Component {
     )
   }
 }
-const mapStateToProps=(state)=>{
+const mapStateToProps=(state,ownProps)=>{
+  console.log("ma",state)
+  // const id=ownProps.match.params.id;
+  // const sellers=state.firestore.data.sellerUpload
+  // const seller=sellers ? sellers[id]:null
   return {
-    seller:state.firestore.ordered.sellerUpload,
+    seller:state.firestore.data.sellerUpload,
     location:state.firestore.ordered.sellerLocation
 
   }

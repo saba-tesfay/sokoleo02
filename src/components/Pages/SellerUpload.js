@@ -1,19 +1,18 @@
 import React, { Component } from 'react'
 import {sellerupload} from '../../store/actions/SellerUploadAction';
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom'
 import fbConfig from'../../config/fbConfig';
 class SellerUpload extends Component {
     state={
-        name:'',
+        productname:'',
         markettag:'',
         price:'',
         comment:'',
         description:'',
         photo:[]
       }
-      handelUpload=(e)=>{
-      
-         }
+    
     handelChange=(e)=>{
 
         this.setState({
@@ -21,14 +20,7 @@ class SellerUpload extends Component {
         })
    console.log(this.state.file)
  }
- 
- handelChanges=(e)=>{
-        
-    this.setState({
-    [e.target.id]:e.target.file[0],
-    })
 
-}
       handleSubmit=(e)=>{
     
       e.preventDefault();
@@ -61,7 +53,8 @@ class SellerUpload extends Component {
           this.file=ref
       }
     render() {
-    //   console.log("checkinh",this.state.photo)
+        const {auth}=this.props
+        if(!auth.uid) return <Redirect to='/signin'/>
         return (
     <div>
  <section class="ftco-section contact-section bg-light" >
@@ -70,7 +63,7 @@ class SellerUpload extends Component {
 <form action="#" class="bg-white p-5 contact-form" onSubmit={this.handleSubmit} >
 <h2 class='pb-2'>Seller Upload</h2>
 <div class="form-group">
-<input type="text" id="name" onChange={this.handelChange} class="form-control" placeholder="Enter Name"/>
+<input type="text" id="productname" onChange={this.handelChange} class="form-control" placeholder="Enter Name"/>
 </div>
 <div class="form-group">
 <input type="text" id="markettag" onChange={this.handelChange} class="form-control" placeholder="Enter MarketTag"/>
@@ -85,7 +78,7 @@ class SellerUpload extends Component {
 <textarea name="" id="description"  onChange={this.handelChange} cols="30" rows="5" class="form-control" placeholder="Add Description"/>
 </div>
 <div class="form-group" style={{position: 'relative',  overflow:' hidden', display: 'inline-block'}}>
-<button onClick={this.handleUpload}  class=" bg-grey"><i style={{fontSize:'170%',fontWeight:'40',color:'white'}}
+<button  class=" bg-grey"><i style={{fontSize:'170%',fontWeight:'40',color:'white'}}
 class="ion-md-arrow-up"></i>Upload photo</button>
 <input type="file" ref={this.setRef} multiple 
 style={{position:"absolute",left:'0',top:'0', opacity:'0',borderRadius:'10px'}}/>
@@ -103,10 +96,17 @@ style={{position:"absolute",left:'0',top:'0', opacity:'0',borderRadius:'10px'}}/
         )
     }
 }
+
+const mapStateToProps=(state)=>{
+    return {
+      auth:state.firebase.auth,
+      seller:state.firestore.data.sellerUpload,
+    }
+  }
 const mapDispatchToProps=(dispatch)=>{
  
       return {
         sellerupload :(uploads)=>dispatch(sellerupload(uploads))
       }
   }
-export default connect(null,mapDispatchToProps)(SellerUpload);
+export default connect(mapStateToProps,mapDispatchToProps)(SellerUpload);
