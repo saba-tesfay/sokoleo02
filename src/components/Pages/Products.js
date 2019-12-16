@@ -95,7 +95,8 @@ class Products extends Component {
 }
 const mapStateToProps=(state,ownProps)=>{
   console.log("ma",state)
-  // const id=ownProps.match.params.id;
+  const id=ownProps.match.params.id;
+  console.log(id)
   // const sellers=state.firestore.data.sellerUpload
   // const seller=sellers ? sellers[id]:null
   return {
@@ -104,6 +105,7 @@ const mapStateToProps=(state,ownProps)=>{
     seller:state.firestore.ordered.sellerUpload,
     location:state.firestore.ordered.sellerLocation,
     authError: state.auth.authError,
+    auth:state.firebase.auth
 
   }
 }

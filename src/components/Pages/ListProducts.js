@@ -31,7 +31,7 @@ const  ListProducts=(props) => {
     return(
   
     <div>
-          {seller.map((list,index)=>{
+          {seller&&seller.map((list,index)=>{
         
         if (index%2===0){
         return(
