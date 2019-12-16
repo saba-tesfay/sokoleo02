@@ -6,7 +6,7 @@ export const sellerupload=(uploads)=>{
             ...uploads,
             createdAt:new Date()
         }).then(()=>{
-            dispatch({type:'SELLRUPLOAD',uploads});
+            dispatch({type:'SELLERUPLOAD',uploads});
         }).catch((err)=>{
             dispatch({type:'SELLERUPLOAD_ERROR',err});
         })

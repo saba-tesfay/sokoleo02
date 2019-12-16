@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import Messages from './messages'
 import Input from "./Input";
 import './App.css'
-import Fruit from '../img/bg_1.jpg'
-function randomName() {
-    const adjectives = ["autumn", "hidden", "bitter", "misty", "silent", "empty", "dry", "dark", "summer", "icy", "delicate", "quiet", "white", "cool", "spring", "winter", "patient", "twilight", "dawn", "crimson", "wispy", "weathered", "blue", "billowing", "broken", "cold", "damp", "falling", "frosty", "green", "long", "late", "lingering", "bold", "little", "morning", "muddy", "old", "red", "rough", "still", "small", "sparkling", "throbbing", "shy", "wandering", "withered", "wild", "black", "young", "holy", "solitary", "fragrant", "aged", "snowy", "proud", "floral", "restless", "divine", "polished", "ancient", "purple", "lively", "nameless"];
-    const nouns = ["waterfall", "river", "breeze", "moon", "rain", "wind", "sea", "morning", "snow", "lake", "sunset", "pine", "shadow", "leaf", "dawn", "glitter", "forest", "hill", "cloud", "meadow", "sun", "glade", "bird", "brook", "butterfly", "bush", "dew", "dust", "field", "fire", "flower", "firefly", "feather", "grass", "haze", "mountain", "night", "pond", "darkness", "snowflake", "silence", "sound", "sky", "shape", "surf", "thunder", "violet", "water", "wildflower", "wave", "water", "resonance", "sun", "wood", "dream", "cherry", "tree", "fog", "frost", "voice", "paper", "frog", "smoke", "star"];
-    const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
-    const noun = nouns[Math.floor(Math.random() * nouns.length)];
-    return adjective + noun;
-  }
-  
-  function randomColor() {
-    return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
-  }
+import Fruit from '../img/bg_1.jpg'; 
+import messageIcon from '../img/message.png'
+import likesIcon from '../img/likes.png'
+import commentIcon from '../img/comments_48px.png'
+import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import { addChatMessage} from '../../store/actions/chatAction'
+const ImageFormatter=(props)=>{
+  return(
+    <img className="pr-2" src={props.src} alt={props.alt} width={30}/>
+  )
+}
 class App extends Component {
   onSendMessage = (message) => {
     const messages = this.state.messages
@@ -22,6 +22,8 @@ class App extends Component {
       member: this.state.member
     })
     this.setState({messages: messages})
+    this.props.addChatMessage(this.state)
+ 
   }
     state = { 
         messages: [
@@ -29,17 +31,23 @@ class App extends Component {
               text: "This is a test message!",
               member: {
                 color: "#51CB7A",
-                username: "bluemoon"
+                username: "me",
+                cn:' currentMember'
               }
             }
           ],
           member: {
-            username: randomName(),
-            color: '#B2D5B4'
+ 
+            username: 'you',
+            color: '#B2D5B4',
+            cn:'Messages-message'
+ 
           }
-          
      }
      render() {
+
+       const {addChatMessage}=this.props
+ 
         return (
           <div className="App">
             <div class="hero-wrap hero-bread"  style ={{ backgroundImage:`url(${Fruit})`}}>
@@ -52,16 +60,35 @@ class App extends Component {
                 </div>
               </div>
             </div>
+            <div className="d-flex flex-row ">
+            <p className="px-5 flex-fill font-weight-bold">
+               <ImageFormatter src={likesIcon} alt="comment"/>
+               like</p>
+            <Link to='/comment' className="px-5 flex-fill font-weight-bold text-dark">
+              <ImageFormatter src={commentIcon} alt="comment" />
+              {/* {comments.length} */}
+             {/* { comments.length}:2?0 */}
+               comment
+            </Link>
+            <Link  to='/chat'className="px-5 flex-fill font-weight-bold text-dark">
+            <ImageFormatter src={messageIcon} alt="comment" />             
+              send message</Link>
+          </div>
             <Messages
               messages={this.state.messages}
               currentMember={this.state.member}
             />
             <Input
-              onSendMessage={this.onSendMessage}
             />
           </div>
         );
       }
 }
+const mapDispatchToProps=(dispatch)=>{
+  return{
+    addChatMessage:(message)=>dispatch(addChatMessage(message))
+  }
+}
  
-export default App;
+export default connect(null,mapDispatchToProps)(App);
+ 

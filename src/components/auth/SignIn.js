@@ -55,7 +55,7 @@ class SignIn extends Component {
                 <div class="slider-item" style={{backgroundImage: `url(${bg_2})`}}>
                    
                     </div>
-                </div>
+   </div>
 
   </div> */}
 </div>

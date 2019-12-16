@@ -27,10 +27,12 @@ class SignUpBuyer extends Component {
   }
   render() {
       const {auth,authError}=this.props
+
       if(auth.uid)return<Redirect to='/products'/>
+
     return (
         <div>
-            <section class="ftco-section contact-section bg-light">
+ <section class="ftco-section contact-section bg-light">
 <div class="container">
 <div class="row block-9">
 <div class="col-md-6 order-md-last d-flex">
