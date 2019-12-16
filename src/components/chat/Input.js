@@ -59,7 +59,7 @@ const mapDispatchToProps=(dispatch)=>{
   return{
       addChatMessage:(message)=>dispatch(addChatMessage(message))
   }
-  //what we done here is we add addMessage to this componenet as prop
+  //what we done here is we add addChatMessage to this componenet as prop
   //then 
 }
 export default connect(null,mapDispatchToProps)(Input);
