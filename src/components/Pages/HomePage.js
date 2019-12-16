@@ -75,7 +75,7 @@ render(){
         <div class="row">
         <div class="col-md-8">
         <div class="row">
-        <div class="col-md-6 order-md-last ftco-animate align-items-stretch d-flex">
+        <div class="col-md-6 order-md-last  align-items-stretch d-flex">
         <div class="category-wrap-2  img align-self-stretch d-flex" style ={{ backgroundImage:`url(${catagory})`}}>
         <div class="text text-center">
         <h2 className="title">Register Here</h2>
@@ -86,12 +86,12 @@ render(){
         </div>
         </div>
         <div class="col-md-6">
-        <div class="category-wrap  img mb-4 d-flex ftco-animate align-items-end" style ={{ backgroundImage:`url(${catagory1})`}}>
+        <div class="category-wrap  img mb-4 d-flex  align-items-end" style ={{ backgroundImage:`url(${catagory1})`}}>
         <div class="text px-3 py-1">
         <h2 class="mb-0"><a href="#">Fruits</a></h2>
         </div>
         </div>
-        <div class="category-wrap ftco-animate img d-flex align-items-end" style ={{ backgroundImage:`url(${catagory2})`}}>
+        <div class="category-wrap  img d-flex align-items-end" style ={{ backgroundImage:`url(${catagory2})`}}>
         <div class="text px-3 py-1">
         <h2 class="mb-0"><a href="#">Vegetables</a></h2>
         </div>
@@ -100,12 +100,12 @@ render(){
         </div>
         </div>
         <div class="col-md-4">
-        <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style ={{ backgroundImage:`url(${catagory3})`}}>
+        <div class="category-wrap  img mb-4 d-flex align-items-end" style ={{ backgroundImage:`url(${catagory3})`}}>
         <div class="text px-3 py-1">
         <h2 class="mb-0"><a href="#">Juices</a></h2>
         </div>
         </div>
-        <div class="category-wrap ftco-animate img d-flex align-items-end" style ={{ backgroundImage:`url(${catagory4})`}}>
+        <div class="category-wrap  img d-flex align-items-end" style ={{ backgroundImage:`url(${catagory4})`}}>
         <div class="text px-3 py-1">
         <h2 class="mb-0"><a href="#">Dried</a></h2>
         </div>

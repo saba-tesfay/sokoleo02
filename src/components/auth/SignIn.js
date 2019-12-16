@@ -34,7 +34,6 @@ class SignIn extends Component {
 <div class="col-md-6 order-md-last d-flex " >
 <form action="#" class="bg-white p-5 contact-form"  style={{height:'400px'}} onSubmit={this.handleSubmit}>
 <div class="form-group col-md-13  d-flex pl-0" style={{marginTop:'70px'}}>
-<input type="text" style={{width:'100px'}}class="form-control" placeholder="Zip" />
 <input type="text"class="form-control" id="email" placeholder="Email" onChange={this.handleChange}/>
 </div>
 <Input.Password className="psw-input" id="password" placeholder="input password" style={{height:'40px',marginBottom:'20px'}}onChange={this.handleChange}/>
