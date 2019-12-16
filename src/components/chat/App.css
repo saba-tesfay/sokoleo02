@@ -27,7 +27,7 @@
     margin-top: 10px !important;
   }
   
-  .Messages-message.currentMember {
+  .currentMember {
     /*justify-content: flex-end !important;*/
     flex-direction: row-reverse !important;
     text-align: right !important;
@@ -57,14 +57,21 @@
     padding-bottom: 4px !important;
   }
   
-  .Message-content > .text {
+  .text {
     padding: 10px !important;
     margin: 10px !important;
     color: #000 !important;
     display: inline-block !important;
     position: relative;
   }
-  .Message-content > .text:after {
+  .currentMember >.Message-content > .text {
+    padding: 10px !important;
+    margin: 10px !important;
+    color: #000 !important;
+    display: inline-block !important;
+    position: relative;
+  }
+  .currentMember > .Message-content >  .text:after {
     content: '';
     position: absolute;
     right: 0;
@@ -79,6 +86,16 @@
     margin-right: -20px;
   }
   
-  .currentMember > .Message-content .text {
-    background-color: orangered ;
+  .Messages-message > .Message-content >  .text:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 10px solid transparent;
+    border-right: 10px solid #B2D5B4;
+    border-top: 10px solid #B2D5B4;
+    border-bottom: 10px solid transparent;
+    left: -19px;
+    top: 6px;
   }
+  

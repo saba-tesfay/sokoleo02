@@ -5,11 +5,11 @@ import {combineReducers} from 'redux';
 import {firestoreReducer} from 'redux-firestore'
 import commentReducer from './commentReducer'
 import chatReducer from './chatReducer'
-import "firebase/storage";
+import "firebase/storage";  
 const rootReducer=combineReducers({
+    chat:chatReducer,
+    comment:commentReducer,
      auth:authReducer,
-     chat:chatReducer,
-     comment:commentReducer, 
     products:productReducer,
     firestore:firestoreReducer,
     firebase:firebaseReducer

@@ -1,17 +1,20 @@
-const initState={
-    sender:[
-        {id:1,name:'jone',msg:'hallo dear'},
-        {id:1,name:'jone',msg:'hallo dear'},
-        {id:1,name:'jone',msg:'hallo dear'}
-    ],
-    reciever:[
-        {id:9,name:'chaltu',msg:'hallo'},
-        {id:8,name:'chaltu',msg:'hallo'},
-        {id:7,name:'chaltu',msg:'hallo'}
-    ]
-    
+const intialState={
+    message:'how are you',
 }
-const chatReducer=(state=initState,action)=>{
+const chatReducer=(state=intialState,action)=>{
+    switch(action.type){
+        case 'ADD-MESSAGE':
+            return {
+                ...state,
+            }
+         case 'ADD-MESSAGE-ERR':
+             return{
+                
+            }
+        default:
+            return state;
+
+    }
 return state
 }
 export default chatReducer;
