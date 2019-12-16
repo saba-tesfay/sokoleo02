@@ -1,7 +1,7 @@
 import {Component} from "react";
 import React from "react";
 import {connect } from 'react-redux'
-import {addMessage} from '../../store/actions/chatAction'
+import {addChatMessage} from '../../store/actions/chatAction'
 import Send from '../img/play.png'
 import Attach from '../img/attach.png'
 import styled from 'styled-components';
