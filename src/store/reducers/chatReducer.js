@@ -1,37 +1,22 @@
- import * as types from '../actions/chatActionType'
-export const messagesReducer=(state=[],action)=>
-{
-    switch (action.type) {
-        case 'ADD_MESSAGE':
-        case 'MESSAGE_RECEIVED':
-          return state.concat([
-            {
-              message: action.message,
-              author: action.author,
-              id: action.id
-            }
-          ])
-        case 'ADD_MESSAGE_ERROR':
-          console.log("error message on adding message");
-
-        default:
-          return state
-      }
  
+const intialState={
+    message:'how are you',
 }
-export const usersReducer=(state=[],action)=>{
-    switch (action.type) {
-        case types.ADD_USER:
-          return state.concat([
-            {
-             name:action.name,
-             id:action.id
+const chatReducer=(state=intialState,action)=>{
+    switch(action.type){
+        case 'ADD-MESSAGE':
+            return {
+                ...state,
             }
-          ])
-          case types.USER_LIST:
-              return action.users
+         case 'ADD-MESSAGE-ERR':
+             return{
+                
+            }
         default:
-          return state
-      }
+            return state;
+
+    }
+return state
+ 
 }
  

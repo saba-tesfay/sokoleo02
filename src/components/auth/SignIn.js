@@ -23,7 +23,7 @@ class SignIn extends Component {
   }
   render() {
     const { authError,auth } = this.props;
-    if(auth.uid) return<Redirect to='/'/>
+    if(auth.uid) return<Redirect to='/products'/>
     return (
  <div>
      <section class="ftco-section contact-section bg-light">
@@ -49,16 +49,16 @@ class SignIn extends Component {
 
 </div>
 
-<div class="col-md-6 order-md-last d-flex" >
+{/* <div class="col-md-6 order-md-last d-flex" >
   <div class="home-slider owl-carousel" >
                     <div class="slider-item" style={{backgroundImage: `url(${bg_1})`}} >                    
                            </div>
                 <div class="slider-item" style={{backgroundImage: `url(${bg_2})`}}>
                    
                     </div>
-                </div>
+   </div>
 
-  </div>
+  </div> */}
 </div>
 </div>
 </section>

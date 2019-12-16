@@ -2,19 +2,29 @@ import React, { Component } from 'react';
 import Messages from './messages'
 import Input from "./Input";
 import './App.css'
-import Fruit from '../img/bg_1.jpg';
- 
-  
+import Fruit from '../img/bg_1.jpg'; 
+import messageIcon from '../img/message.png'
+import likesIcon from '../img/likes.png'
+import commentIcon from '../img/comments_48px.png'
+import {Link} from 'react-router-dom'
+import Fruit from '../img/bg_1.jpg'
+import {connect} from 'react-redux'
+import { addChatMessage} from '../../store/actions/chatAction'
+const ImageFormatter=(props)=>{
+  return(
+    <img className="pr-2" src={props.src} alt={props.alt} width={30}/>
+  )
+}
 class App extends Component {
   onSendMessage = (message) => {
     const messages = this.state.messages
-    // messages.push({
-    //   text: message,
-    //   member: this.state.member
-    // })
-    // this.setState({messages: messages})
-    console.log('fffffffffffffffffff',message)
-    this.props.addMessage(message);
+    messages.push({
+      text: message,
+      member: this.state.member
+    })
+    this.setState({messages: messages})
+    this.props.addChatMessage(this.state)
+ 
   }
     state = { 
         messages: [
@@ -22,18 +32,23 @@ class App extends Component {
               text: "This is a test message!",
               member: {
                 color: "#51CB7A",
-                username: "bluemoon"
+                username: "me",
+                cn:' currentMember'
               }
             }
           ],
           member: {
-            username: 'me',
-            color: '#B2D5B4'
+ 
+            username: 'you',
+            color: '#B2D5B4',
+            cn:'Messages-message'
+ 
           }
      }
      render() {
-      //  console.log('sddddddddddddddddd',messages)
-      //  const {message}=this.props;
+
+       const {addChatMessage}=this.props
+ 
         return (
           <div className="App">
             <div class="hero-wrap hero-bread"  style ={{ backgroundImage:`url(${Fruit})`}}>
@@ -46,6 +61,20 @@ class App extends Component {
                 </div>
               </div>
             </div>
+            <div className="d-flex flex-row ">
+            <p className="px-5 flex-fill font-weight-bold">
+               <ImageFormatter src={likesIcon} alt="comment"/>
+               like</p>
+            <Link to='/comment' className="px-5 flex-fill font-weight-bold text-dark">
+              <ImageFormatter src={commentIcon} alt="comment" />
+              {/* {comments.length} */}
+             {/* { comments.length}:2?0 */}
+               comment
+            </Link>
+            <Link  to='/chat'className="px-5 flex-fill font-weight-bold text-dark">
+            <ImageFormatter src={messageIcon} alt="comment" />             
+              send message</Link>
+          </div>
             <Messages
               messages={this.state.messages}
               currentMember={this.state.member}
@@ -56,7 +85,11 @@ class App extends Component {
         );
       }
 }
-
+const mapDispatchToProps=(dispatch)=>{
+  return{
+    addChatMessage:(message)=>dispatch(addChatMessage(message))
+  }
+}
  
+export default connect(null,mapDispatchToProps)(App);
  
-export default  App;

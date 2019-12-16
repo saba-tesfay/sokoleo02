@@ -8,6 +8,8 @@ import {connect} from 'react-redux';
 import {listProducts} from'../../store/actions/productActions';
 import {ProductSearch} from '../../store/actions/ProductSearchAction'
 import {compose} from 'redux'
+
+import{Redirect} from 'react-router-dom'
 import { firestoreConnect } from 'react-redux-firebase'
 // const {seller}=this.props
 class Products extends Component {
@@ -25,7 +27,7 @@ class Products extends Component {
      handleSubmit=(e)=>{
       e.preventDefault();
    this.search(this.props,e.target.value,e.target.id)
-         this.props.history.push('/')
+        //  this.props.history.push('/')
          console.log(this.state)
       }
        search=(props,searchvalue,id)=>{
@@ -45,15 +47,17 @@ class Products extends Component {
         console.log("ndjjsd",this.state.value)
        }
   render() {
+    const { authError,auth } = this.props;
     const {seller,location}=this.props;
     console.log("detail",{seller},{location})
+    if(!auth.uid) return<Redirect to='/'/>
     return (
       <div>
 <div class="hero-wrap hero-bread"  style ={{ backgroundImage:`url(${bg_1})`}}>
 <div class="container">
 <div class="row no-gutters slider-text align-items-center justify-content-center">
-<div class="col-md-9 ftco-animate text-center">
-<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Products</span></p>
+<div class="col-md-9 text-center">
+<p class="breadcrumbs"><span class="mr-2"><a href="/">Home</a></span> <span>Products</span></p>
 <h1 class="mb-0 bread">Products</h1>
 </div>
 </div>
@@ -89,10 +93,17 @@ class Products extends Component {
     )
   }
 }
-const mapStateToProps=(state)=>{
+const mapStateToProps=(state,ownProps)=>{
+  console.log("ma",state)
+  // const id=ownProps.match.params.id;
+  // const sellers=state.firestore.data.sellerUpload
+  // const seller=sellers ? sellers[id]:null
   return {
+
+
     seller:state.firestore.ordered.sellerUpload,
-    location:state.firestore.ordered.sellerLocation
+    location:state.firestore.ordered.sellerLocation,
+    authError: state.auth.authError,
 
   }
 }

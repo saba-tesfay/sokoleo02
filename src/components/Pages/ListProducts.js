@@ -31,23 +31,24 @@ const  ListProducts=(props) => {
     return(
   
     <div>
-          {seller&&seller.map((list,index)=>{
-            
+          {seller.map((list,index)=>{
+        
         if (index%2===0){
         return(
       < div class="container">
        <div class="row"  style={{marginLeft:'20%'}}>
       <div class="col-md-6 col-lg-5 ">
        <div class="product">
-              
-                   <Carousel responsive={responsive}>
-                        <div> <img class="img-fluid" src={list.photo} alt="Colorlib Template"/></div>
-                        <div><img class="img-fluid" src={list.photo} alt="Colorlib Template"/></div>
-                           <div> <img class="img-fluid" src={list.photo} alt="Colorlib Template"/></div>
-                    </Carousel>
-                    
-        
-                    </div>
+       <Carousel responsive={responsive}>
+              {list.photo&&list.photo.map((image,i)=>{
+               return ( 
+             
+                <img class="img-fluid" src={image} alt="Colorlib Template"/>
+             
+               )
+              })}
+                 </Carousel>
+             </div>
                    </div>
                       <div class="col-md-6 col-lg-5 " >
                       <div class="product"  style={{border:'0'}}>
@@ -55,7 +56,7 @@ const  ListProducts=(props) => {
     <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}
           >Seller</h3>
     <h5 style={{color:'#82ae46',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}
-        >{list.productName}</h5>
+        >{list.name}</h5>
   <h6 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}>
 Product Description </h6>
         <p>{list.description}</p>
@@ -71,16 +72,16 @@ Product Description </h6>
                  <div class=" d-flex px-3 ">
                  <div class="m-auto d-flex">
                               <a href="#" class="heart d-flex justify-content-center align-items-center  pr-3 ">
-                              <span><i  style={{fontSize:'170%'}}  class="ion-ios-heart"></i></span>
+                              <span><i  style={{fontSize:'170%',color:'#82ae46'}}  class="ion-ios-heart"></i></span>
                               </a>
                               <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center pr-3">
-                              <span><i style={{fontSize:'170%'}}class="ion-ios-mail"></i></span>
+                              <span><i style={{fontSize:'170%',color:'#82ae46'}}class="ion-ios-mail"></i></span>
                               </a>
                               <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1  pr-3">
-                              <span><i  style={{fontSize:'170%'}} class="ion-ios-chatbubbles" ></i></span>
+                              <span><i  style={{fontSize:'170%',color:'#82ae46'}} class="ion-ios-chatbubbles" ></i></span>
                               </a>
                               <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1 pr-3">
-                              <span><i   style={{fontSize:'170%'}} class="ion-md-share"></i></span>
+                              <span><i   style={{fontSize:'170%',color:'#82ae46'}} class="ion-md-share"></i></span>
                               </a>
                               </div>
                   </div>
@@ -100,7 +101,7 @@ Product Description </h6>
        <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}
     >Seller</h3>
     <h5 style={{color:'#82ae46',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}
-   >{list.productName}</h5>
+   >{list.name}</h5>
 <h6 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}>
 Product Description </h6>
    <p>{list.description}</p>
@@ -116,16 +117,16 @@ Product Description </h6>
            <div class=" d-flex px-3 ">
                         <div class="m-auto d-flex">
                         <a href="#" class="heart d-flex justify-content-center align-items-center  pr-3 ">
-                        <span><i  style={{fontSize:'170%'}}  class="ion-ios-heart"></i></span>
+                        <span><i  style={{fontSize:'170%',color:'#82ae46'}}  class="ion-ios-heart"></i></span>
                         </a>
                         <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center pr-3">
-                        <span><i style={{fontSize:'170%'}}class="ion-ios-mail"></i></span>
+                        <span><i style={{fontSize:'170%',color:'#82ae46'}}class="ion-ios-mail"></i></span>
                         </a>
                         <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1  pr-3">
-                        <span><i  style={{fontSize:'170%'}} class="ion-ios-chatbubbles" ></i></span>
+                        <span><i  style={{fontSize:'170%',color:'#82ae46'}} class="ion-ios-chatbubbles" ></i></span>
                         </a>
                         <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1 pr-3">
-                        <span><i   style={{fontSize:'170%'}} class="ion-md-share"></i></span>
+                        <span><i   style={{fontSize:'170%',color:'#82ae46'}} class="ion-md-share"></i></span>
                         </a>
                         </div>
                         </div>
@@ -134,11 +135,15 @@ Product Description </h6>
                 
       <div class="col-md-6 col-lg-5">
             <div class="product">
-              <Carousel responsive={responsive}>
-                   <div> <img class="img-fluid" src={list.photo} alt="Colorlib Template"/></div>
-                  <div><img class="img-fluid" src={list.photo} alt="Colorlib Template"/></div>
-                     <div> <img class="img-fluid" src={list.photo} alt="Colorlib Template"/></div>
-              </Carousel>
+            <Carousel responsive={responsive}>
+              {list.photo&&list.photo.map((image,i)=>{
+               return ( 
+             
+                <img class="img-fluid" src={image} alt="Colorlib Template"/>
+             
+               )
+              })}
+                 </Carousel>
                 </div>
        </div>
       </div>

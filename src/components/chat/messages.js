@@ -11,10 +11,12 @@ class Messages extends Component {
         />
         <div className="Message-content">
           <div className="username">
+
              username
           </div>
           <div className="text " style={{backgroundColor: 'lightgreen'}}>
     {message.text}</div>
+ 
         </div>
       </li>
     );
@@ -36,4 +38,4 @@ const mapStateToProps=(state)=>{
   }
 }
 export default  compose(connect(mapStateToProps),
-firestoreConnect([{collection:'chatMessage'}]))(Messages);
+firestoreConnect([{collection:'chatMessage'}]))(Messages); 
