@@ -17,7 +17,6 @@ const SignedOut = (props) => {
 
 <li class="nav-item"><a href="./contactus" class="nav-link"><i  class="ion-ios-call pr-2"/>Contact us</a></li>
 <li class="nav-item"><a href="./aboutus" class="nav-link"><i  class="ion-ios-home pr-2"/>About Us</a></li>
-<li class="nav-item"><a href="/" class="nav-link"><i  class="ion-ios-home pr-2"/>Sign Up</a></li>
 </ul>
 </div>
 </div>
