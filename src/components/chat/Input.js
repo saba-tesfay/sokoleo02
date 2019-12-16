@@ -1,7 +1,7 @@
 import {Component} from "react";
 import React from "react";
 import {connect } from 'react-redux'
-import {addMessage} from '../../store/actions/chatAction'
+import {addChatMessage} from '../../store/actions/chatAction'
 import Send from '../img/play.png'
 import Attach from '../img/attach.png'
 import styled from 'styled-components';
@@ -25,7 +25,7 @@ class Input extends Component {
   onSubmit(e) {
     e.preventDefault();
     this.setState({text: ""});
-    this.props.addMessage(this.state)
+    this.props.addChatMessage(this.state)
   }
   render() {
     console.log('FFFFFFFFFFFFF',this.state);
@@ -57,7 +57,7 @@ class Input extends Component {
 
 const mapDispatchToProps=(dispatch)=>{
   return{
-      addMessage:(message)=>dispatch(addMessage(message))
+      addChatMessage:(message)=>dispatch(addChatMessage(message))
   }
   //what we done here is we add addMessage to this componenet as prop
   //then 

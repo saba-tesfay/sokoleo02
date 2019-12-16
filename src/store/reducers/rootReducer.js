@@ -8,8 +8,6 @@ import commentReducer from './commentReducer'
 import chatReducer from './chatReducer'
 import "firebase/storage";  
 const rootReducer=combineReducers({
-    message:messagesReducer,
-    user:usersReducer,
     comment:commentReducer,
      auth:authReducer,
     products:productReducer,
