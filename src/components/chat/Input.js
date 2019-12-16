@@ -25,7 +25,7 @@ class Input extends Component {
   onSubmit(e) {
     e.preventDefault();
     this.setState({text: ""});
-    this.props.addMessage(this.state)
+    this.props.addChatMessage(this.state)
   }
   render() {
     console.log('FFFFFFFFFFFFF',this.state);
@@ -57,9 +57,9 @@ class Input extends Component {
 
 const mapDispatchToProps=(dispatch)=>{
   return{
-      addMessage:(message)=>dispatch(addMessage(message))
+      addChatMessage:(message)=>dispatch(addChatMessage(message))
   }
-  //what we done here is we add addMessage to this componenet as prop
+  //what we done here is we add addChatMessage to this componenet as prop
   //then 
 }
 export default connect(null,mapDispatchToProps)(Input);
