@@ -27,8 +27,7 @@ class SignUpBuyer extends Component {
   }
   render() {
       const {auth,authError}=this.props
-      if(auth.uid)return<Redirect to='/'/>
-
+      if(auth.uid)return<Redirect to='/products'/>
     return (
         <div>
             <section class="ftco-section contact-section bg-light">
@@ -59,7 +58,7 @@ class SignUpBuyer extends Component {
 </div>
 </form>
 </div>
-<div class="col-md-6 order-md-last d-flex" >
+{/* <div class="col-md-6 order-md-last d-flex" >
   <div class="home-slider owl-carousel" >
                     <div class="slider-item" style={{backgroundImage: `url(${bg_1})`}} >                    
                            </div>
@@ -68,7 +67,7 @@ class SignUpBuyer extends Component {
                     </div>
                 </div>
 
-  </div>
+  </div> */}
 
 </div>
 </div>
@@ -91,7 +90,7 @@ class SignUpBuyer extends Component {
       <div class="modal-footer">
       <input type="checkbox" name="vehicle1" value="Bike" /> I agree with terms and Conditions
         <div class="form-group">
-      <input  style={{marginLeft:'2',marginTop:'20px',width:'200px'}} value="Continue" class="btn btn-primary py-3 px-5"/>
+      <input  onClick={<Redirect to='/products'/>} style={{marginLeft:'2',marginTop:'20px',width:'200px'}} value="Continue" class="btn btn-primary py-3 px-5"/>
       </div>
       </div>
     </div>

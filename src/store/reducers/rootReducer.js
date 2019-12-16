@@ -1,8 +1,8 @@
 import productReducer from './ProductReducer';
 import authReducer from './authReducer'
-import {firestoreReducer} from 'redux-firestore'
 import {firebaseReducer} from 'react-redux-firebase'
 import {combineReducers} from 'redux'; 
+import {firestoreReducer} from 'redux-firestore'
 import commentReducer from './commentReducer'
 import chatReducer from './chatReducer'
 import "firebase/storage";
