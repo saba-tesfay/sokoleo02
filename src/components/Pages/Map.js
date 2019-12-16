@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import Location from './Location';
+import {Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
 class Map extends React.Component{
 render() {
+    const {auth}=this.props
+    if(!auth.uid) return <Redirect to='/signin'/>
     return (
         
         <div style={{margin:'90px'}}>
@@ -16,6 +20,10 @@ render() {
     )
 }
 }
-  
-export default Map;
+const mapStateToProps=(state)=>{
+    return {
+      auth:state.firebase.auth
+    }
+  }
+  export default connect(mapStateToProps)(Map);
 

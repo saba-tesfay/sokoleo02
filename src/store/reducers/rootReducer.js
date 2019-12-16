@@ -6,6 +6,7 @@ import {firestoreReducer} from 'redux-firestore'
 import commentReducer from './commentReducer'
 import chatReducer from './chatReducer'
 import "firebase/storage";  
+
 const rootReducer=combineReducers({
     chat:chatReducer,
     comment:commentReducer,

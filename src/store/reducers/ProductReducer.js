@@ -10,9 +10,6 @@ const productReducer = (state=initstate ,action) => {
       case 'SELLERUPLOAD':
       console.log('sellerupload',action.uploads)
       return state
-      case 'SEARCH_RESULTS':
-          console.log('sellerupload',action.err)
-          return state
       default:
       return state;
     }
