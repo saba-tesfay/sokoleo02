@@ -1,5 +1,7 @@
-const err=null;
-const chatReducer=(state=[],action)=>{
+const intialState={
+    message:'how are you',
+}
+const chatReducer=(state=intialState,action)=>{
     switch(action.type){
         case 'ADD-MESSAGE':
             return {
@@ -7,8 +9,7 @@ const chatReducer=(state=[],action)=>{
             }
          case 'ADD-MESSAGE-ERR':
              return{
-                 
-
+                
             }
         default:
             return state;

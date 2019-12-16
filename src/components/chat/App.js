@@ -7,6 +7,8 @@ import likesIcon from '../img/likes.png'
 import commentIcon from '../img/comments_48px.png'
 import {Link} from 'react-router-dom'
 import Fruit from '../img/bg_1.jpg'
+import {connect} from 'react-redux'
+import { addChatMessage} from '../../store/actions/chatAction'
 const ImageFormatter=(props)=>{
   return(
     <img className="pr-2" src={props.src} alt={props.alt} width={30}/>
@@ -20,6 +22,7 @@ class App extends Component {
       member: this.state.member
     })
     this.setState({messages: messages})
+    this.props.addChatMessage(this.state)
   }
     state = { 
         messages: [
@@ -40,6 +43,7 @@ class App extends Component {
           
      }
      render() {
+       const {addChatMessage}=this.props
         return (
           <div className="App">
             <div class="hero-wrap hero-bread"  style ={{ backgroundImage:`url(${Fruit})`}}>
@@ -77,5 +81,10 @@ class App extends Component {
         );
       }
 }
+const mapDispatchToProps=(dispatch)=>{
+  return{
+    addChatMessage:(message)=>dispatch(addChatMessage(message))
+  }
+}
  
-export default App;
+export default connect(null,mapDispatchToProps)(App);

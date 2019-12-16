@@ -1,5 +1,6 @@
 import {Component} from "react";
 import React from "react";
+import {connect} from 'react-redux'
 class Messages extends Component {
   renderMessage(message) {
     const {member, text} = message;
@@ -27,5 +28,10 @@ class Messages extends Component {
     );
   }
 }
-
-export default Messages;
+const mapStateToProps=(state)=>{
+  console.log('fdsfsfs',state)
+  return{
+    chatMessages:state
+  }
+}
+export default connect(mapStateToProps)(Messages);

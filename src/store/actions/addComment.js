@@ -2,7 +2,7 @@ export const addComment = (comment) =>
  {
      return(dispatch,getState ,{ getFirebase,getFirestore})=>{
         const firestore=getFirestore();
-        firestore.collection('haha').add({
+        firestore.collection('comments').add({
             ...comment,
             createdAt:new Date()  
         }).then(()=>{
