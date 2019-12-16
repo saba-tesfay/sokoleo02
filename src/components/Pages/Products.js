@@ -8,6 +8,8 @@ import {connect} from 'react-redux';
 import {listProducts} from'../../store/actions/productActions';
 import {ProductSearch} from '../../store/actions/ProductSearchAction'
 import {compose} from 'redux'
+
+import{Redirect} from 'react-router-dom'
 import { firestoreConnect } from 'react-redux-firebase'
 // const {seller}=this.props
 class Products extends Component {
@@ -45,8 +47,10 @@ class Products extends Component {
         console.log("ndjjsd",this.state.value)
        }
   render() {
+    const { authError,auth } = this.props;
     const {seller,location}=this.props;
     console.log("detail",{seller},{location})
+    if(!auth.uid) return<Redirect to='/'/>
     return (
       <div>
 <div class="hero-wrap hero-bread"  style ={{ backgroundImage:`url(${bg_1})`}}>
@@ -95,8 +99,11 @@ const mapStateToProps=(state,ownProps)=>{
   // const sellers=state.firestore.data.sellerUpload
   // const seller=sellers ? sellers[id]:null
   return {
-    seller:state.firestore.data.sellerUpload,
-    location:state.firestore.ordered.sellerLocation
+
+
+    seller:state.firestore.ordered.sellerUpload,
+    location:state.firestore.ordered.sellerLocation,
+    authError: state.auth.authError,
 
   }
 }

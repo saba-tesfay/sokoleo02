@@ -1,0 +1,101 @@
+.App {
+    display: flex !important ;
+    flex-direction: column !important;
+   
+    height: 100vh !important;
+  }
+  
+  .App-header {
+    background-color: #262626 !important;
+    overflow: visible !important;
+    width: 100% !important;
+    text-align: center !important;
+    color: white !important;
+  }
+  
+  .Messages-list {
+    padding: 20px 0 !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    list-style: none !important;
+    padding-left: 0 !important;
+    overflow: auto !important;
+  }
+  
+  .Messages-message {
+    display: flex !important;
+    margin-top: 10px !important;
+  }
+  
+  .currentMember {
+    /*justify-content: flex-end !important;*/
+    flex-direction: row-reverse !important;
+    text-align: right !important;
+  }
+  
+  .Message-content {
+    display: inline-block !important;
+  }
+  
+  .currentMember > .Message-content {
+    align-items: flex-end !important;
+  }
+  
+  .Messages-message > .avatar {
+    height: 45px !important;
+    width: 45px !important;
+    border-radius: 50% !important;
+    display: inline-block !important;
+    margin: 0 10px -10px !important;
+     
+  }
+  
+  .Message-content > .username {
+    display: block !important;
+    color: gray !important;
+    font-size: 14px !important;
+    padding-bottom: 4px !important;
+  }
+  
+  .text {
+    padding: 10px !important;
+    margin: 10px !important;
+    color: #000 !important;
+    display: inline-block !important;
+    position: relative;
+  }
+  .currentMember >.Message-content > .text {
+    padding: 10px !important;
+    margin: 10px !important;
+    color: #000 !important;
+    display: inline-block !important;
+    position: relative;
+  }
+  .currentMember > .Message-content >  .text:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-left-color: #49b84c;
+    border-right: 0;
+    border-top: 0;
+    margin-top: -10px;
+    margin-right: -20px;
+  }
+  
+  .Messages-message > .Message-content >  .text:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 10px solid transparent;
+    border-right: 10px solid #B2D5B4;
+    border-top: 10px solid #B2D5B4;
+    border-bottom: 10px solid transparent;
+    left: -19px;
+    top: 6px;
+  }
+  
