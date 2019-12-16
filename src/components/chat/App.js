@@ -7,7 +7,6 @@ import messageIcon from '../img/message.png'
 import likesIcon from '../img/likes.png'
 import commentIcon from '../img/comments_48px.png'
 import {Link} from 'react-router-dom'
-import Fruit from '../img/bg_1.jpg'
 import {connect} from 'react-redux'
 import { addChatMessage} from '../../store/actions/chatAction'
 const ImageFormatter=(props)=>{
