@@ -36,7 +36,7 @@ class Products extends Component {
         const works = seller.filter((val)=>{
           console.log(val.productName)
           if(id==='search')
-           return (val.name.includes(searchvalue)||val.description.includes(searchvalue))
+           return (val.productname.includes(searchvalue)||val.description.includes(searchvalue))
            else{
             return (val.description.includes(searchvalue))
            }

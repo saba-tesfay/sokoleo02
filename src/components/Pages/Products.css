@@ -45,7 +45,7 @@
     color:white;
   }
   
-  @media (max-width: 464px){
+  @media (max-width: 500px){
   .search-input-productpage{
       width:60%;
       margin-left: 25%;
