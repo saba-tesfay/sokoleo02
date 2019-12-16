@@ -56,7 +56,7 @@ const  ListProducts=(props) => {
     <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}
           >Seller</h3>
     <h5 style={{color:'#82ae46',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}
-        >{list.name}</h5>
+        >{list.productname}</h5>
   <h6 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}>
 Product Description </h6>
         <p>{list.description}</p>
@@ -71,13 +71,13 @@ Product Description </h6>
                       </div>
                  <div class=" d-flex px-3 ">
                  <div class="m-auto d-flex">
-                              <a href="#" class="heart d-flex justify-content-center align-items-center  pr-3 ">
+                              <a href="/comment" class="heart d-flex justify-content-center align-items-center  pr-3 ">
                               <span><i  style={{fontSize:'170%',color:'#82ae46'}}  class="ion-ios-heart"></i></span>
                               </a>
-                              <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center pr-3">
+                              <a href="/comment" class="add-to-cart d-flex justify-content-center align-items-center text-center pr-3">
                               <span><i style={{fontSize:'170%',color:'#82ae46'}}class="ion-ios-mail"></i></span>
                               </a>
-                              <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1  pr-3">
+                              <a href="/chat" class="buy-now d-flex justify-content-center align-items-center mx-1  pr-3">
                               <span><i  style={{fontSize:'170%',color:'#82ae46'}} class="ion-ios-chatbubbles" ></i></span>
                               </a>
                               <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1 pr-3">
@@ -100,8 +100,8 @@ Product Description </h6>
          </div>
        <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}
     >Seller</h3>
-    <h5 style={{color:'#82ae46',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}
-   >{list.name}</h5>
+    <a href="/comment"><h5 style={{color:'#82ae46',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}
+   >{list.productname}</h5></a>
 <h6 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}>
 Product Description </h6>
    <p>{list.description}</p>
@@ -116,13 +116,13 @@ Product Description </h6>
                 </div>
            <div class=" d-flex px-3 ">
                         <div class="m-auto d-flex">
-                        <a href="#" class="heart d-flex justify-content-center align-items-center  pr-3 ">
+                        <a href="/comment" class="heart d-flex justify-content-center align-items-center  pr-3 ">
                         <span><i  style={{fontSize:'170%',color:'#82ae46'}}  class="ion-ios-heart"></i></span>
                         </a>
-                        <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center pr-3">
+                        <a href="/comment" class="add-to-cart d-flex justify-content-center align-items-center text-center pr-3">
                         <span><i style={{fontSize:'170%',color:'#82ae46'}}class="ion-ios-mail"></i></span>
                         </a>
-                        <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1  pr-3">
+                        <a href="/chat" class="buy-now d-flex justify-content-center align-items-center mx-1  pr-3">
                         <span><i  style={{fontSize:'170%',color:'#82ae46'}} class="ion-ios-chatbubbles" ></i></span>
                         </a>
                         <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1 pr-3">
@@ -138,7 +138,7 @@ Product Description </h6>
             <Carousel responsive={responsive}>
               {list.photo&&list.photo.map((image,i)=>{
                return ( 
-             
+    
                 <img class="img-fluid" src={image} alt="Colorlib Template"/>
              
                )
