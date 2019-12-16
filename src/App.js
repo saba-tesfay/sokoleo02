@@ -27,7 +27,6 @@ function App() {
           <Route path='/contactus'component={ContactUs}/>
           <Route path='/aboutus'component={AboutUs}/> 
           <Route path='/signin'component={SignIn}/> 
- 
           <Route path='/chat' component={Chat}/>
           <Route path='/comment' component={Comment}/>
           <Route path='/signupBuyer'component={SignUpBuyer}/> 
