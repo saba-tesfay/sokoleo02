@@ -1,12 +1,11 @@
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import bg_1 from '../../images/bg_1.jpg';
-import product_1 from '../../images/product_1.jpg'
-import '../style.css'
-import React, { Component } from 'react'
-import {compose} from 'redux'
-import { firestoreConnect } from 'react-redux-firebase'
-import {connect} from 'react-redux';
+import React from 'react'
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+import {
+  FacebookShareButton,FacebookShareCount, FacebookIcon,TelegramIcon,
+  WhatsappIcon,
+  TwitterIcon} from 'react-share';
+  
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
@@ -25,21 +24,33 @@ const responsive = {
     items: 1,
   },
 };
+
 const  ListProducts=(props) => {
   const {seller}=props
+//  let id=props.match.params.id
+  // console.log("ere",id)
+  let url = window.location.href;
+  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+  console.log("r",facebookUrl)
+  const twitterUrl = `https://twitter.com/sharer/sharer.php?u=${url}`;
+  const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}`;
+  const telegramUrl=`https://telegram.me/share/url?url=${url}`
+  const whatsupUrl=`whatsapp://send?text=${url}`
+
+  let shareUrl='https://www.facebook.com/'
   console.log( "in my list product",{seller})
     return(
-  
     <div>
-          {seller&&seller.map((list,index)=>{
+ 
+{seller &&seller.map((list,index)=>{
         
         if (index%2===0){
         return(
       < div class="container">
-       <div class="row"  style={{marginLeft:'20%'}}>
-      <div class="col-md-6 col-lg-5 ">
+       <div class="row"  style={{marginLeft:'10%',paddingBottom:'3%'}}>
+      <div class="col-md-6 col-lg-6 ">
        <div class="product">
-       <Carousel responsive={responsive}>
+       <Carousel  autoPlay   responsive={responsive} showArrows={true}   showIndicators={true} showThumbs={false}>
               {list.photo&&list.photo.map((image,i)=>{
                return ( 
              
@@ -50,7 +61,7 @@ const  ListProducts=(props) => {
                  </Carousel>
              </div>
                    </div>
-                      <div class="col-md-6 col-lg-5 " >
+                      <div class="col-md-6 col-lg-4" >
                       <div class="product"  style={{border:'0'}}>
       <div>
     <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}
@@ -66,24 +77,36 @@ Product Description </h6>
           <h3><a href="#"></a></h3>
                       <div class="d-flex">
                       <div class="pl-2">
-        <p><span>Price:${list.price}</span></p>
+        <p style={{marginBottom:'4%'}}><span>Price:${list.price}</span></p>
                       </div>
+                      
                       </div>
+                      
                  <div class=" d-flex px-3 ">
+                   
                  <div class="m-auto d-flex">
                               <a href="/comment" class="heart d-flex justify-content-center align-items-center  pr-3 ">
-                              <span><i  style={{fontSize:'170%',color:'#82ae46'}}  class="ion-ios-heart"></i></span>
+                              <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-heart"></i></span>
                               </a>
                               <a href="/comment" class="add-to-cart d-flex justify-content-center align-items-center text-center pr-3">
-                              <span><i style={{fontSize:'170%',color:'#82ae46'}}class="ion-ios-mail"></i></span>
+                              <span><i style={{fontSize:'200%',color:'#82ae46'}}class="ion-ios-mail"></i></span>
                               </a>
                               <a href="/chat" class="buy-now d-flex justify-content-center align-items-center mx-1  pr-3">
-                              <span><i  style={{fontSize:'170%',color:'#82ae46'}} class="ion-ios-chatbubbles" ></i></span>
+                              <span><i  style={{fontSize:'200%',color:'#82ae46'}} class="ion-ios-chatbubbles" ></i></span>
                               </a>
-                              <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1 pr-3">
-                              <span><i   style={{fontSize:'170%',color:'#82ae46'}} class="ion-md-share"></i></span>
+                            <div class="dropdown dropright">
+                              <a href="#"  class=" dropdown-toggle mt-5 "   id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" class="buy-now d-flex justify-content-center align-items-center mx-1 pr-3">
+                              <span><i   style={{fontSize:'200%',color:'#82ae46'}} class="ion-md-share"></i></span>
                               </a>
-                              </div>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
+                           <a  class="dropdown-item" href={twitterUrl} target="_blank"> <TwitterIcon size={32} round={true}/>Twitter </a> 
+                            <a  class="dropdown-item"  href={facebookUrl} target="_blank"> <FacebookIcon size={32} round={true}   />FaceBook</a> 
+                                <a class="dropdown-item" href={telegramUrl} target="_blank"><TelegramIcon size={32} round={true}  />Telegram</a>
+                                <a class="dropdown-item" href={whatsupUrl} target="_blank"><WhatsappIcon size={32} round={true}  />Whatsapp</a>
+                               
+                             </div>
+                             </div>
+                </div>
                   </div>
                       </div>
                       </div>
@@ -91,11 +114,12 @@ Product Description </h6>
                       </div>
          </ div>
         )}else{
+     
    return(
     < div class="container">
-     <div class="row"  style={{marginLeft:'20%'}}>
-     <div class="col-md-6 col-lg-5">
-       <div class="product"  style={{border:'0'}}>
+     <div class="row"  style={{marginLeft:'10%'}}>
+     <div class="col-md-6 col-lg-4 " >
+       <div class="product pl-3"  style={{border:'0'}}>
        <div>
          </div>
        <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}
@@ -111,35 +135,51 @@ Product Description </h6>
     <h3><a href="#"></a></h3>
                 <div class="d-flex">
                 <div class="pl-2">
-   <p><span>Price:${list.price}</span></p>
+   <p style={{marginBottom:'4%'}}><span>Price:${list.price}</span></p>
                 </div>
                 </div>
-           <div class=" d-flex px-3 ">
+           <div class=" d-flex px-3  " style={{marginTop:'40px'}}>
                         <div class="m-auto d-flex">
                         <a href="/comment" class="heart d-flex justify-content-center align-items-center  pr-3 ">
-                        <span><i  style={{fontSize:'170%',color:'#82ae46'}}  class="ion-ios-heart"></i></span>
+                        <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-heart"></i></span>
                         </a>
                         <a href="/comment" class="add-to-cart d-flex justify-content-center align-items-center text-center pr-3">
-                        <span><i style={{fontSize:'170%',color:'#82ae46'}}class="ion-ios-mail"></i></span>
+                        <span><i style={{fontSize:'200%',color:'#82ae46'}}class="ion-ios-mail"></i></span>
                         </a>
                         <a href="/chat" class="buy-now d-flex justify-content-center align-items-center mx-1  pr-3">
-                        <span><i  style={{fontSize:'170%',color:'#82ae46'}} class="ion-ios-chatbubbles" ></i></span>
+                        <span><i  style={{fontSize:'200%',color:'#82ae46'}} class="ion-ios-chatbubbles" ></i></span>
                         </a>
-                        <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1 pr-3">
-                        <span><i   style={{fontSize:'170%',color:'#82ae46'}} class="ion-md-share"></i></span>
-                        </a>
+                        <div class="dropdown dropright">
+                              <a href="#"  class=" dropdown-toggle mt-5 "   id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" class="buy-now d-flex justify-content-center align-items-center mx-1 pr-3">
+                              <span><i   style={{fontSize:'200%',color:'#82ae46'}} class="ion-md-share"></i></span>
+                              </a>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
+                           <a  class="dropdown-item" href={twitterUrl} target="_blank"> <TwitterIcon size={32} round={true}/>Twitter </a> 
+                            <a  class="dropdown-item"  href={facebookUrl} target="_blank"> <FacebookIcon size={32} round={true}   />FaceBook</a> 
+                                <a class="dropdown-item" href={telegramUrl} target="_blank"><TelegramIcon size={32} round={true}  />Telegram</a>
+                                <a class="dropdown-item" href={whatsupUrl} target="_blank"><WhatsappIcon size={32} round={true}  />Whatsapp</a>
+                               
+                             </div>
+                             </div>
                         </div>
                         </div>
                 </div>
          </div>
-                
-      <div class="col-md-6 col-lg-5">
+
+     
+
+
+      <div class="col-md-6 col-lg-6">
             <div class="product">
-            <Carousel responsive={responsive}>
+      
+            <Carousel autoPlay   infiniteLoop responsive={responsive} showArrows={true} showThumbs={false}  dotColor={'red'} swipeable style={{backgroundColor:'red'}}
+          renderDotsOutside={true}
+            >
+              
               {list.photo&&list.photo.map((image,i)=>{
                return ( 
     
-                <img class="img-fluid" src={image} alt="Colorlib Template"/>
+                <img class="img-fluid"   style={{backgroundColor:'red'}}src={image} alt="Colorlib Template"/>
              
                )
               })}

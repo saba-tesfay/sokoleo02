@@ -12,19 +12,20 @@ import Chat from './components/chat/App'
 import Comment from './components/comment/commentBox'
 import SignUpSeller from './components/auth/SignUpSeller';
 import SignUpBuyer from './components/auth/SignUpBuyer';
-import Home from './components/Pages/HomePage'
-
-import R from './components/Pages/t'
+import Home from './components/Pages/HomePage';
+import Nomatch from './Nomatch';
+import R from './components/Pages/t';
 
 function App() {
   return (
     <div className="App">
+       
       <BrowserRouter>
-        <Navbar/>
+      <Navbar/>
         <Switch>
+        <Route exact path='/'component={Home}/>
         <Route path='/products'component={Products} />
-          <Route exact path='/'component={Home}/>
-          <Route path='/contactus'component={ContactUs}/>
+        <Route path='/contactus'component={ContactUs}/>
           <Route path='/aboutus'component={AboutUs}/> 
           <Route path='/signin'component={SignIn}/> 
           <Route path='/chat' component={Chat}/>
@@ -34,8 +35,10 @@ function App() {
           <Route path='/sellerupload'component={SellerUpload}/>
           <Route path='/r'component={R}/>
           <Route path='/map'component={Map}/>
+          <Route exact path='*' component={Nomatch} />
+          <Footer/>
         </Switch>
-        <Footer/>
+      
     </BrowserRouter>
     </div>
   );
