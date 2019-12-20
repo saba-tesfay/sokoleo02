@@ -97,8 +97,6 @@ const mapStateToProps=(state,ownProps)=>{
   console.log("ma",state)
   const id=ownProps.match.params.id;
   console.log(id)
-  // const sellers=state.firestore.data.sellerUpload
-  // const seller=sellers ? sellers[id]:null
   return {
 
 

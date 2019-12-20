@@ -44,7 +44,7 @@ render(){
                                 <div class="col-md-12  text-center"style={{marginTop:'25%'}}>
                                     <h1 class="mb-2" style={{color:'white',fontSize: '70px',fontWeight: '400',fontFamily:'Amatic SC'}}>We Tell You Exactly Where to Find &amp; The Products You Want to Buy</h1>
                                     <h2 class="subheading mb-4"style={{fontWeight: '300',marginTop:'5%',fontSize: '20px',letterSpacing: '4px',textTransform: 'uppercase',display: 'inline-block',color: '#fff'}}>Register To See &amp; The Products You want</h2>
-                                    <p><a href="/signupBuyer" class="btn btn-primary btn-r1"style={{marginTop:'10%'}}>Register As Buyer</a></p>
+                                    <p><a href="/signupBuyer?#" class="btn btn-primary btn-r1"style={{marginTop:'10%'}}>Register As Buyer</a></p>
                                 </div>
                             </div>
                     </div>
@@ -56,7 +56,7 @@ render(){
                             <div class="col-sm-12  text-center"style={{marginTop:'25%'}} >
                                 <h1 class="mb-2" style={{color:'white',fontSize: '70px',fontFamily:'Amatic SC'}}>We Tell Where Your Customers Can &amp; Find You</h1>
                                 <h2 class="subheading mb-4"style={{fontWeight: '300',marginTop:'5%',fontSize: '20px',letterSpacing: '4px',textTransform: 'uppercase',display: 'inline-block',color: '#fff'}}>We Bring The Customer  &amp; To You</h2>
-                                <p><a href="/signupSeller" class="btn btn-primary btn-r1"style={{marginTop:'10%'}}>Register As Seller</a></p>
+                                <p><a href="/signupSeller?#" class="btn btn-primary btn-r1"style={{marginTop:'10%'}}>Register As Seller</a></p>
                             </div>
                         </div>
                     </div>
@@ -79,8 +79,8 @@ render(){
         <div class="category-wrap-2  img align-self-stretch d-flex" style ={{ backgroundImage:`url(${catagory})`}}>
         <div class="text text-center">
         <h2 className="title">Register Here</h2>
-        <p><a href="/signupSeller" class="btn btn-primary mt-4 btn-r " >As Seller</a></p>
-        <p><a href="/signupBuyer" class="btn btn-primary btn-r" >As Buyer</a></p>
+        <p><a href="/signupSeller?#" class="btn btn-primary mt-4 btn-r " >As Seller</a></p>
+        <p><a href="/signupBuyer?#" class="btn btn-primary btn-r" >As Buyer</a></p>
         <p>Already have an account?  <a className="signIn" href="/signin">Sign In</a></p>
         </div>
         </div>
