@@ -36,7 +36,7 @@ class Products extends Component {
         const works = seller.filter((val)=>{
           console.log(val.productName)
           if(id==='search')
-           return (val.name.includes(searchvalue)||val.description.includes(searchvalue))
+           return (val.productname.includes(searchvalue)||val.description.includes(searchvalue))
            else{
             return (val.description.includes(searchvalue))
            }
@@ -48,6 +48,8 @@ class Products extends Component {
        }
   render() {
     const { authError,auth } = this.props;
+    const id=this.props.match.params.id
+    console.log("idd",id)
     const {seller,location}=this.props;
     console.log("detail",{seller},{location})
     if(!auth.uid) return<Redirect to='/'/>
@@ -94,9 +96,11 @@ class Products extends Component {
   }
 }
 const mapStateToProps=(state,ownProps)=>{
-  console.log("ma",state)
+  console.log("ma",ownProps)
   const id=ownProps.match.params.id;
-  console.log(id)
+  console.log("okay",id)
+  // const sellers=state.firestore.data.sellerUpload
+  // const seller=sellers ? sellers[id]:null
   return {
 
 

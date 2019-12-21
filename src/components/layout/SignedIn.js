@@ -5,8 +5,10 @@ import AboveNavbar from './AboveNavbar';
 const SignedIn = (props) => {
   const {auth}=props
     return (
-      <div>
+     <div>
         <AboveNavbar/>
+        
+       
 <nav  class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 <div class="container">
 <a class="navbar-brand" href="index.html">Sokonileo</a>
@@ -25,8 +27,10 @@ const SignedIn = (props) => {
 </ul>
 </div>
 </div>
-</nav>  
-</div>
+</nav>
+</div>  
+
+
     )
 }
 const mapStateToProps = (state) => {

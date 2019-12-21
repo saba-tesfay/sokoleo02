@@ -3,7 +3,7 @@ import React from 'react'
 export default function Footer() {
     return (
         <div>
-<footer class="ftco-footer ftco-section">
+<footer class="ftco-footer ftco-section" style={{marginTop:'30px'}}>
 <div class="container">
 <div class="row">
 <div class="mouse">
@@ -28,9 +28,9 @@ export default function Footer() {
 <div class="ftco-footer-widget mb-4 ml-md-5">
 <h2 class="ftco-heading-2">Menu</h2>
 <ul class="list-unstyled">
-<li><a href="/" class="py-2 d-block">Products</a></li>
-<li><a href="aboutus"class="py-2 d-block">About Us</a></li>
-<li><a href="contactus" class="py-2 d-block">Contact Us</a></li>
+<li><a href="/products" class="py-2 d-block">Products</a></li>
+<li><a href="/aboutus"class="py-2 d-block">About Us</a></li>
+<li><a href="/contactus" class="py-2 d-block">Contact Us</a></li>
 </ul>
 </div>
 </div>
