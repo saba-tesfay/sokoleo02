@@ -37,6 +37,7 @@ function App() {
           <Route path='/signupSeller'component={SignUpSeller}/>
           <Route path='/sellerupload'component={SellerUpload}/>
           <Route path='/r'component={R}/>
+          <Route path='/d'component={HomeComponent}/>
           <Route path='/map'component={Map}/>
           <Route exact path='*' component={Nomatch} />
           <Route path='/mapSeller'component={MapSeller}/>

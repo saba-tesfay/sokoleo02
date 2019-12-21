@@ -22,7 +22,7 @@ const SignedIn = (props) => {
 <li class="nav-item"><a href="profile" class="nav-link"><i  class="ion-ios-person pr-2"/>Profile</a></li>
 <li class="nav-item"><a href="./contactus" class="nav-link"><i  class="ion-ios-call pr-2"/>Contact us</a></li>
 <li class="nav-item"><a href="./aboutus" class="nav-link"><i  class="ion-ios-home pr-2"/>About Us</a></li>
-<li class="nav-item"><a href=""onClick={props.signOut}  class="nav-link"><i  class="ion-ios-home pr-2"/>Log Out</a></li>
+<li class="nav-item"><a href=""onClick={props.signOut}  class="nav-link">Log Out</a></li>
 {(auth.userType==='buyer')?<li class="nav-item"><a href=""onClick={props.signOut}  class="nav-link"><i  class="ion-ios-home pr-2"/>Map</a></li>:null}
 </ul>
 </div>

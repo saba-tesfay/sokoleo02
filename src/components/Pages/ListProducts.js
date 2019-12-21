@@ -27,18 +27,17 @@ const responsive = {
 
 const  ListProducts=(props) => {
   const {seller}=props
-//  let id=props.match.params.id
-  // console.log("ere",id)
+
   let url = window.location.href;
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-  console.log("r",facebookUrl)
+
   const twitterUrl = `https://twitter.com/sharer/sharer.php?u=${url}`;
   const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}`;
   const telegramUrl=`https://telegram.me/share/url?url=${url}`
   const whatsupUrl=`whatsapp://send?text=${url}`
 
   let shareUrl='https://www.facebook.com/'
-  console.log( "in my list product",{seller})
+
     return(
     <div>
  
@@ -77,14 +76,11 @@ Product Description </h6>
           <h3><a href="#"></a></h3>
                       <div class="d-flex">
                       <div class="pl-2">
-        <p style={{marginBottom:'4%'}}><span>Price:${list.price}</span></p>
-                      </div>
-                      
-                      </div>
-                      
-                 <div class=" d-flex px-3 ">
-                   
-                 <div class="m-auto d-flex">
+        <p style={{marginBottom:'17%'}}><span>Price:${list.price}</span></p>
+            </div>
+            </div>
+               <div class=" d-flex px-3"  style={{marginTop:'20%'}}>
+              <div class="m-auto d-flex">
                               <a href="/comment" class="heart d-flex justify-content-center align-items-center  pr-3 ">
                               <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-heart"></i></span>
                               </a>
@@ -117,7 +113,7 @@ Product Description </h6>
      
    return(
     < div class="container">
-     <div class="row"  style={{marginLeft:'10%'}}>
+     <div class="row"  style={{marginLeft:'10%',paddingBottom:'3%'}}>
      <div class="col-md-6 col-lg-4 " >
        <div class="product pl-3"  style={{border:'0'}}>
        <div>
@@ -129,17 +125,16 @@ Product Description </h6>
 <h6 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}>
 Product Description </h6>
    <p>{list.description}</p>
-</div>
+
  <div class="overlay"></div>
                 <div class="text py-3 pb-4 px-3 text-center">
-    <h3><a href="#"></a></h3>
                 <div class="d-flex">
                 <div class="pl-2">
-   <p style={{marginBottom:'4%'}}><span>Price:${list.price}</span></p>
+   <p style={{paddingTop:'27%'}}><span>Price:${list.price}</span></p>
                 </div>
                 </div>
-           <div class=" d-flex px-3  " style={{marginTop:'40px'}}>
-                        <div class="m-auto d-flex">
+           <div class=" d-flex px-3">
+                        <div class="m-auto d-flex"style={{paddingTop:'23%'}}>
                         <a href="/comment" class="heart d-flex justify-content-center align-items-center  pr-3 ">
                         <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-heart"></i></span>
                         </a>
@@ -150,50 +145,38 @@ Product Description </h6>
                         <span><i  style={{fontSize:'200%',color:'#82ae46'}} class="ion-ios-chatbubbles" ></i></span>
                         </a>
                         <div class="dropdown dropright">
-                              <a href="#"  class=" dropdown-toggle mt-5 "   id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" class="buy-now d-flex justify-content-center align-items-center mx-1 pr-3">
+                              <a href="#"  class=" dropdown-toggle mt-5 " id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" class="buy-now d-flex justify-content-center align-items-center mx-1 pr-3">
                               <span><i   style={{fontSize:'200%',color:'#82ae46'}} class="ion-md-share"></i></span>
                               </a>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
-                           <a  class="dropdown-item" href={twitterUrl} target="_blank"> <TwitterIcon size={32} round={true}/>Twitter </a> 
-                            <a  class="dropdown-item"  href={facebookUrl} target="_blank"> <FacebookIcon size={32} round={true}   />FaceBook</a> 
+                                <a class="dropdown-item" href={twitterUrl} target="_blank"> <TwitterIcon size={32} round={true}/>Twitter </a> 
+                                <a class="dropdown-item"  href={facebookUrl} target="_blank"> <FacebookIcon size={32} round={true}   />FaceBook</a> 
                                 <a class="dropdown-item" href={telegramUrl} target="_blank"><TelegramIcon size={32} round={true}  />Telegram</a>
                                 <a class="dropdown-item" href={whatsupUrl} target="_blank"><WhatsappIcon size={32} round={true}  />Whatsapp</a>
-                               
                              </div>
                              </div>
+                        </div>
                         </div>
                         </div>
                 </div>
          </div>
-
-     
-
-
-      <div class="col-md-6 col-lg-6">
+  <div class="col-md-6 col-lg-6">
             <div class="product">
-      
-            <Carousel autoPlay   infiniteLoop responsive={responsive} showArrows={true} showThumbs={false}  dotColor={'red'} swipeable style={{backgroundColor:'red'}}
-          renderDotsOutside={true}
-            >
-              
-              {list.photo&&list.photo.map((image,i)=>{
+          <Carousel autoPlay   infiniteLoop responsive={responsive} showArrows={true} showThumbs={false}  dotColor={'red'} swipeable style={{backgroundColor:'red'}}
+          renderDotsOutside={true}>
+               {list.photo&&list.photo.map((image,i)=>{
                return ( 
-    
-                <img class="img-fluid"   style={{backgroundColor:'red'}}src={image} alt="Colorlib Template"/>
-             
-               )
+            <img class="img-fluid"   style={{backgroundColor:'red'}}src={image} alt="Colorlib Template"/>
+              )
               })}
                  </Carousel>
-                </div>
+        </div>
        </div>
       </div>
-  
-   </ div>
+  </ div>
       )
         }
-
   } )}
-  
    </div>
     )
 

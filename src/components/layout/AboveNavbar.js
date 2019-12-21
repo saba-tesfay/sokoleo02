@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
       {
  return (
  
-<div class="py-1" style={{backgroundColor:'#82ae46',height:'22px'}}>
+<div class="py-1" style={{backgroundColor:'#82ae46'}}>
 <div class="container" >
 <div class="row no-gutters d-flex align-items-start align-items-center px-md-0"  >
 <div class="col-lg-12" >
