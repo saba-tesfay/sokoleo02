@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {signOut} from '../../store/actions/authActions'
 import AboveNavbar from './AboveNavbar';
 const SignedIn = (props) => {
-  
+  const {auth}=props
     return (
      <div>
         <AboveNavbar/>
@@ -16,12 +16,14 @@ const SignedIn = (props) => {
 <span class="oi oi-menu"></span> Menu</button>
 <div class="collapse navbar-collapse" id="ftco-nav">
 <ul class="navbar-nav ml-auto">
-<li class="nav-item"><a href="/" class="nav-link"><i  class="icon-shopping_cart pr-2 "/>products</a></li>
+{(auth.userType==='buyer')?
+<li class="nav-item"><a href="/" class="nav-link"><i  class="icon-shopping_cart pr-2 "/>products</a></li>:null}
 <li class="nav-item"><a href="index.html" class="nav-link"><i  class="ion-ios-chatbubbles pr-2"/>My chat</a></li>
-<li class="nav-item"><a href="" class="nav-link"><i  class="ion-ios-person pr-2"/>Profile</a></li>
+<li class="nav-item"><a href="profile" class="nav-link"><i  class="ion-ios-person pr-2"/>Profile</a></li>
 <li class="nav-item"><a href="./contactus" class="nav-link"><i  class="ion-ios-call pr-2"/>Contact us</a></li>
 <li class="nav-item"><a href="./aboutus" class="nav-link"><i  class="ion-ios-home pr-2"/>About Us</a></li>
 <li class="nav-item"><a href=""onClick={props.signOut}  class="nav-link">Log Out</a></li>
+{(auth.userType==='buyer')?<li class="nav-item"><a href=""onClick={props.signOut}  class="nav-link"><i  class="ion-ios-home pr-2"/>Map</a></li>:null}
 </ul>
 </div>
 </div>
@@ -31,11 +33,16 @@ const SignedIn = (props) => {
 
     )
 }
-
+const mapStateToProps = (state) => {
+    console.log(state);
+    return{
+      auth: state.firebase.auth,
+    }
+  }
 
 const mapDispatchToProps=(dispatch)=>{
     return{
         signOut:()=>dispatch(signOut())
     }
 }
-export default connect(null,mapDispatchToProps)(SignedIn);
+export default connect(mapStateToProps,mapDispatchToProps)(SignedIn);
