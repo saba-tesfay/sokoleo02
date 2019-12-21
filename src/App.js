@@ -15,7 +15,7 @@ import SignUpBuyer from './components/auth/SignUpBuyer';
 import Home from './components/Pages/HomePage';
 import Nomatch from './Nomatch';
 import R from './components/Pages/t';
-
+import HomeComponent from './components/Pages/g'
 function App() {
   return (
     <div className="App">
@@ -34,11 +34,11 @@ function App() {
           <Route path='/signupSeller'component={SignUpSeller}/>
           <Route path='/sellerupload'component={SellerUpload}/>
           <Route path='/r'component={R}/>
+          <Route path='/d'component={HomeComponent}/>
           <Route path='/map'component={Map}/>
           <Route exact path='*' component={Nomatch} />
-          <Footer/>
-        </Switch>
-      
+       </Switch>
+        <Footer/>
     </BrowserRouter>
     </div>
   );

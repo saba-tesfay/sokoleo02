@@ -18,10 +18,10 @@ const SignedIn = (props) => {
 <ul class="navbar-nav ml-auto">
 <li class="nav-item"><a href="/" class="nav-link"><i  class="icon-shopping_cart pr-2 "/>products</a></li>
 <li class="nav-item"><a href="index.html" class="nav-link"><i  class="ion-ios-chatbubbles pr-2"/>My chat</a></li>
-<li class="nav-item"><a href="blog.html" class="nav-link"><i  class="ion-ios-person pr-2"/>Profile</a></li>
+<li class="nav-item"><a href="" class="nav-link"><i  class="ion-ios-person pr-2"/>Profile</a></li>
 <li class="nav-item"><a href="./contactus" class="nav-link"><i  class="ion-ios-call pr-2"/>Contact us</a></li>
 <li class="nav-item"><a href="./aboutus" class="nav-link"><i  class="ion-ios-home pr-2"/>About Us</a></li>
-<li class="nav-item"><a href=""onClick={props.signOut}  class="nav-link"><i  class="ion-ios-home pr-2"/>Log Out</a></li>
+<li class="nav-item"><a href=""onClick={props.signOut}  class="nav-link">Log Out</a></li>
 </ul>
 </div>
 </div>
