@@ -12,7 +12,17 @@ class SignUpBuyer extends Component {
       password:'',
       name:'',
       PhoneNum:'',
-      AlternateNum:''
+      AlternateNum:'',
+      userType:'Buyer',
+      show:true
+  }
+  
+  toggleShow=()=>{
+    
+    this.setState({
+      show:false
+    })
+    
   }
   handelChange=(e)=>{
      this.setState({
@@ -21,12 +31,18 @@ class SignUpBuyer extends Component {
   }
   handelSubmit=(e)=>{
       e.preventDefault();
-      console.log(this.state)
-      this.props.signUp(this.state)
+      
+      if (this.state.show==false)
+      {console.log(this.state.show) 
+        this.props.signUp(this.state)}
+      else{
+        console.log(this.state.show)
+      }
       
   }
   render() {
       const {auth,authError}=this.props
+      console.log('ghdhfhhgf',authError)
       if(auth.uid)return<Redirect to='/products'/>
     return (
         <div>
@@ -53,8 +69,14 @@ class SignUpBuyer extends Component {
 <div class="form-group">
 <input type="text" id="AlternateNum" class="form-control" placeholder="Alternate Phone number" onChange={this.handelChange}/>
 </div>
+<div style={{color:'red'}}>
+  {authError}
+</div>
 <div class="form-group">
-<input onClick={this.handelSubmit} style={{marginLeft:'100px',marginTop:'20px'}} value="Continue" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary py-3 px-5"/>
+{(this.state.show)?<button  style={{marginLeft:'100px',marginTop:'20px'}} data-toggle="modal" data-target="#exampleModal" class="btn btn-primary py-3 px-5">Continue</button>
+:<button onClick={this.handelSubmit} style={{marginLeft:'100px',marginTop:'20px'}}  class="btn btn-primary py-3 px-5">Submit</button>
+}
+
 </div>
 </form>
 </div>
@@ -88,9 +110,9 @@ class SignUpBuyer extends Component {
         </textarea>
         </div>
       <div class="modal-footer">
-      <input type="checkbox" name="vehicle1" value="Bike" /> I agree with terms and Conditions
+      <input type="checkbox" name="vehicle1" value="Bike"  /> I agree with terms and Conditions
         <div class="form-group">
-      <input   style={{marginLeft:'2',marginTop:'20px',width:'200px'}} value="Continue" class="btn btn-primary py-3 px-5"/>
+      <button  data-dismiss="modal" onClick={this.toggleShow} style={{marginLeft:'2',marginTop:'20px',width:'200px'}}  class="btn btn-primary py-3 px-5">Continue</button>
       </div>
       </div>
     </div>

@@ -44,9 +44,7 @@ class SellerUpload extends Component {
       //  this.props.history.push('/')
        console.log("upload",this.state)
       }
-    
-
-      handleUpload=(e)=>{
+  handleUpload=(e)=>{
     
       }
       setRef=ref=>{
@@ -54,12 +52,13 @@ class SellerUpload extends Component {
       }
     render() {
         const {auth}=this.props
-        if(!auth.uid) return <Redirect to='/signin'/>
+        // if(!auth.uid) return <Redirect to='/signin'/>
+        //if(auth.userType!='seller') return<Redirect to='/products'>
         return (
     <div>
- <section class="ftco-section contact-section bg-light" >
+ <section class="ftco-section contact-section bg-light">
 <div class="row block-3">
-<div class="col-md-4 order-md-last d-flex" style={{marginLeft:'30%'}}>
+<div class="col-md-6 order-md-last d-flex" style={{marginLeft:'15%'}}>
 <form action="#" class="bg-white p-5 contact-form" onSubmit={this.handleSubmit} >
 <h2 class='pb-2'>Seller Upload</h2>
 <div class="form-group">
@@ -83,12 +82,13 @@ class="ion-md-arrow-up"></i>Upload photo</button>
 <input type="file" ref={this.setRef} multiple 
 style={{position:"absolute",left:'0',top:'0', opacity:'0',borderRadius:'10px'}}/>
  <i style={{fontSize:'170%',color:'#82ae46'}}   class="ion-md-share pl-3"></i>
-</div>  
+</div>
+  
 <div class="form-group">
-<input type="submit" value="Done"  class="btn btn-primary py-3 px-5"/>
+<a href={'/mapseller'}><input   value="Set Location" style={{width:'120px'}} class="btn btn-primary py-3 "/></a>
+<input type="submit" value="Done"  style={{width:'120px',marginLeft:'30%'}} class="btn btn-primary py-3 "/>
 </div>
 </form>
-{/* <img src={this.state.photo || 'http://via.placeholder.com/400x300'} alt="Uploaded images" height="300" width="400"/> */}
 </div>
 </div>
  </section>

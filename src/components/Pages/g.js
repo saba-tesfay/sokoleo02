@@ -1,60 +1,40 @@
-/* global google */
-import React, { Component } from "react";
-import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
-
-const MarkersList = props => {
-  const { locations, ...markerProps } = props;
-  return (
-    <span>
-      {locations.map((location, i) => {
-        return (
-          <Marker
-            key={i}
-            {...markerProps}
-            position={{ lat: location.lat(), lng: location.lng() }}
-          />
-        );
-      })}
-    </span>
-  );
-};
-
-class MapContainer extends React.Component {
+import { GoogleComponent } from 'react-google-location' 
+ 
+//... 
+import React, { Component } from 'react';
+ 
+ 
+ 
+const API_KEY = 'AIzaSyCd5GSrdhkRjDu53HCBVL7fh5QXa1-gIBE'  // how to get key - step are below
+ 
+class HomeComponent extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      locations: []
+      place: null,
     };
-    this.handleMapClick = this.handleMapClick.bind(this);
   }
-
-  handleMapClick = (ref, map, ev) => {
-    const location = ev.latLng;
-    console.log(location)
-    this.setState(prevState => ({
-      locations: [...prevState.locations, location]
-    }));
-    map.panTo(location);
-  };
-
+ 
   render() {
+  console.log("place",this.state.place)
+  let r=this.state.place
+  console.log("r",r)
     return (
-      <div className="map-container">
-        <Map
-          google={this.props.google}
-          className={"map"}
-          zoom={this.props.zoom}
-          initialCenter={this.props.center}
-          onClick={this.handleMapClick}
-        >
-         <MarkersList locations={this.state.locations} icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png" />
-        </Map>
+      <div >
+         <GoogleComponent
+         
+          apiKey={API_KEY}
+          language={'en'}
+          // country={in|country:pr|country:vi|country:gu|country:mp}
+          coordinates={true}
+          // locationBoxStyle={'custom-style'}
+          // locationListStyle={'custom-style-list'}
+          onChange={(e) => { this.setState({ place: e }) }} />
       </div>
-    );
-  }
+ 
+    )
+  } 
 }
-
-export default GoogleApiWrapper({
-  apiKey: "AIzaSyCd5GSrdhkRjDu53HCBVL7fh5QXa1-gIBE",
-  libraries: []
-})(MapContainer);
+ 
+ 
+export default HomeComponent;

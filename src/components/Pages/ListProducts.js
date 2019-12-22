@@ -8,6 +8,12 @@ import {compose} from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import {connect} from 'react-redux';
 import  {Link} from 'react-router-dom'
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import {
+  FacebookShareButton,FacebookShareCount, FacebookIcon,TelegramIcon,
+  WhatsappIcon,
+  TwitterIcon} from 'react-share';
+ 
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
@@ -26,22 +32,32 @@ const responsive = {
     items: 1,
   },
 };
+
 const  ListProducts=(props) => {
   const {seller}=props
-  // console.log('gggggggggggggggggg',seller)
-  console.log( "in my list product",{seller})
+
+  let url = window.location.href;
+  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+
+  const twitterUrl = `https://twitter.com/sharer/sharer.php?u=${url}`;
+  const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}`;
+  const telegramUrl=`https://telegram.me/share/url?url=${url}`
+  const whatsupUrl=`whatsapp://send?text=${url}`
+
+  let shareUrl='https://www.facebook.com/'
+
     return(
-  
     <div>
-          {seller&&seller.map((list,index)=>{
+ 
+{seller &&seller.map((list,index)=>{
         
         if (index%2===0){
         return(
       < div class="container">
-       <div class="row"  style={{marginLeft:'20%'}}>
-      <div class="col-md-6 col-lg-5 ">
+       <div class="row"  style={{marginLeft:'10%',paddingBottom:'3%'}}>
+      <div class="col-md-6 col-lg-6 ">
        <div class="product">
-       <Carousel responsive={responsive}>
+       <Carousel  autoPlay   responsive={responsive} showArrows={true}   showIndicators={true} showThumbs={false}>
               {list.photo&&list.photo.map((image,i)=>{
                return ( 
              
@@ -52,7 +68,7 @@ const  ListProducts=(props) => {
                  </Carousel>
              </div>
                    </div>
-                      <div class="col-md-6 col-lg-5 " >
+                      <div class="col-md-6 col-lg-4" >
                       <div class="product"  style={{border:'0'}}>
       <div>
     <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}
@@ -93,11 +109,12 @@ Product Description </h6>
                       </div>
          </ div>
         )}else{
+     
    return(
     < div class="container">
-     <div class="row"  style={{marginLeft:'20%'}}>
-     <div class="col-md-6 col-lg-5">
-       <div class="product"  style={{border:'0'}}>
+     <div class="row"  style={{marginLeft:'10%',paddingBottom:'3%'}}>
+     <div class="col-md-6 col-lg-4 " >
+       <div class="product pl-3"  style={{border:'0'}}>
        <div>
          </div>
        <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}
@@ -134,28 +151,23 @@ Product Description </h6>
                         </div>
                 </div>
          </div>
-                
-      <div class="col-md-6 col-lg-5">
+  <div class="col-md-6 col-lg-6">
             <div class="product">
-            <Carousel responsive={responsive}>
-              {list.photo&&list.photo.map((image,i)=>{
+          <Carousel autoPlay   infiniteLoop responsive={responsive} showArrows={true} showThumbs={false}  dotColor={'red'} swipeable style={{backgroundColor:'red'}}
+          renderDotsOutside={true}>
+               {list.photo&&list.photo.map((image,i)=>{
                return ( 
-    
-                <img class="img-fluid" src={image} alt="Colorlib Template"/>
-             
-               )
+            <img class="img-fluid"   style={{backgroundColor:'red'}}src={image} alt="Colorlib Template"/>
+              )
               })}
                  </Carousel>
-                </div>
+        </div>
        </div>
       </div>
-  
-   </ div>
+  </ div>
       )
         }
-
   } )}
-  
    </div>
     )
 

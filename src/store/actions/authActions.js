@@ -7,7 +7,7 @@ export const signIn = (credentials) => {
         credentials.password
       ).then(() => {
         dispatch({ type: 'LOGIN_SUCCESS' });
-      }).catch((err) => {
+      } ).catch((err) => {
         dispatch({ type: 'LOGIN_ERROR', err });
       });
   
@@ -31,6 +31,7 @@ export const signUp=(newUser)=>{
             newUser.password
         ).then((resp)=>{
             return firestore.collection('users').doc(resp.user.uid).set({
+                userType:newUser.userType,
                 name:newUser.name,
                 PhoneNum:newUser.PhoneNum,
                 AlternateNum:newUser.AlternateNum

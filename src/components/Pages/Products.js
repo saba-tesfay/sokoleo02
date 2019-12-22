@@ -11,12 +11,27 @@ import {compose} from 'redux'
 
 import{Redirect} from 'react-router-dom'
 import { firestoreConnect } from 'react-redux-firebase'
-// const {seller}=this.props
+import { GoogleComponent } from 'react-google-location' 
+import Geocode from "react-geocode";
+
+ 
+ 
+const API_KEY = 'AIzaSyCd5GSrdhkRjDu53HCBVL7fh5QXa1-gIBE'
+
+Geocode.setApiKey("AIzaSyCd5GSrdhkRjDu53HCBVL7fh5QXa1-gIBE");
+
+Geocode.setLanguage("en");
+ 
+Geocode.setRegion("es");
+
+Geocode.enableDebug();
+
 class Products extends Component {
   state={
     search:'',
     location:'',
-    value:[]
+    value:[],
+    place:null
   }
  
  handelChange=(e)=>{
@@ -25,35 +40,50 @@ class Products extends Component {
     // })
      }
      handleSubmit=(e)=>{
+  
       e.preventDefault();
    this.search(this.props,e.target.value,e.target.id)
         //  this.props.history.push('/')
          console.log(this.state)
       }
-       search=(props,searchvalue,id)=>{
-        const {seller}=props;
-        console.log("waa",seller[0].productName)
+        search=(props,searchvalue,id)=>{
+        const {seller,location}=props;
+            console.log("tay",location)
         const works = seller.filter((val)=>{
-          console.log(val.productName)
-          if(id==='search')
-           return (val.productname.includes(searchvalue)||val.description.includes(searchvalue))
+        if(id==='search')
+           return (val.productname.toLowerCase().includes(searchvalue.toLowerCase())||val.description.toLowerCase().includes(searchvalue.toLowerCase()))
+           else if(id==='location'){
+            Geocode.fromAddress(searchvalue).then(
+              response => {
+                const { lat, lng,northeast } = response.results[0].geometry.location;
+                const t= response.results[0].formatted_address
+                const r= response.results[0].geometry.bounds.northeast
+                const c=response.results[0].geometry.bounds.southwest
+                console.log("results",t,r,c,response.results[0].geometry.location);
+              },
+              error => {
+                console.error("error",error);
+              }
+            );
+           }
            else{
-            return (val.description.includes(searchvalue))
+        if(id==='search')
+        return (val.description.toLowerCase().includes(searchvalue))
            }
         });
         this.setState({
           value:works
         })
-        console.log("ndjjsd",this.state.value)
+      
        }
   render() {
     const { authError,auth } = this.props;
+
     const {seller,location}=this.props;
-    console.log("detail",{seller},{location})
-    if(!auth.uid) return<Redirect to='/'/>
+        console.log("location",{location})
+           if(!auth.uid) return<Redirect to='/'/>
     return (
       <div>
-        {/* background image */}
 <div class="hero-wrap hero-bread"  style ={{ backgroundImage:`url(${bg_1})`}}>
 <div class="container">
 <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -64,49 +94,65 @@ class Products extends Component {
 </div>
 </div>
 </div>
-{/* search section */}
 <section class="ftco-section">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-10 mb-5 text-center">
-        <ul class="product-category">
-          <li><a href="#" class="active">All</a></li>
-          <li><a href="#">Vegetables</a></li>
-          <li><a href="#">Fruits</a></li>
-          <li><a href="#">Juice</a></li>
-          <li><a href="#">Dried</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <form onSubmit={this.handleSubmit}>
-  <div class="input-group" >
-  <i class="ion-ios-search searchicon"></i>
-    <input type="text" class="search-input-productpage" id='search'  onChange={this.handleSubmit} placeholder="Search seller name or product name" />
-    <i class="ion-ios-pin locationicon"></i>
-    <input type="text" class="location-search-input-productpage" id='location' onChange={this.handleSubmit}  placeholder="Location"/>
-    <button class="search-button"  >search</button>
-  </div>
-  </form>
+<div class="container">
+<div class="row justify-content-center">
+<div class="col-md-10 mb-5 text-center">
+<h3 style={{color:'#82ae46',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}
+          >Products</h3>
+{/* <ul class="product-category">
+<li><a href="#" class="active">All</a></li>
+<li><a href="#">Vegetables</a></li>
+<li><a href="#">Fruits</a></li>
+<li><a href="#">Juice</a></li>
+<li><a href="#">Dried</a></li>
+
+</ul> */}
+</div>
+</div>
+</div>
+<form onSubmit={this.handleSubmit}>
+<div class="input-group" >
+{/* <i class="ion-ios-search" style={{position:'absolute',paddingLeft:'300px'}} ></i> */}
+  <input type="text"class="form-control try" id='search'  
+   onChange={this.handleSubmit} placeholder="Search seller name or product name" />
+  {/* <i class="ion-ios-pin locationicon"></i> */}
+  <input type="text" class="form-control trys" id='location' onChange={this.handleSubmit}  placeholder="Location"/>
+{/*  
+  <div  class="trys">
+  <GoogleComponent
+         
+         apiKey={API_KEY}
+         language={'en'}
+        
+         // country={in|country:pr|country:vi|country:gu|country:mp}
+         coordinates={true}
+         // locationBoxStyle={'custom-style'}
+         // locationListStyle={'custom-style-list'}
+         onChange={(e) => { this.setState({ place: e }) }} />
+     
+     </div> */}
+ <button class="search-button">Search</button>
+</div>
+</form>
 </section>
-    {/* prouduct list */}
-   
     {this.state.value.length===0?(<ListProducts seller={seller}/>):(<ListProducts seller={this.state.value}/>)}
  </div>
     )
   }
 }
 const mapStateToProps=(state,ownProps)=>{
-  console.log("in the store",state)  
+  console.log("ma",ownProps)
+  const id=ownProps.match.params.id;
+  console.log("okay",id)
+  // const sellers=state.firestore.data.sellerUpload
+  // const seller=sellers ? sellers[id]:null
   return {
-
-
     seller:state.firestore.ordered.sellerUpload,
     location:state.firestore.ordered.sellerLocation,
     authError: state.auth.authError,
     auth:state.firebase.auth
-
-  }
+}
 }
 const mapDispatchToProps=(dispatch)=>{
   return {
@@ -117,3 +163,10 @@ export default compose(connect(mapStateToProps,mapDispatchToProps),  firestoreCo
   {collection:'sellerUpload',orderedBy:['time','desc']},
   {collection:'sellerLocation',orderedBy:['time','desc']},
 ]))(Products);
+
+
+
+
+
+
+

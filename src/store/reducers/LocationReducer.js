@@ -9,7 +9,10 @@ const locationReducer = (state=initstate ,action) => {
     {
       case 'SELLERLOCATION':
       console.log('SELLERLOCATION',action.location)
-     return state
+      return state
+      case 'SELLERLOCATION_ERROR':
+        console.log('ERROR',action.location)
+        return state
       default:
       return state;
     }
