@@ -14,25 +14,26 @@ border:0;
 `;
  class CommentForm extends Component {
    state = {
-      comment:''
+      comment:'',
+      FristName:'',
+      imageId:''
         };
 /**
    * Handle form input field changes & update the state
    */
   handleFieldChange = (event) => {
-    this.setState({[event.target.id]:event.target.value})    
+    this.setState({comment:event.target.value,
+    imageId:this.props.imageId })    
   };
-
-  /**
-   * Form submit handler
-   */
   onSubmit=(event)=>{
     // prevent default form submission
     event.preventDefault();
-    // console.log(this.state);
     this.props.addComment(this.state);
+    this.setState({comment:''});
+    
   }
   render() {
+    console.log('imageid from comment form',this.props.imageId)
     return (
     <div className="Input pt-3 pl-4" style={{backgroundColor: '#49B84C'}}>
         <Form method="post Input" onSubmit={this.onSubmit}>
@@ -44,10 +45,12 @@ border:0;
             }}
             onChange={this.handleFieldChange}
               id="comment"
+              name='comment'
               className="form-control commendandchatinput"
               placeholder="Your Comment"
+              value={this.state.comment}
           />
-              <Button> <img src={Send} height={40} /></Button>
+              <Button type="submit"> <img src={Send} height={40} /></Button>
            
         </Form>
       </div>
