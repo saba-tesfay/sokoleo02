@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap, withScriptjs, InfoWindow, Marker } from "react-google-maps";
 import Geocode from "react-geocode";
 import Autocomplete from 'react-google-autocomplete';
-Geocode.setApiKey( "xxxxxx" );
+Geocode.setApiKey( "AIzaSyCd5GSrdhkRjDu53HCBVL7fh5QXa1-gIBE" );
 Geocode.enableDebug();
 
 class Map extends Component{
@@ -118,35 +118,7 @@ class Map extends Component{
 	 *
 	 * @param event
 	 */
-	onMarkerDragEnd = ( event ) => {
-		let newLat = event.latLng.lat(),
-		    newLng = event.latLng.lng();
-
-		Geocode.fromLatLng( newLat , newLng ).then(
-			response => {
-				const address = response.results[0].formatted_address,
-				      addressArray =  response.results[0].address_components,
-				      city = this.getCity( addressArray ),
-				      area = this.getArea( addressArray ),
-				      state = this.getState( addressArray );
-				this.setState( {
-					address: ( address ) ? address : '',
-					area: ( area ) ? area : '',
-					city: ( city ) ? city : '',
-					state: ( state ) ? state : '',
-				
-					mapPosition: {
-						lat: newLat,
-						lng: newLng
-					},
-				} )
-			},
-			error => {
-				console.error(error);
-			}
-		);
-	};
-
+	
 	/**
 	 * When the user types an address in the search box
 	 * @param place
@@ -201,7 +173,7 @@ class Map extends Component{
             </InfoWindow></>)}
             
 						{/* For Auto complete Search Box */}
-						<Autocomplete
+						{/* <Autocomplete
 							style={{
 								width: '100%',
 								height: '40px',
@@ -211,7 +183,7 @@ class Map extends Component{
 							}}
 							onPlaceSelected={ this.onPlaceSelected }
 							types={['(regions)']}
-						/>
+						/> */}
 					</GoogleMap>
 				)
 			)

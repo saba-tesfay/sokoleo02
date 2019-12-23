@@ -42,7 +42,6 @@ class SignUpBuyer extends Component {
   }
   render() {
       const {auth,authError}=this.props
-      console.log('ghdhfhhgf',authError)
       if(auth.uid)return<Redirect to='/products'/>
     return (
         <div>

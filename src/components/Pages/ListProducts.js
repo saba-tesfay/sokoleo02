@@ -34,8 +34,8 @@ const responsive = {
 };
 
 const  ListProducts=(props) => {
-  const {seller}=props
-
+  const {seller,location,southWest,northEast}=props
+  let flag=0
   let url = window.location.href;
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
 
@@ -50,8 +50,17 @@ const  ListProducts=(props) => {
     <div>
  
 {seller &&seller.map((list,index)=>{
-        
-        if (index%2===0){
+      flag=0
+            if((list.lat>northEast.lat || list.lat<southWest.lat)||(list.lng>northEast.lng || list.lng<southWest.lng))
+            {
+              console.log('i have found one',list.lat,northEast.lat,southWest.lat,list.businessName)
+              flag=1
+            }
+          
+      if(flag===1){
+        return(<></>)
+      }
+      else if (index%2===0){
         return(
       < div class="container">
        <div class="row"  style={{marginLeft:'10%',paddingBottom:'3%'}}>
@@ -74,7 +83,7 @@ const  ListProducts=(props) => {
     <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}
           >Seller</h3>
     <h5 style={{color:'#82ae46',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}
-        >{list.productname}</h5>
+        >{list.businessName}</h5>
   <h6 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}>
 Product Description </h6>
         <p>{list.description}</p>
@@ -120,7 +129,7 @@ Product Description </h6>
        <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}
     >Seller</h3>
     <a href="/comment"><h5 style={{color:'#82ae46',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}
-   >{list.productname}</h5></a>
+   >{list.businessName}</h5></a>
 <h6 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}>
 Product Description </h6>
    <p>{list.description}</p>

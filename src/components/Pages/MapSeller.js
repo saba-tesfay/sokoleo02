@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {getLocation} from '../../store/actions/LocationAction'
+import {sellerupload} from '../../store/actions/SellerUploadAction';
 import { withScriptjs, withGoogleMap, GoogleMap, Circle,Marker } from "react-google-maps";
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux';
@@ -36,9 +36,7 @@ const Map = withScriptjs(
 
 class MapSeller extends Component {
     state = {
-        markerPosition: [],
-
-     
+        markerPosition: [],     
     };
 
     setMark = e => {
@@ -53,17 +51,18 @@ class MapSeller extends Component {
         
         console.log('the array ',this.state.pos)
     };
-    onSubmit=e=>{
+    onhandleSubmit=e=>{
+        e.preventDefault();
         this.state.markerPosition.map((Element,index)=>{
-            console.log('akjfbsgkfeudfhbjlg',Element.lat(),Element.lng())
             
             
-            
-            this.props.getLocation([Element.lat(),Element.lng()])
+            this.props.sellerInfo.lat=Element.lat()
+            this.props.sellerInfo.lng=Element.lng()
+            console.log('akjfbsgkfeudfhbjlg',this.props.sellerInfo)
+            this.props.sellerupload(this.props.sellerInfo)
+
         })
-        this.props.history.push('/sellerupload')
-        // return(
-        // <Redirect to='/sellerupload'/>)
+        
         
     }
     deleteMarkS = () => {
@@ -75,10 +74,9 @@ class MapSeller extends Component {
 
     render() {
         const { markerPosition } = this.state;
-        const {auth}=this.props
         
-        // if(!auth.uid )return<Redirect to='/'/>
-        // if(auth.userType==='buyer' )return<Redirect to='/mapBuyer'/>
+        
+       
         return (
             <div >
                 
@@ -86,30 +84,25 @@ class MapSeller extends Component {
                 <Map
                     googleMapURL="http://maps.googleapis.com/maps/api/js?key=AIzaSyCd5GSrdhkRjDu53HCBVL7fh5QXa1-gIBE"
                     loadingElement={<div style={{ height: `100%` }} />}
-                    containerElement={<div style={{ height: `500px`,width:'80%', marginLeft:'10%'}} />}
+                    containerElement={<div style={{height: `500px` ,width:'80%', marginLeft:'10%',backgroundColor:'white'}} />}
                     mapElement={<div style={{ height: `100%` }} />}
                     onMapClick={this.setMark}
                     center={{lat: -0.023559, lng: 37.90619300000003}}
                     marks={markerPosition}
-                />;
-                <div style={{marginLeft:'30%',marginBottom:'70px'}}>
-                <button onClick={this.deleteMarkS}    class="btn btn-primary py-3 px-5">Clear</button>
-                <button onClick={this.onSubmit} style={{marginLeft:'30%'}} class="btn btn-primary py-3 px-5">Submit</button>
+                />
+                <div style={{marginLeft:'10%'}}>
+                <button onClick={this.deleteMarkS}    class="btn btn-primary  px-5">Clear</button>
+                <button onClick={this.onhandleSubmit} style={{marginLeft:'2%'}} class="btn btn-primary  px-5">Submit</button>
                 </div>
             </div>
         );
     }
 }
-const mapStateToProps=(state)=>{
-    return{
-        position:state.firestore.ordered.sellerLocation,
-        auth:state.firebase.auth
-    }
-  }
+
   const mapDispatchToProps=(dispatch)=>{
     return{
-        getLocation:(newLocation)=>dispatch(getLocation(newLocation))
+        sellerupload :(uploads)=>dispatch(sellerupload(uploads))
     }
   }
  
-  export default connect(mapStateToProps,mapDispatchToProps)(MapSeller);
+  export default connect(null,mapDispatchToProps)(MapSeller);

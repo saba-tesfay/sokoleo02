@@ -1,14 +1,9 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
 import bg_1 from '../../images/bg_1.jpg';
-import product_1 from '../../images/product_1.jpg'
 import ListProducts from './ListProducts';
 import './Products.css';
 import {connect} from 'react-redux';
-import {listProducts} from'../../store/actions/productActions';
-import {ProductSearch} from '../../store/actions/ProductSearchAction'
 import {compose} from 'redux'
-
 import{Redirect} from 'react-router-dom'
 import { firestoreConnect } from 'react-redux-firebase'
 import { GoogleComponent } from 'react-google-location' 
@@ -16,9 +11,9 @@ import Geocode from "react-geocode";
 
  
  
-const API_KEY = 'AIzaSyCd5GSrdhkRjDu53HCBVL7fh5QXa1-gIBE'
 
-Geocode.setApiKey("AIzaSyCd5GSrdhkRjDu53HCBVL7fh5QXa1-gIBE");
+
+Geocode.setApiKey('AIzaSyCd5GSrdhkRjDu53HCBVL7fh5QXa1-gIBE');
 
 Geocode.setLanguage("en");
  
@@ -31,35 +26,54 @@ class Products extends Component {
     search:'',
     location:'',
     value:[],
-    place:null
+    place:null,
+    northEast:[],
+    southWest:[],
+    searched:'',
+    id:''
   }
  
  handelChange=(e)=>{
-    // this.setState({
-    //   [e.target.id]:e.target.value
-    // })
+    this.setState({
+      searched:e.target.value,
+      id:e.target.id
+    })
      }
      handleSubmit=(e)=>{
   
       e.preventDefault();
-   this.search(this.props,e.target.value,e.target.id)
+      console.log('whyyyy',this.state.searched)
+      this.search(this.props,this.state.searched,this.state.id)
         //  this.props.history.push('/')
-         console.log(this.state)
+         
       }
         search=(props,searchvalue,id)=>{
         const {seller,location}=props;
-            console.log("tay",location)
+            console.log("tay",id)
+            if(seller){
         const works = seller.filter((val)=>{
-        if(id==='search')
+          if (searchvalue==='')
+          return(
+            this.setState({
+              northEast:[],
+              southWest:[]
+            })
+          )
+        else if(id==='search')
            return (val.productname.toLowerCase().includes(searchvalue.toLowerCase())||val.description.toLowerCase().includes(searchvalue.toLowerCase()))
-           else if(id==='location'){
+          else if(id==='location'){
+            
             Geocode.fromAddress(searchvalue).then(
+              
               response => {
                 const { lat, lng,northeast } = response.results[0].geometry.location;
-                const t= response.results[0].formatted_address
-                const r= response.results[0].geometry.bounds.northeast
-                const c=response.results[0].geometry.bounds.southwest
-                console.log("results",t,r,c,response.results[0].geometry.location);
+                
+               const r= response.results[0].geometry.bounds.northeast
+               const c=response.results[0].geometry.bounds.southwest
+                this.setState({
+                  northEast:r,
+                  southWest:c
+                })
               },
               error => {
                 console.error("error",error);
@@ -70,17 +84,20 @@ class Products extends Component {
         if(id==='search')
         return (val.description.toLowerCase().includes(searchvalue))
            }
+           
         });
         this.setState({
           value:works
         })
+      }
       
        }
   render() {
     const { authError,auth } = this.props;
 
     const {seller,location}=this.props;
-        console.log("location",{location})
+    console.log('here is the loc',location)
+        console.log("location",this.state.southWest,this.state.northEast,{location})
            if(!auth.uid) return<Redirect to='/'/>
     return (
       <div>
@@ -111,13 +128,13 @@ class Products extends Component {
 </div>
 </div>
 </div>
-<form onSubmit={this.handleSubmit}>
+<form >
 <div class="input-group" >
 {/* <i class="ion-ios-search" style={{position:'absolute',paddingLeft:'300px'}} ></i> */}
   <input type="text"class="form-control try" id='search'  
-   onChange={this.handleSubmit} placeholder="Search seller name or product name" />
+   onChange ={this.handelChange} placeholder="Search seller name or product name" />
   {/* <i class="ion-ios-pin locationicon"></i> */}
-  <input type="text" class="form-control trys" id='location' onChange={this.handleSubmit}  placeholder="Location"/>
+  <input type="text" class="form-control trys" id='location' onChange ={this.handelChange}  placeholder="Location"/>
 {/*  
   <div  class="trys">
   <GoogleComponent
@@ -132,11 +149,15 @@ class Products extends Component {
          onChange={(e) => { this.setState({ place: e }) }} />
      
      </div> */}
- <button class="search-button">Search</button>
+ <button class="search-button" onClick={this.handleSubmit}>Search</button>
 </div>
 </form>
 </section>
-    {this.state.value.length===0?(<ListProducts seller={seller}/>):(<ListProducts seller={this.state.value}/>)}
+    {this.state.value.length===0?(<ListProducts seller={seller}
+                                                location={location}
+                                                southWest={this.state.southWest}
+                                                northEast={this.state.northEast}
+                                                search={this.state.searched}/>):(<ListProducts seller={this.state.value}/>)}
  </div>
     )
   }
@@ -154,12 +175,8 @@ const mapStateToProps=(state,ownProps)=>{
     auth:state.firebase.auth
 }
 }
-const mapDispatchToProps=(dispatch)=>{
-  return {
-    ProductSearch:(searchvalue)=>dispatch(ProductSearch(searchvalue))
-  }
-}
-export default compose(connect(mapStateToProps,mapDispatchToProps),  firestoreConnect([
+
+export default compose(connect(mapStateToProps,null),  firestoreConnect([
   {collection:'sellerUpload',orderedBy:['time','desc']},
   {collection:'sellerLocation',orderedBy:['time','desc']},
 ]))(Products);
