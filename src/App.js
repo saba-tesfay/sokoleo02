@@ -21,8 +21,7 @@ import MapBuyer from './components/Pages/MapBuyerRedirect'
 
 function App() {
   return (
-    <div className="App">
-       
+    <div className="App">  
       <BrowserRouter>
       <Navbar/>
         <Switch>
@@ -31,20 +30,17 @@ function App() {
         <Route path='/contactus'component={ContactUs}/>
           <Route path='/aboutus'component={AboutUs}/> 
           <Route path='/signin'component={SignIn}/> 
-          <Route path='/chat' component={Chat}/>
-          <Route path='/comment' component={Comment}/>
+          <Route path='/chat/:id' component={Chat}/>
+          <Route path='/comment/:id' component={Comment}/>
           <Route path='/signupBuyer'component={SignUpBuyer}/> 
           <Route path='/signupSeller'component={SignUpSeller}/>
           <Route path='/sellerupload'component={SellerUpload}/>
-          <Route path='/r'component={R}/>
-          <Route path='/d'component={HomeComponent}/>
           <Route path='/map'component={Map}/>
           <Route exact path='*' component={Nomatch} />
           <Route path='/mapSeller'component={MapSeller}/>
           <Route path='/mapBuyer'component={MapBuyer}/>
           <Route path='/l'component={Location}/>
-          <Route path='/profile'component={Profile}/>
-          
+          <Route path='/profile'component={Profile}/>  
         </Switch>
         <Footer/>
     </BrowserRouter>
