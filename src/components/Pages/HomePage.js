@@ -7,7 +7,8 @@ import catagory from '../../images/category.jpg'
 import catagory1 from '../../images/category-1.jpg'
 import catagory2 from '../../images/category-2.jpg'
 import catagory3 from '../../images/category-3.jpg'
-import Carousel from "react-multi-carousel";
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 import './Homepage.css'
 
 import catagory4 from '../../images/category-4.jpg'
@@ -36,7 +37,7 @@ render(){
     return(<>
     
 <section id="home-section" class="hero">
-        <Carousel responsive={responsive} autoPlay="true" showStatus="false" showIndicators="false" infiniteLoop="true" showThumbs="false">
+        <Carousel responsive={responsive} autoPlay="true" infinite="true" autoPlaySpeed='6000' >
         <div class="slider-item" style={{height:'800px',backgroundImage: `url(${bg_1})`}}>
                         <div class="overlay"></div>
                         <div class="container">
