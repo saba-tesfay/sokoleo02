@@ -13,14 +13,21 @@ background-color: #49b84c;
 border:0;
 `;
 class Input extends Component {
-  state = {
-    text: "",
-    userType:''
-  }
+  state = { 
+          text: "",
+          CreatedAt:'',
+          sender:'',
+          userType:'',
+          reciever:'',
+          imageId:'' 
+ }
   onChange(e) {
     this.setState({
       text: e.target.value,
-      userType:'seller'});
+      userType:'',
+      imageId:this.props.imageId ,
+      sender:this.props.auth
+    });
   }
   onSubmit(e) {
     e.preventDefault();
@@ -28,6 +35,8 @@ class Input extends Component {
     this.setState({text: ""});
   }
   render() {
+    console.log('sender',this.state.sender)
+    console.log('imageId',this.state.imageId)
     return (
       <div className=" p-3 " style={{backgroundColor: '#49B84C'}}>
         <Form onSubmit={e => this.onSubmit(e)} className="py-0">

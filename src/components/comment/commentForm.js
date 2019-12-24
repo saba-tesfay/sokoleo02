@@ -4,8 +4,7 @@ import Send from '../img/play.png'
 import {addComment} from '../../store/actions/addComment'
 import Attach from '../img/attach.png'
 import styled from 'styled-components';
-
-export const Form = styled.form`
+ const Form = styled.form`
 display: flex !important;  
 `;
 const Button=styled.button`
@@ -51,7 +50,6 @@ border:0;
               value={this.state.comment}
           />
               <Button type="submit"> <img src={Send} height={40} /></Button>
-           
         </Form>
       </div>
     );

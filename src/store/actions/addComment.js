@@ -4,6 +4,7 @@ export const addComment = (comment) =>
         
         const firestore=getFirestore();
         const profile=getState().firebase.profile;
+        console.log('profile',profile)
         const authorId=getState().firebase.auth.uid;
         firestore.collection('comments').add({
             fristName:profile.name,
@@ -17,4 +18,7 @@ export const addComment = (comment) =>
             dispatch({type:'ADD-COMMENT-ERROR',err});
         })
      }
+ }
+ export const countComment=()=>{
+     
  }
