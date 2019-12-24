@@ -8,8 +8,7 @@ export default function Comment(props) {
     const { createdAt , comment,fristName, imageId } = props.comment;
     
   if(!imageId.localeCompare(props.imageId) ){ 
-    console.log('id in the database',imageId);
-    console.log('id of the clicked image',props.imageId)
+    // this.props.total=this.props.total+1;
     return (
       <div className="media mb-4" >
         <img style={{borderRadius:50}}
@@ -25,10 +24,8 @@ export default function Comment(props) {
                < p className=" font-weight-bold  textDays" > 
                 {moment(createdAt.toDate()).fromNow()}
                 </p>  
-               {/* {moment(project.createrAt.toDate()).calendar()}          */}
           </div>  
           <div className='  '>{comment}</div>    
-          
         </div>
       </div>
     );

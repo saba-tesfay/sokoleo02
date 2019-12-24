@@ -3,20 +3,50 @@ import CommentList from './commentList';
 import CommentForm from './commentForm';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
+import Carousel from "react-multi-carousel";
 import {firestoreConnect} from 'react-redux-firebase';
 import './commentStyle.css';
-import FbImageLibrary from 'react-fb-image-grid'
+// import FbImageLibrary from 'react-fb-image-grid'
 import {Redirect} from 'react-router-dom';
 import {Link } from 'react-router-dom';
 import commentIcon from '../img/comments_48px.png'
 import messageIcon from '../img/message.png'
 import likesIcon from '../img/likes.png';
+const responsive = {
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 3000 },
+    items: 1,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 1,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 1,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+  },
+};
 const ImageFormatter=(props)=>{
   return(
     <img className="pr-2" src={props.src} alt={props.alt} width={30}/>
   )
 }
  class commentBox extends Component {
+   state={
+     totalComment:0,
+     totalLike:0
+   }
+   handleLike=()=>{
+     this.state.totalLike++;
+     console.log('like is clicked',this.state.totalLike)
+   }
+   handleComment=()=>{
+     console.log('from handling comment',this.state.totalComment)
+   }
     render() { 
       const {uploadedPhoto,auth,comments,profile,imageId}=this.props;
       console.log('phtoid',imageId);
@@ -27,22 +57,34 @@ const ImageFormatter=(props)=>{
            <div className='row'>
              <div className='col-lg-3 col-sm-0'></div>
               <div className='col-lg-6 col-sm-12 ' >
-                 <FbImageLibrary classname="img-fluid" images={uploadedPhoto.photo} countFrom={2}/>
+                  <Carousel  autoPlay   responsive={responsive} showArrows={true}   showIndicators={true} showThumbs={false}>
+              {uploadedPhoto.photo&&uploadedPhoto.photo.map((image,i)=>{
+               return ( 
+             
+                <img class="img-fluid" src={image} alt="Colorlib Template"/>
+             
+               )
+              })}
+                 </Carousel>
                 <div  className="d-flex flex-fill">
                     <Link to={'/comment/'+imageId} className="px-5 flex-fill font-weight-bold">
-                      <ImageFormatter src={likesIcon} alt="comment"/>like
+                      <ImageFormatter src={likesIcon} alt="like icon"/>
+                      <button onClick={this.handleLike}>like</button>
                     </Link>
                     <Link to={'/comment/'+imageId} className="px-5 flex-fill font-weight-bold text-dark">
-                      <ImageFormatter src={commentIcon} alt="comment" />comment
+                      <ImageFormatter src={commentIcon} alt="comment icon" />
+                      {" "+this.state.totalComment+" "}
+                      comment
                     </Link>
                     <Link  to={'/chat/'+imageId} className="px-5 flex-fill font-weight-bold text-dark">
-                       <ImageFormatter src={messageIcon} alt="comment" /> send message
+                       <ImageFormatter src={messageIcon} alt="chat icon" /> send message
                     </Link>
                 </div>
                 {  comments ?<div>
-                                  <h1>comments</h1>
+                <h1>comments</h1>
                                   {console.log('comments',comments)}
-                                 <CommentList comments={comments}  imageId={ imageId}/>
+                                  {console.log('ggggg',comments.length)}
+                                 <CommentList comments={comments}  imageId={ imageId} total={this.state.totalComment}/>
                                  <CommentForm profile={ profile } imageId={ imageId}/>
                             </div>
                             :<p>Loading comments</p>}

@@ -3,6 +3,9 @@ export const addChatMessage = (message) =>
  {
      return(dispatch,getState ,{ getFirebase,getFirestore})=>{
         const firestore=getFirestore();
+        const profile=getState().firebase.profile;
+        console.log('profile',profile);
+        const authorId=getState().firebase.auth.uid;
         firestore.collection('chat').add({
             ...message, 
             createdAt:new Date()

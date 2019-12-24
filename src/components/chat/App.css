@@ -54,6 +54,9 @@
 .buyyer .text{
   background-color: #51CB7A !important;
 }
+.buyyer .text{
+  background-color: #51CB7A !important;
+}
  .buyyer > .Message-content >  .text:before {
   content: "";
   width: 0px;
