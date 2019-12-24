@@ -7,9 +7,9 @@ import AboutUs from './components/Pages/AboutUs';
 import ContactUs from './components/Pages/ContactUs';
 import SellerUpload from './components/Pages/SellerUpload';
 import SignIn from './components/auth/SignIn'; 
-import Chat from './components/chat/App'
+// import Chat from './components/chat/App'
 import Location from './components/Pages/Location'
-import Comment from './components/comment/commentBox'
+// import Comment from './components/comment/commentBox'
 import SignUpSeller from './components/auth/SignUpSeller';
 import SignUpBuyer from './components/auth/SignUpBuyer';
 import Home from './components/Pages/HomePage';
@@ -18,7 +18,6 @@ import R from './components/Pages/t';
 import Profile from './components/Pages/Profile'
 import MapSeller from './components/Pages/MapSeller'
 import MapBuyer from './components/Pages/MapBuyerRedirect'
-
 function App() {
   return (
     <div className="App">  
@@ -30,8 +29,8 @@ function App() {
         <Route path='/contactus'component={ContactUs}/>
           <Route path='/aboutus'component={AboutUs}/> 
           <Route path='/signin'component={SignIn}/> 
-          <Route path='/chat/:id' component={Chat}/>
-          <Route path='/comment/:id' component={Comment}/>
+          {/* <Route path='/chat/:id' component={Chat}/>
+          <Route path='/comment/:id' component={Comment}/> */}
           <Route path='/signupBuyer'component={SignUpBuyer}/> 
           <Route path='/signupSeller'component={SignUpSeller}/>
           <Route path='/sellerupload'component={SellerUpload}/>      

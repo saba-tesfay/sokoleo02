@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+
  class AboveNavbar extends Component {
     render() {
       const { auth ,profile} = this.props;  

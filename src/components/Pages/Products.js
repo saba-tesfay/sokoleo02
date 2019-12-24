@@ -59,15 +59,14 @@ class Products extends Component {
               southWest:[]
             })
           )
-        else if(id==='search')
-           return (val.productname.toLowerCase().includes(searchvalue.toLowerCase())||val.description.toLowerCase().includes(searchvalue.toLowerCase()))
+       
           else if(id==='location'){
             
             Geocode.fromAddress(searchvalue).then(
               
               response => {
                 const { lat, lng,northeast } = response.results[0].geometry.location;
-                
+                console.log("results",lat)
                const r= response.results[0].geometry.bounds.northeast
                const c=response.results[0].geometry.bounds.southwest
                 this.setState({
@@ -81,8 +80,12 @@ class Products extends Component {
             );
            }
            else{
+            this.setState({
+              northEast:[],
+              southWest:[]
+            })
         if(id==='search')
-        return (val.description.toLowerCase().includes(searchvalue))
+       return (val.catagory.toLowerCase().includes(searchvalue.toLowerCase()))
            }
            
         });
@@ -117,14 +120,7 @@ class Products extends Component {
 <div class="col-md-10 mb-5 text-center">
 <h3 style={{color:'#82ae46',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}
           >Products</h3>
-{/* <ul class="product-category">
-<li><a href="#" class="active">All</a></li>
-<li><a href="#">Vegetables</a></li>
-<li><a href="#">Fruits</a></li>
-<li><a href="#">Juice</a></li>
-<li><a href="#">Dried</a></li>
 
-</ul> */}
 </div>
 </div>
 </div>
@@ -132,9 +128,9 @@ class Products extends Component {
 <div class="input-group" >
 {/* <i class="ion-ios-search" style={{position:'absolute',paddingLeft:'300px'}} ></i> */}
   <input type="text"class="form-control try" id='search'  
-   onChange ={this.handelChange} placeholder="Search seller name or product name" />
+   onChange ={this.handelChange} placeholder="Search by Catagory" />
   {/* <i class="ion-ios-pin locationicon"></i> */}
-  <input type="text" class="form-control trys" id='location' onChange ={this.handelChange}  placeholder="Location"/>
+  <input type="text" class="form-control trys" id='location' onChange ={this.handelChange}  placeholder="By Location"/>
 {/*  
   <div  class="trys">
   <GoogleComponent
