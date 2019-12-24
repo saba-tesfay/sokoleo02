@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import Carousel from "react-multi-carousel";
 import bg_1 from '../../images/bg_1.jpg';
-import product_1 from '../../images/product_1.jpg'
-import ListProducts from './ListProducts';
+
 import './Products.css';
 import {connect} from 'react-redux';
-import {listProducts} from'../../store/actions/productActions';
+
 import {ProductSearch} from '../../store/actions/ProductSearchAction'
 import {compose} from 'redux'
 
