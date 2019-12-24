@@ -82,12 +82,13 @@
  
   .trys{
     width:100% !important;
-    margin-left:22% ;
+    margin-left:22% !important;
     margin-top:3%;
-    padding-left:10% !important;
+    padding-left:8% !important;
     height:23% !important;
-    box-sizing:border-box;
+  
 }
+
 
 .search-button{
     border-radius:10px;

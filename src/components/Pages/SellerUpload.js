@@ -39,15 +39,17 @@ const Map = withScriptjs(
 
 class SellerUpload extends Component {
     state={
+      price:'',
+       photo:[],
+        lat:'',
+        lng:'',
         businessName:'',
         marketName:'',
-        price:'',
-        comment:'',
-        discription:'',
+        description:'',
         catagory:'',
         email:'',
         contactperson:'',
-        photo:[]
+         progress:0
       }
     
     handelChange=(e)=>{
@@ -121,8 +123,8 @@ class SellerUpload extends Component {
                       </div>
                       <div class="form-group row" style={styles}>
                       <div class="col-sm-6">
-                              <label for="inputDiscription">Discription</label>
-                              <textarea id="discription"  onChange={this.handelChange} cols="30" rows="2" class="form-control" placeholder="Enter comment (optional)"/>
+                              <label for="inputDiscription">description</label>
+                              <textarea id="description"  onChange={this.handelChange} cols="30" rows="2" class="form-control" placeholder="Enter comment (optional)"/>
                           </div>
                           <div class="col-sm-6">
                               <label for="inputCatagory">Catagory</label>
@@ -132,8 +134,8 @@ class SellerUpload extends Component {
                       </div>
                       <div class="form-group row" style={styles}>
                           <div class="col-sm-6">
-                              <label for="inputDiscription">Discription</label>
-                              <textarea id="discription"  onChange={this.handelChange} cols="30" rows="2" class="form-control" placeholder="Enter comment (optional)"/>
+                              <label for="inputDiscription">description</label>
+                              <textarea id="description"  onChange={this.handelChange} cols="30" rows="2" class="form-control" placeholder="Enter comment (optional)"/>
                           </div>
                           <div class="col-sm-6">
                           <label for="inputPrice">Price</label>
