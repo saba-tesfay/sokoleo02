@@ -42,7 +42,6 @@ class Products extends Component {
      handleSubmit=(e)=>{
   
       e.preventDefault();
-      console.log('whyyyy',this.state.searched)
       this.search(this.props,this.state.searched,this.state.id)
         //  this.props.history.push('/')
          
@@ -87,6 +86,7 @@ class Products extends Component {
         if(id==='search')
        return (val.catagory.toLowerCase().includes(searchvalue.toLowerCase()))
            }
+
            
         });
         this.setState({

@@ -39,6 +39,7 @@ class SignUpBuyer extends Component {
         console.log(this.state.show)
       }
       
+      
   }
   render() {
       const {auth,authError}=this.props

@@ -8,11 +8,15 @@ class MapBuyer extends Component {
     render(){
         const {location,auth} = this.props
         let array=[]
-        location&&location.map((list,index)=>{
-            
+        
+        
+            location&&location.map((list,index)=>{
+            console.log(list)
             array.push(list)
         })
-        console.log("the new one",location)
+    
+        
+        console.log("the new one",array)
         // if(!auth.uid )return<Redirect to='/'/>
         // if(auth.userType==='seller' )return<Redirect to='/mapSeller'/>
         return(
@@ -23,7 +27,7 @@ class MapBuyer extends Component {
 					center={{lat: 18.5204, lng: 73.8567}}
                     height='600px'
                     marks={array}
-					zoom={12}
+					zoom={6}
 				/>
 			</div>
         )
@@ -35,7 +39,8 @@ class MapBuyer extends Component {
 const mapStateToProps=(state)=>{
     return{
         location:state.firestore.ordered.sellerLocation,
-        auth:state.firebase.auth
+        auth:state.firebase.auth,
+        
     }
   }
  
