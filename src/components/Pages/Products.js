@@ -42,7 +42,6 @@ class Products extends Component {
      handleSubmit=(e)=>{
   
       e.preventDefault();
-      console.log('whyyyy',this.state.searched)
       this.search(this.props,this.state.searched,this.state.id)
         //  this.props.history.push('/')
          
@@ -59,9 +58,7 @@ class Products extends Component {
               southWest:[]
             })
           )
-        else if(id==='search')
-           return (val.productname.toLowerCase().includes(searchvalue.toLowerCase())||val.description.toLowerCase().includes(searchvalue.toLowerCase()))
-          else if(id==='location'){
+         else if(id==='location'){
             
             Geocode.fromAddress(searchvalue).then(
               
@@ -81,9 +78,19 @@ class Products extends Component {
             );
            }
            else{
+            this.setState({
+              northEast:[],
+              southWest:[]
+            })
         if(id==='search')
-        return (val.description.toLowerCase().includes(searchvalue))
+       
+         return (
+          
+          val.catagory.toLowerCase().includes(searchvalue.toLowerCase())
+          )
+        
            }
+
            
         });
         this.setState({

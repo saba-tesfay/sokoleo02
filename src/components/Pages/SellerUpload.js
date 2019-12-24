@@ -39,14 +39,15 @@ const Map = withScriptjs(
 
 class SellerUpload extends Component {
     state={
-        productname:'',
-        markettag:'',
+        businessName:'',
+        marketName:'',
         price:'',
         comment:'',
-        description:'',
-        photo:[],
-        lat:'',
-        lng:''
+        discription:'',
+        catagory:'',
+        email:'',
+        contactperson:'',
+        photo:[]
       }
     
     handelChange=(e)=>{
