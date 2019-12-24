@@ -43,16 +43,18 @@ const  ListProducts=(props) => {
   const telegramUrl=`https://telegram.me/share/url?url=${url}`
   const whatsupUrl=`whatsapp://send?text=${url}`
   let shareUrl='https://www.facebook.com/'
+  
   return(
     <div>
  
 {seller &&seller.map((list,index)=>{
       flag=0
-            if((list.lat>northEast.lat || list.lat<southWest.lat)||(list.lng>northEast.lng || list.lng<southWest.lng))
+      if(northEast&&southWest)
+            {if((list.lat>northEast.lat || list.lat<southWest.lat)||(list.lng>northEast.lng || list.lng<southWest.lng))
             {
               console.log('i have found one',list.lat,northEast.lat,southWest.lat,list.businessName)
               flag=1
-            }
+            }}
           
       if(flag===1){
         return(<></>)

@@ -55,7 +55,7 @@ class Mapb extends Component{
              />
              <InfoWindow
              onClose={props.onInfoWindowClose}
-             position={{ lat: ( mark[0]+ 0.0108 ), lng: mark[1]}}
+             position={{ lat: ( mark[0]+ 0.0608 ), lng: mark[1]}}
             >
              <div>
               {mark[2]}
@@ -72,8 +72,6 @@ class Mapb extends Component{
 		if( this.props.center.lat !== undefined ) {
 			map = <div>
 				{console.log('2hello',this.state.mapPosition)}
-				<input type="text" class="form-control trys" id='location' onChange ={this.handelChange}  placeholder="Location"/>
-				<button class="search-button" onClick={this.handleSubmit}>Search</button>
 				<AsyncMap
 					googleMapURL="http://maps.googleapis.com/maps/api/js?key=AIzaSyCd5GSrdhkRjDu53HCBVL7fh5QXa1-gIBE&libraries=places"
 					

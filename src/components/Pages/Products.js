@@ -79,12 +79,13 @@ class Products extends Component {
             );
            }
            else{
-            this.setState({
-              northEast:[],
-              southWest:[]
-            })
-        if(id==='search')
-       return (val.catagory.toLowerCase().includes(searchvalue.toLowerCase()))
+            
+        if(id==='search'){
+          
+       return (
+         
+         val.catagory.toLowerCase().includes(searchvalue.toLowerCase())
+         )}
            }
 
            
