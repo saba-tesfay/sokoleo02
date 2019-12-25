@@ -69,7 +69,7 @@ class App extends Component {
                    </Link>
                </div>
                <div className="App">
-            <Messages messages={chatMessage} displayedImageId={imageId} productOwner={uploadedPhoto.authId} />
+            <Messages auth={auth.uid} messages={chatMessage} displayedImageId={imageId} productOwner={uploadedPhoto.authId} />
                   {/* <h1>ffffffffffffff{profile.uId}</h1> */}
             <Input profile={profile.userType} imageId={ imageId}  auth={auth.uid} productOwner={uploadedPhoto.authId}/>
           </div>
