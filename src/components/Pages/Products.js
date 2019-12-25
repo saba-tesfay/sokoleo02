@@ -29,39 +29,43 @@ class Products extends Component {
     place:null,
     northEast:[],
     southWest:[],
+    searchedLocation:'',
     searched:'',
+    searchedP:'',
     id:''
   }
  
  handelChange=(e)=>{
     this.setState({
-      searched:e.target.value,
+      [e.target.name]:e.target.value,
       id:e.target.id
     })
      }
      handleSubmit=(e)=>{
   
       e.preventDefault();
-      this.search(this.props,this.state.searched,this.state.id)
+      this.setState({
+        searchedP:this.state.searched
+      })
+      console.log(this.state.searched,this.state.searchedLocation,'searched')
+      this.search(this.props,this.state.searched,this.state.searchedLocation,this.state.id)
         //  this.props.history.push('/')
          
       }
-        search=(props,searchvalue,id)=>{
+        search=(props,searchvalue,searchedLocation,id)=>{
         const {seller,location}=props;
-            console.log("tay",id)
             if(seller){
         const works = seller.filter((val)=>{
-          if (searchvalue==='')
-          return(
+          if(searchedLocation===''){
             this.setState({
               northEast:[],
               southWest:[]
             })
-          )
+          }
        
-          else if(id==='location'){
+          if(searchedLocation!==''){
             
-            Geocode.fromAddress(searchvalue).then(
+            Geocode.fromAddress(searchedLocation).then(
               
               response => {
                 const { lat, lng,northeast } = response.results[0].geometry.location;
@@ -78,15 +82,15 @@ class Products extends Component {
               }
             );
            }
-           else{
-            
-        if(id==='search'){
-          
+           
+           console.log(searchvalue,'hellooojskdfjdjs')  
+        if(searchvalue!==''){
+         
        return (
          
          val.catagory.toLowerCase().includes(searchvalue.toLowerCase())
          )}
-           }
+           
 
            
         });
@@ -97,12 +101,13 @@ class Products extends Component {
       
        }
   render() {
-    const { authError,auth } = this.props;
-
+    const { authError,auth,profile } = this.props;
+console.log(profile,'my prof')
     const {seller,location}=this.props;
     console.log('here is the loc',location)
         console.log("location",this.state.southWest,this.state.northEast,{location})
-           if(!auth.uid) return<Redirect to='/'/>
+    if(!auth.uid) return<Redirect to='/'/>
+    if(profile.userType==='seller') return<Redirect to='/profile'/>
     return (
       <div>
 <div class="hero-wrap hero-bread"  style ={{ backgroundImage:`url(${bg_1})`}}>
@@ -127,34 +132,24 @@ class Products extends Component {
 </div>
 <form >
 <div class="input-group" >
-{/* <i class="ion-ios-search" style={{position:'absolute',paddingLeft:'300px'}} ></i> */}
-  <input type="text"class="form-control try" id='search'  
+  <input type="text"class="form-control try" id='search'  name='searched'
    onChange ={this.handelChange} placeholder="Search by Catagory" />
-  {/* <i class="ion-ios-pin locationicon"></i> */}
-  <input type="text" class="form-control trys" id='location' onChange ={this.handelChange}  placeholder="By Location"/>
-{/*  
-  <div  class="trys">
-  <GoogleComponent
-         
-         apiKey={API_KEY}
-         language={'en'}
-        
-         // country={in|country:pr|country:vi|country:gu|country:mp}
-         coordinates={true}
-         // locationBoxStyle={'custom-style'}
-         // locationListStyle={'custom-style-list'}
-         onChange={(e) => { this.setState({ place: e }) }} />
-     
-     </div> */}
+  
+  <input type="text" class="form-control trys" id='location' name='searchedLocation' onChange ={this.handelChange}  placeholder="By Location"/>
+
  <button class="search-button" onClick={this.handleSubmit}>Search</button>
 </div>
 </form>
 </section>
-    {this.state.value.length===0?(<ListProducts seller={seller}
+    {(this.state.value.length===0 && this.state.searchedP!=='')?<h2 style={{textAlign:'center'}}>Product not found</h2>:<div>{this.state.value.length===0?(<ListProducts seller={seller}
                                                 location={location}
                                                 southWest={this.state.southWest}
                                                 northEast={this.state.northEast}
-                                                search={this.state.searched}/>):(<ListProducts seller={this.state.value}/>)}
+                                                search={this.state.searched}/>):(<ListProducts seller={this.state.value}
+                                                                                                location={location}
+                                                                                                southWest={this.state.southWest}
+                                                                                                northEast={this.state.northEast}
+                                                                                                search={this.state.searched}/>)}</div>}
  </div>
     )
   }
@@ -169,7 +164,8 @@ const mapStateToProps=(state,ownProps)=>{
     seller:state.firestore.ordered.sellerUpload,
     location:state.firestore.ordered.sellerLocation,
     authError: state.auth.authError,
-    auth:state.firebase.auth
+    auth:state.firebase.auth,
+    profile:state.firebase.profile
 }
 }
 

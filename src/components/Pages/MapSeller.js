@@ -112,18 +112,7 @@ class MapSeller extends Component {
                     // position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
                   
                      />)}
-                    {/* <Autocomplete
-                       style={{
-                        width: '50%',
-                        height: '40px',
-                        paddingLeft: '16px',
-                        marginTop: '10px',
-                        marginBottom: '100px'
-                       }}
-                      
-                    //    onPlaceSelected={ this.onPlaceSelected }
-                       types={['(regions)']}
-                      /> */}
+                   
                 </GoogleMap>
             ))
         );
