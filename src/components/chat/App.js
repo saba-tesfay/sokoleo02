@@ -38,12 +38,9 @@ const ImageFormatter=(props)=>{
 class App extends Component {
      render() {
        const {userType, auth,imageId,uploadedPhoto,profile,chatMessage}=this.props;
-       console.log('chated',userType)
-      //  const {
-      //   AlternateNum , 
-      //   PhoneNum,
-      //   name
-      // }=userType;
+
+       console.log('profile photo from chat app',profile)
+      //  const { AlternateNum , PhoneNum,name  }=userType;
       //  console.log('image innnnnnd',userType.name)
        if(!auth.uid) return <Redirect to='/signin'/>
        if(uploadedPhoto){
@@ -51,14 +48,14 @@ class App extends Component {
           <div className='row'>
             <div className='col-lg-3 col-sm-0'></div>
              <div className='col-lg-6 col-sm-12 ' >
-             <Carousel  autoPlay   responsive={responsive} showArrows={true}   showIndicators={true} showThumbs={false}>
-              {uploadedPhoto.photo&&uploadedPhoto.photo.map((image,i)=>{
-               return ( 
-             
-                <img class="img-fluid" src={image} alt="Colorlib Template"/>
-             
-               )
-              })}
+                  <Carousel  autoPlay   responsive={responsive} showArrows={true}   showIndicators={true} showThumbs={false}>
+                    {uploadedPhoto.photo&&uploadedPhoto.photo.map((image,i)=>{
+                    return ( 
+                  
+                      <img class="img-fluid" src={image} alt="Colorlib Template"/>
+                  
+                    )
+                    })}
                  </Carousel>
                <div  className="d-flex flex-fill">
                    <Link to={'/comment/'+imageId} className="px-5 flex-fill font-weight-bold">
@@ -72,10 +69,11 @@ class App extends Component {
                    </Link>
                </div>
                <div className="App">
-            <Messages messages={chatMessage} />
-            <Input profile={ profile } imageId={ imageId}  auth={auth.uid}/>
+            <Messages messages={chatMessage} displayedImageId={imageId} productOwner={uploadedPhoto.authId} />
+                  {/* <h1>ffffffffffffff{profile.uId}</h1> */}
+            <Input profile={profile.userType} imageId={ imageId}  auth={auth.uid} productOwner={uploadedPhoto.authId}/>
           </div>
-             </div>
+        </div>
              <div className='col-lg-3 col-sm-0'></div>
            </div>
               );}
@@ -93,16 +91,16 @@ const mapStateToProps=(state,ownProps)=>{
   console.log('chat app state',state)
   // to get user type
   const uId=state.firebase.auth.uid;
-  console.log("userid",uId);
+  // console.log("userid",uId);
   const users=state.firestore.data.users;
-  console.log('users',users);
+  // console.log('users',users);
   const userType=users?users[uId]:null;
-  console.log('usertype',userType);
+  // console.log('usertype',userType);
   // to get image id
   const id=ownProps.match.params.id;
   const uPhoto=state.firestore.data.sellerUpload;
   const UPhoto=uPhoto?uPhoto[id]:null;
-  console.log('UPhoto',UPhoto);
+  // console.log('UPhoto',UPhoto);
   return{
     userType:userType,
     imageId:id,
