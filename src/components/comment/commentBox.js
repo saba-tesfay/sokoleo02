@@ -49,6 +49,7 @@ const ImageFormatter=(props)=>{
    }
     render() { 
       const {uploadedPhoto,auth,comments,profile,imageId}=this.props;
+    console.log("profile",profile)
       console.log('phtoid',imageId);
       if(!auth.uid) return <Redirect to='/signin'/>
       if(uploadedPhoto||comments){
@@ -112,8 +113,10 @@ const ImageFormatter=(props)=>{
   
  const mapStateToProps=(state,ownProps)=>{
    const id=ownProps.match.params.id;
+ 
    const commentss=state.firestore.data.sellerUpload;
    const comment=commentss?commentss[id]:null
+
    return{
      imageId:id,
       uploadedPhoto:comment,

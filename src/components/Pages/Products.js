@@ -80,15 +80,11 @@ class Products extends Component {
            }
            else{
             
-        if(id==='search'){
-          
+        if(id==='search'){ 
        return (
-         
          val.catagory.toLowerCase().includes(searchvalue.toLowerCase())
          )}
            }
-
-           
         });
         this.setState({
           value:works
@@ -132,20 +128,7 @@ class Products extends Component {
    onChange ={this.handelChange} placeholder="Search by Catagory" />
   {/* <i class="ion-ios-pin locationicon"></i> */}
   <input type="text" class="form-control trys" id='location' onChange ={this.handelChange}  placeholder="By Location"/>
-{/*  
-  <div  class="trys">
-  <GoogleComponent
-         
-         apiKey={API_KEY}
-         language={'en'}
-        
-         // country={in|country:pr|country:vi|country:gu|country:mp}
-         coordinates={true}
-         // locationBoxStyle={'custom-style'}
-         // locationListStyle={'custom-style-list'}
-         onChange={(e) => { this.setState({ place: e }) }} />
-     
-     </div> */}
+
  <button class="search-button" onClick={this.handleSubmit}>Search</button>
 </div>
 </form>
@@ -162,9 +145,7 @@ class Products extends Component {
 const mapStateToProps=(state,ownProps)=>{
   console.log("ma",ownProps)
   const id=ownProps.match.params.id;
-  console.log("okay",id)
-  // const sellers=state.firestore.data.sellerUpload
-  // const seller=sellers ? sellers[id]:null
+  console.log("okay",state)
   return {
     seller:state.firestore.ordered.sellerUpload,
     location:state.firestore.ordered.sellerLocation,

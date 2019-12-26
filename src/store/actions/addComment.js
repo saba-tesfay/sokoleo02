@@ -7,9 +7,9 @@ export const addComment = (comment) =>
         console.log('profile',profile)
         const authorId=getState().firebase.auth.uid;
         firestore.collection('comments').add({
+            ...comment,
             fristName:profile.name,
             userId:authorId,
-            ...comment,
             createdAt:new Date()  
  
         }).then(()=>{

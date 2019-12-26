@@ -77,7 +77,7 @@ const  ListProducts=(props) => {
              </div>
                    </div>
                       <div class="col-md-6 col-lg-4" >
-                      <div class="product"  style={{border:'0',position:'absolute'}}>
+                      <div class="product"  style={{border:'0'}}>
       <div>
       <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}>Seller</h3>
     <h5 style={{color:'#82ae46',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}>Catagory:{list.catagory}</h5>
@@ -93,15 +93,15 @@ Product Description </h5>
                      <p style={{paddingTop:'27%'}}><span>Price:${list.price}</span></p>
                       </div>
                       </div>
-                 <div class=" d-flex px-3 ">
+                 <div class=" d-flex px-3 ">ios
                  <div class="m-auto d-flex" style={{paddingTop:'20%'}}>
                               <Link to={'/comment/' + list.id} class="heart d-flex justify-content-center align-items-center  pr-3 ">
                               <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-heart"></i></span>
                               </Link>
-                              <a href={"/chat/" +list.id} class="add-to-cart d-flex justify-content-center align-items-center text-center pr-3">
-                              <span><i style={{fontSize:'200%',color:'#82ae46'}}class="ion-ios-mail"></i></span>
-                              </a>
-                              <Link to={'/comment/' + list.id}  class="buy-now d-flex justify-content-center align-items-center mx-1  pr-3">
+                              <Link to={'/comment/' + list.id} class="heart d-flex justify-content-center align-items-center  pr-3 ">
+                            <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-mail"></i></span>
+                              </Link>
+                              <Link to={'/chat/' + list.id}  class="buy-now d-flex justify-content-center align-items-center mx-1  pr-3">
                               <span><i  style={{fontSize:'200%',color:'#82ae46'}} class="ion-ios-chatbubbles" ></i></span>
                               </Link>
                               <div class="dropdown dropright">
@@ -153,12 +153,13 @@ Product Description </h5>
                         <Link to={'/comment/' + list.id} class="heart d-flex justify-content-center align-items-center  pr-3 ">
                         <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-heart"></i></span>
                         </Link>
-                        <a href={"/comment/" + list.id} class="add-to-cart d-flex justify-content-center align-items-center text-center pr-3">
-                        <span><i style={{fontSize:'200%',color:'#82ae46'}}class="ion-ios-mail"></i></span>
-                        </a>
-                        <a href={"/chat/" +  list.id}class="buy-now d-flex justify-content-center align-items-center mx-1  pr-3">
-                        <span><i  style={{fontSize:'200%',color:'#82ae46'}} class="ion-ios-chatbubbles" ></i></span>
-                        </a>
+                        <Link to={'/comment/' + list.id} class="heart d-flex justify-content-center align-items-center  pr-3 ">
+                        <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-mail"></i></span>
+                        </Link>
+                        
+                        <Link to={'/chat/' + list.id} class="heart d-flex justify-content-center align-items-center  pr-3 ">
+                        <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-chatbubbles"></i></span>
+                        </Link>
                         <div class="dropdown dropright">
                               <a href="#"  class=" dropdown-toggle mt-5 " id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" class="buy-now d-flex justify-content-center align-items-center mx-1 pr-3">
                               <span><i   style={{fontSize:'200%',color:'#82ae46'}} class="ion-md-share"></i></span>
