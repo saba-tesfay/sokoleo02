@@ -87,7 +87,6 @@ class Products extends Component {
         if(searchvalue!==''){
          
        return (
-         
          val.catagory.toLowerCase().includes(searchvalue.toLowerCase())
          )}
            
@@ -157,9 +156,7 @@ console.log(profile,'my prof')
 const mapStateToProps=(state,ownProps)=>{
   console.log("ma",ownProps)
   const id=ownProps.match.params.id;
-  console.log("okay",id)
-  // const sellers=state.firestore.data.sellerUpload
-  // const seller=sellers ? sellers[id]:null
+  console.log("okay",state)
   return {
     seller:state.firestore.ordered.sellerUpload,
     location:state.firestore.ordered.sellerLocation,

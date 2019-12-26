@@ -1,16 +1,13 @@
 import React, { Component } from 'react'
 import Carousel from "react-multi-carousel";
 import bg_1 from '../../images/bg_1.jpg';
-
 import './Products.css';
 import {connect} from 'react-redux';
-
-import {ProductSearch} from '../../store/actions/ProductSearchAction'
 import {compose} from 'redux'
-
-import{Redirect} from 'react-router-dom'
+import{Redirect,Link} from 'react-router-dom'
 import { firestoreConnect } from 'react-redux-firebase'
-// const {seller}=this.props
+import { Avatar, Typography, Button, Col,Card } from 'antd';
+const { Title } = Typography;
 const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -37,168 +34,139 @@ class Profile extends Component {
     value:[],
     list:''
   }
- 
- handelChange=(e)=>{
-    // this.setState({
-    //   [e.target.id]:e.target.value
-    // })
-     }
-     handleSubmit=(e)=>{
-      e.preventDefault();
-   this.search(this.props,e.target.value,e.target.id)
-        //  this.props.history.push('/')
-         console.log(this.state)
-      }
-       search=(props,searchvalue,id)=>{
-        const {seller}=props;
-        console.log("waa",seller[0].productName)
-        const works = seller.filter((val)=>{
-          console.log(val.productName)
-          if(id==='search')
-           return (val.name.includes(searchvalue)||val.description.includes(searchvalue))
-           else{
-            return (val.description.includes(searchvalue))
-           }
-        });
-        this.setState({
-          value:works
-        })
-        console.log("ndjjsd",this.state.value)
-       }
+
   render() {
-    const { authError,auth } = this.props;
-    const {seller,location}=this.props;
-    
-    seller&&seller.map((theSeller,index)=>{
-        if(theSeller.authId===auth.uid){
-            this.setState({
-                list:theSeller
-            })
-            
-        }
-    })
-    console.log('this is it',(this.state.list===''))
-    if(this.state.list==='')return<Redirect to='/sellerupload'/>
-    console.log("detail",{seller},{location})
+    const { authError,auth,profile ,seller,id} = this.props;
+    console.log(profile)
+    console.log("seller",seller)
+    const styles = {
+      color:'#000',
+      fontFamily:'poppins,Arial,sans-serif',
+      lineHeight:'1.5', 
+      fontweight:'30',
+      fontSize:'18px'
+    }
     if(!auth.uid) return<Redirect to='/'/>
     
     return (
-      <div>
-<div class="hero-wrap hero-bread"  style ={{ backgroundImage:`url(${bg_1})`}}>
-<div class="container">
-<div class="row no-gutters slider-text align-items-center justify-content-center">
-<div class="col-md-9 text-center">
-<p class="breadcrumbs"><span class="mr-2"><a href="/">Home</a></span> <span>Products</span></p>
-<h1 class="mb-0 bread">Products</h1>
-</div>
-</div>
-</div>
-</div>
-<section class="ftco-section">
-<div class="container">
-<div class="row justify-content-center">
-<div class="col-md-10 mb-5 text-center">
-<ul class="product-category">
-<li><a href="/sellerupload" class="active">Edit Profile</a></li>
-
-
-</ul>
-</div>
-</div>
-</div>
-<form onSubmit={this.handleSubmit}>
-<div class="input-group" >
-<i class="ion-ios-search searchicon"></i>
-  <input type="text" class="search-input-productpage" id='search'  onChange={this.handleSubmit} placeholder="Search seller name or product name" />
-  <i class="ion-ios-pin locationicon"></i>
-  <input type="text" class="location-search-input-productpage" id='location' onChange={this.handleSubmit}  placeholder="Location"/>
-  <button class="search-button"  >search</button>
-</div>
-</form>
-</section>
-    
-    < div class="container">
-       <div class="row"  style={{marginLeft:'20%'}}>
-      <div class="col-md-6 col-lg-5 ">
-       <div class="product">
-       <Carousel responsive={responsive}>
-              {this.state.list.photo&&this.state.list.photo.map((image,i)=>{
-               return ( 
-             
-                <img class="img-fluid" src={image} alt="Colorlib Template"/>
-             
-               )
-              })}
-                 </Carousel>
-             </div>
-                   </div>
-                      <div class="col-md-6 col-lg-5 " >
-                      <div class="product"  style={{border:'0'}}>
-      <div>
-    <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}
-          >Seller</h3>
-    <h5 style={{color:'#82ae46',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}
-        >{this.state.list.name}</h5>
-  <h6 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}>
-Product Description </h6>
-        <p>{this.state.list.description}</p>
-                      </div>
-                      <div class="overlay"></div>
-                      <div class="text py-3 pb-4 px-3 text-center">
-          <h3><a href="#"></a></h3>
-                      <div class="d-flex">
-                      <div class="pl-2">
-        <p><span>Price:${this.state.list.price}</span></p>
-                      </div>
-                      </div>
-                 <div class=" d-flex px-3 ">
-                 <div class="m-auto d-flex">
-                              <a href="#" class="heart d-flex justify-content-center align-items-center  pr-3 ">
-                              <span><i  style={{fontSize:'170%',color:'#82ae46'}}  class="ion-ios-heart"></i></span>
-                              </a>
-                              <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center pr-3">
-                              <span><i style={{fontSize:'170%',color:'#82ae46'}}class="ion-ios-mail"></i></span>
-                              </a>
-                              <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1  pr-3">
-                              <span><i  style={{fontSize:'170%',color:'#82ae46'}} class="ion-ios-chatbubbles" ></i></span>
-                              </a>
-                              <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1 pr-3">
-                              <span><i   style={{fontSize:'170%',color:'#82ae46'}} class="ion-md-share"></i></span>
-                              </a>
-                              </div>
-                  </div>
-                      </div>
-                      </div>
-                      </div>
-                      </div>
-         </ div>
+   <div>
+   <section class="ftco-section contact-section bg-light">
+<div class="container py-5">
+<div class="row">
+ <div class="col-md-10 mx-auto bg-white" >
+ <h2 style={styles}  class='pb-2 pt-4 text-center'>Edit your Profile</h2>
+           <form class="p-5">
+           <Col style={{ marginBottom: '80px' }} align='center'>
+  <Avatar size={100} icon='user' />
+  <Title style={{ fontSize: '14px', margin: '10px 0' }}>John Smith Keller</Title>
+  <Link to='/editprofile'>
+  <Button shape='round' style={{backgroundColor:'rgb(130, 174, 70)',color:'white'}}>Edit Your Profile</Button>
+  </Link>
+  </Col>
+  <Col  align='center'>
+<Card className="col-sm-12 border-1 px-0 m-0" size='large' >
+  <div class="border row mt-0">
+      <div class="pl-0 col-sm-12 col-lg-6 d-flex ant-row-flex-start">
+        <h5>your add products</h5>
+      </div>
       
- </div>
+      <div class=" col-sm-12 col-lg-6 d-flex flex-lg-row-reverse pr-0"> 
+        <a href="/addproducts" > 
+              <Button  shape='round' style={{backgroundColor:'rgb(130, 174, 70)',color:'white'}}>
+              Add new products</Button>
+            </a>
+      </div>
+</div>
+ {seller &&seller.map((list,index)=>{
+   
+  return(
+   <div class="row"  style={{marginLeft:'10%',paddingBottom:'3%'}}>
+  <div class="col-md-6 col-lg-6 ">
+   <div class="product">
+   <Carousel  autoPlay   responsive={responsive} showArrows={true}   showIndicators={true} showThumbs={false}>
+          {list.photo&&list.photo.map((image,i)=>{
+           return ( 
+            <img class="img-fluid" src={image} alt="Colorlib Template"/>
+           )
+          })}
+             </Carousel>
+         </div>
+               </div>
+                  <div class="col-md-6 col-lg-4" >
+                  <div class="product"  style={{border:'0'}}>
+  <div>
+  <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}>Seller</h3>
+<h5 style={{color:'#82ae46',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}>Catagory:{list.catagory}</h5>
+ <h6 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}>
+   @{list.marketName}</h6>
+<h5 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}>
+Product Description </h5>
+    <p>{list.description}</p>
+    </div>
+   <div class="text py-3 pb-4 px-3 text-center">
+                  <div class="d-flex">
+                  <div class="pl-2">
+                 <p style={{paddingTop:'27%'}}><span>Price:${list.price}</span></p>
+                  </div>
+                  </div>
+             <div class=" d-flex px-3 ">
+             <div class="m-auto d-flex" style={{paddingTop:'20%'}}>
+                          <Link to={'/comment/' + list.id} class="heart d-flex justify-content-center align-items-center  pr-3 ">
+                          <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-heart"></i></span>
+                          </Link>
+                          <Link to={'/comment/' + list.id} class="heart d-flex justify-content-center align-items-center  pr-3 ">
+                        <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-mail"></i></span>
+                          </Link>
+                          <Link to={'/chat/' + list.id}  class="buy-now d-flex justify-content-center align-items-center mx-1  pr-3">
+                          <span><i  style={{fontSize:'200%',color:'#82ae46'}} class="ion-ios-chatbubbles" ></i></span>
+                          </Link>
+                          <div class="dropdown dropright">
+                          <a href="#"  class=" dropdown-toggle mt-5 " id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" class="buy-now d-flex justify-content-center align-items-center mx-1 pr-3">
+                          <span><i   style={{fontSize:'200%',color:'#82ae46'}} class="ion-md-share"></i></span>
+                          </a>
+                         </div>
+                          </div>
+              </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+
     )
+        })} 
+    </Card>
+    </Col>
+
+)
+}
+  </form>
+</div>
+  </div>
+</div>
+</section>
+                  </div>
+      );
   }
 }
+  
 const mapStateToProps=(state,ownProps)=>{
-  console.log("ma",state)
+
   const id=ownProps.match.params.id;
-  console.log(id)
-  return {
-
-
+  const uPhoto=state.firestore.data.sellerUpload;
+  const UPhotoS=uPhoto?uPhoto[id]:null;
+  console.log(UPhotoS)
+  return{
+    sellerId:id,
     seller:state.firestore.ordered.sellerUpload,
-    location:state.firestore.ordered.sellerLocation,
-    authError: state.auth.authError,
-    auth:state.firebase.auth
+     auth:state.firebase.auth,
+    profile:state.firebase.profile
+  }
 
-  }
 }
-const mapDispatchToProps=(dispatch)=>{
-  return {
-    ProductSearch:(searchvalue)=>dispatch(ProductSearch(searchvalue))
-  }
-}
-export default compose(connect(mapStateToProps,mapDispatchToProps),  firestoreConnect([
-  {collection:'sellerUpload',orderedBy:['time','desc']},
-  {collection:'sellerLocation',orderedBy:['time','desc']},
+export default compose(connect(mapStateToProps),
+  firestoreConnect([
+    {collection:'sellerUpload',orderedBy:['time','desc']},
+  
 ]))(Profile);
 
 

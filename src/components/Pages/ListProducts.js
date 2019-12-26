@@ -96,13 +96,13 @@ Product Description </h5>
                      <p style={{paddingTop:'27%'}}><span>Price:${list.price}</span></p>
                       </div>
                       </div>
-                 <div class=" d-flex px-3 ">
+                 <div class=" d-flex px-3 ">ios
                  <div class="m-auto d-flex" style={{paddingTop:'20%'}}>
                               <Link to={'/comment/' + list.id} class="heart d-flex justify-content-center align-items-center  pr-3 ">
                               <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-heart"></i></span>
                               </Link>
-                              <Link to={'/comment/' + list.id}  class="add-to-cart d-flex justify-content-center align-items-center text-center pr-3">
-                              <span><i style={{fontSize:'200%',color:'#82ae46'}}class="ion-ios-mail"></i></span>
+                              <Link to={'/comment/' + list.id} class="heart d-flex justify-content-center align-items-center  pr-3 ">
+                            <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-mail"></i></span>
                               </Link>
                               <Link to={'/chat/' + list.id}  class="buy-now d-flex justify-content-center align-items-center mx-1  pr-3">
                               <span><i  style={{fontSize:'200%',color:'#82ae46'}} class="ion-ios-chatbubbles" ></i></span>
@@ -156,11 +156,12 @@ Product Description </h5>
                         <Link to={'/comment/' + list.id} class="heart d-flex justify-content-center align-items-center  pr-3 ">
                         <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-heart"></i></span>
                         </Link>
-                        <Link to={'/comment/' + list.id}  class="add-to-cart d-flex justify-content-center align-items-center text-center pr-3">
-                        <span><i style={{fontSize:'200%',color:'#82ae46'}}class="ion-ios-mail"></i></span>
+                        <Link to={'/comment/' + list.id} class="heart d-flex justify-content-center align-items-center  pr-3 ">
+                        <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-mail"></i></span>
                         </Link>
-                        <Link to={'/chat/' + list.id}  class="buy-now d-flex justify-content-center align-items-center mx-1  pr-3">
-                        <span><i  style={{fontSize:'200%',color:'#82ae46'}} class="ion-ios-chatbubbles" ></i></span>
+                        
+                        <Link to={'/chat/' + list.id} class="heart d-flex justify-content-center align-items-center  pr-3 ">
+                        <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-chatbubbles"></i></span>
                         </Link>
                         <div class="dropdown dropright">
                               <a href="#"  class=" dropdown-toggle mt-5 " id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" class="buy-now d-flex justify-content-center align-items-center mx-1 pr-3">

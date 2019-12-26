@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
  class AboveNavbar extends Component {
     render() {
       const { auth ,profile} = this.props;  
- console.log("amine",profile)
+ console.log("profilecheck",auth.uid)
+            
   if (auth.uid)
       {
  return (
