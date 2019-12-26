@@ -78,8 +78,9 @@ class Profile extends Component {
       </div>
 </div>
  {seller &&seller.map((list,index)=>{
-   
-  return(
+   console.log(list.authId===auth.uid,auth.uid,list)
+   if(list.authId===auth.uid)
+  {return(
    <div class="row"  style={{marginLeft:'10%',paddingBottom:'3%'}}>
   <div class="col-md-6 col-lg-6 ">
    <div class="product">
@@ -132,13 +133,18 @@ Product Description </h5>
                   </div>
                   </div>
 
-    )
+    )}
+    else{
+      return(
+      <>
+        </>
+      )
+    }
         })} 
     </Card>
     </Col>
 
-)
-}
+
   </form>
 </div>
   </div>

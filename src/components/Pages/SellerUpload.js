@@ -39,16 +39,17 @@ const Map = withScriptjs(
 
 class SellerUpload extends Component {
     state={
-      price:'',
-       photo:[],
-        lat:'',
-        lng:'',
         businessName:'',
         marketName:'',
-        description:'',
+        price:'',
+        comment:'',
         catagory:'',
         email:'',
         contactperson:'',
+        photo:[],
+        lat:'',
+        lng:'',
+        description:'',
          progress:0
       }
     
@@ -110,72 +111,55 @@ class SellerUpload extends Component {
           <div class="row ">
          <div class="col-md-10 mx-auto bg-white" >
          <h2 style={styles}  class='pb-2 pt-4 text-center'>Add your Products</h2>
-                   <form class="p-5">
-                      <div class="form-group row">
-                      <div class="col-sm-6">
-                              <label for="inputbusinessname" style={styles}>Name of your Business</label>
-                              <input type="text"  onChange={this.handelChange} class="form-control" id="businessName" placeholder="Name of your Business"/>
-                          </div>
-                          <div class="col-sm-6">
-                              <label for="inputmarketName" style={styles}>Name of the Market</label>
-                              <input type="text" onChange={this.handelChange}  class="form-control" id="marketName" placeholder="Name of the Market"/>
-                          </div>
-          
-                      </div>
-                      <div class="form-group row" style={styles}>
-                      <div class="col-sm-6">
-                              <label for="inputDiscription">description</label>
-                              <textarea id="description"  onChange={this.handelChange} cols="30" rows="2" class="form-control" placeholder="Enter comment (optional)"/>
-                          </div>
-                          <div class="col-sm-6">
-                              <label for="inputCatagory">Catagory</label>
-                              <input type="text"onChange={this.handelChange} class="form-control" id="catagory" placeholder="Catagory"/>
-                          </div>
-                        
-                      </div>
-                      <div class="form-group row" style={styles}>
-                          <div class="col-sm-6">
-                              <label for="inputDiscription">description</label>
-                              <textarea id="description"  onChange={this.handelChange} cols="30" rows="2" class="form-control" placeholder="Enter comment (optional)"/>
-                          </div>
-                          <div class="col-sm-6">
-                          <label for="inputPrice">Price</label>
-                              <input type="number" onChange={this.handelChange} class="form-control" id="price" placeholder="Price"/>
-                          </div>
-                      </div>
-                      <div class="form-group row" style={styles}>
-                          <div class="col-sm-6">
-                              <label for="inputContactperson">Name For contact person</label>
-                              <input type="text" onChange={this.handelChange} class="form-control" id="contactperson" placeholder="Name For contact person"/>
-                          </div>
-                          <div class="col-sm-6">
-                          <div class="form-group" style={{position: 'relative',  overflow:' hidden', display: 'inline-block'}}>
-                          <button  class=" bg-grey"><i style={{fontSize:'170%',fontWeight:'40',color:'white'}}
-                                          class="ion-md-arrow-up"></i>Upload photo</button>
-                          
-                          <input type="file" ref={this.setRef} multiple   accept="image/*"
-                          style={{position:"absolute",left:'0',top:'0', opacity:'0',borderRadius:'10px'}}/>
-                      <i style={{fontSize:'170%',color:'#82ae46'}}   class="ion-md-share pl-3"></i>
-                      </div>
-                      <button type="button" onClick={this.handleSubmit} class="btn btn-primary px-4 float-right">Done uploading</button>
-                      </div>
-                          </div>
-                      <div class="form-group row" style={styles}>
-                          <div class="col-sm-6">
-                              <label for="inputContactNumber">Cell phone </label>
-                              <input type="number" onChange={this.handelChange} class="form-control" id="contactNumber" placeholder="Contact Number"/>
-                          </div>
-                          
-                      </div>
-                      <div class="form-group row" style={styles}>
-                      <div class="col-sm-6" >
-                              <label for="inputemail">Email</label>
-                              <input type="email" onChange={this.handelChange} class="form-control" id="email" placeholder="Email (optional)"/>
-                          </div>
-                      </div>
-                      
-                      
-                  </form>
+         <form class="p-5">
+
+<div class="form-group row">
+   <div class="col-sm-6">
+           <label for="inputbusinessname" style={styles}>Name of Products</label>
+           <input type="text"  onChange={this.handelChange} class="form-control" id="ame" placeholder="Name of your Business" required/>
+       </div>
+       <div class="col-sm-6">
+           <label for="inputmarketName" style={styles}>Phone number</label>
+           <input type="text" onChange={this.handelChange}  class="form-control" id="marketName" placeholder="Name of the Market" required/>
+       </div>
+
+   </div>
+   <div class="form-group row">
+   <div class="col-sm-6">
+           <label for="inputbusinessname" style={styles}>catagory</label>
+           <input type="text"  onChange={this.handelChange} class="form-control" id="businessName" placeholder="Name of your Business" required/>
+       </div>
+       <div class="col-sm-6">
+       <div class="form-group" style={{position: 'relative',  overflow:' hidden', display: 'inline-block'}}>
+       <button  class=" bg-grey"><i style={{fontSize:'170%',fontWeight:'40',color:'white'}}
+                       class="ion-md-arrow-up"></i>Upload photo</button>
+       <input type="file" ref={this.setRef} multiple   accept="image/*"
+       style={{position:"absolute",left:'0',top:'0', opacity:'0',borderRadius:'10px'}} required/>
+   <i style={{fontSize:'170%',color:'#82ae46'}}   class="ion-md-share pl-3"></i>
+   </div>
+   </div>
+
+   </div>
+   <div class="form-group row" style={styles}>
+       <div class="col-sm-6">
+           <label for="inputContactperson">Discription</label>
+           <input type="text" onChange={this.handelChange} class="form-control" id="contactperson" placeholder="Name For contact person" required/>
+       </div>
+       <div class="col-sm-6" >
+                
+             </div>
+       </div>
+   <div class="form-group row" style={styles}>
+       <div class="col-sm-6">
+           <label for="inputContactNumber">Cell phone </label>
+           <input type="number" onChange={this.handelChange} class="form-control" id="contactNumber" placeholder="Contact Number" required/>
+       </div>
+       <div class="col-sm-6">
+    
+   </div>
+   </div>
+
+</form>
                   <div class="row "  >
                   <div class="col-md-10 mx-auto " >
                             <h3>Set Location</h3>
