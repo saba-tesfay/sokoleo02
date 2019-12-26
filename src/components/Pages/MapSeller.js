@@ -17,22 +17,16 @@ class MapSeller extends Component {
         mapPosition: {
             lat: -0.023559, lng: 37.90619300000003
         },  
-        northEast:{
-            lat: '',
-             lng: ''
-        },
-		southWest:{
-            lat: '', 
-            lng: ''
-        }
     };
 
     setMark = e => {
         
-        console.log('this is it',this.state.markerPosition)
+        console.log('this is it',e.latLng)
        this.setState({ 
-        markerPosition: [...this.state.markerPosition,e.latLng],
-        pos:[e.latLng.lat(),e.latLng.lng()]    
+markerPosition: [...this.state.markerPosition,e.latLng],
+        pos:[e.latLng.lat(),e.latLng.lng()]
+        
+    
         });
         
         
@@ -70,8 +64,6 @@ class MapSeller extends Component {
                           lat:element.southWast.lat+(element.northEast.lat-element.southWast.lat)/2,
                           lng:element.southWast.lng+(element.northEast.lng-element.southWast.lng)/2
                         },
-                        northEast:element.northEast,
-                        southWest:element.southWast
                       })
                       flag=1
                       console.log('hello i am true')
@@ -96,6 +88,7 @@ class MapSeller extends Component {
                       }
                     )
                     ;}
+                  
                    }
                   
                    
@@ -128,7 +121,6 @@ class MapSeller extends Component {
     };
 
     render() {
-        const {Marker}=this.props
         const Map = withScriptjs(
             withGoogleMap(props => (
                 <GoogleMap
@@ -144,7 +136,18 @@ class MapSeller extends Component {
                     // position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
                   
                      />)}
-                   
+                    {/* <Autocomplete
+                       style={{
+                        width: '50%',
+                        height: '40px',
+                        paddingLeft: '16px',
+                        marginTop: '10px',
+                        marginBottom: '100px'
+                       }}
+                      
+                    //    onPlaceSelected={ this.onPlaceSelected }
+                       types={['(regions)']}
+                      /> */}
                 </GoogleMap>
             ))
         );
@@ -156,7 +159,7 @@ class MapSeller extends Component {
         return (
             <div >
                 
-                <div style={{marginLeft:'10%',marginBottom:'5%'}}>
+                <div style={{marginLeft:'10%'}}>
                 <input type="text"  style={{width:'60%',marginRight:'10%'}}class="form-control float-left"id='location' onChange ={this.handelChangeAuto}  placeholder="Location"/>
 				<button class="btn btn-primary  px-5 " onClick={this.handleSubmit}>Search</button>
                 </div>
@@ -178,23 +181,19 @@ class MapSeller extends Component {
         );
     }
 }
-
+const mapStateToProps=(state)=>{
+    return{
+        Market:state.firestore.ordered.setMarket,
+    }
+  }
   const mapDispatchToProps=(dispatch)=>{
     return{
         sellerupload :(uploads)=>dispatch(sellerupload(uploads)),
         getLocation :(location)=>dispatch(getLocation(location))
     }
   }
-  const mapStateToProps=(state)=>{
-    return{
-        
-        Market:state.firestore.ordered.setMarket,
-        
-        
-    }
-  }
+ 
   export default compose(connect(mapStateToProps,mapDispatchToProps),firestoreConnect([
     {collection:'sellerLocation',orderedBy:['time','desc']},
     {collection:'setMarket',orderedBy:['time','desc']}
   ]))(MapSeller);
-  
