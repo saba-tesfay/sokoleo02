@@ -36,6 +36,7 @@ const responsive = {
 const  ListProducts=(props) => {
   const {seller,location,southWest,northEast}=props
   let flag=0
+  let counter=[]
   let url = window.location.href;
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
    const twitterUrl = `https://twitter.com/sharer/sharer.php?u=${url}`;
@@ -54,6 +55,8 @@ const  ListProducts=(props) => {
             {
               console.log('i have found one',list.lat,northEast.lat,southWest.lat,list.businessName)
               flag=1
+            }else{
+              counter.push(list)
             }}
           
       if(flag===1){
@@ -61,7 +64,7 @@ const  ListProducts=(props) => {
       }
       else if (index%2===0){
         return(
-      < div class="container">
+      < div class="container" style={{minHeight:'400px'}}>
        <div class="row"  style={{marginLeft:'10%',paddingBottom:'3%'}}>
       <div class="col-md-6 col-lg-6 ">
        <div class="product">
@@ -77,9 +80,9 @@ const  ListProducts=(props) => {
              </div>
                    </div>
                       <div class="col-md-6 col-lg-4" >
-                      <div class="product"  style={{border:'0',position:'absolute'}}>
+                      <div class="product"  style={{border:'0'}}>
       <div>
-      <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}>Seller</h3>
+      <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}>{list.businessName}</h3>
     <h5 style={{color:'#82ae46',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}>Catagory:{list.catagory}</h5>
      <h6 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}>
        @{list.marketName}</h6>
@@ -125,14 +128,14 @@ Product Description </h5>
         )}else{
      
    return(
-    < div class="container">
+    < div class="container"style={{minHeight:'400px'}}>
      <div class="row"  style={{marginLeft:'10%',paddingBottom:'3%'}}>
      <div class="col-md-6 col-lg-4 " >
        <div class="product pl-3"  style={{border:'0'}}>
        <div>
          </div>
          <div>
-      <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}>Seller</h3>
+      <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}>{list.businessName}</h3>
     <h5 style={{color:'#82ae46',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}>Catagory:{list.catagory}</h5>
      <h6 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}>
        @{list.marketName}</h6>
@@ -191,7 +194,9 @@ Product Description </h5>
   </ div>
       )
         }
+
   } )}
+  {counter.length===0?<h2 style={{textAlign:'center'}}>Product not found</h2>:null}
    </div>
     )
 

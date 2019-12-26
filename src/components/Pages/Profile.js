@@ -35,7 +35,7 @@ class Profile extends Component {
     search:'',
     location:'',
     value:[],
-    list:{}
+    list:''
   }
  
  handelChange=(e)=>{
@@ -77,8 +77,11 @@ class Profile extends Component {
             
         }
     })
+    console.log('this is it',(this.state.list===''))
+    if(this.state.list==='')return<Redirect to='/sellerupload'/>
     console.log("detail",{seller},{location})
     if(!auth.uid) return<Redirect to='/'/>
+    
     return (
       <div>
 <div class="hero-wrap hero-bread"  style ={{ backgroundImage:`url(${bg_1})`}}>

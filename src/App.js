@@ -16,6 +16,7 @@ import Home from './components/Pages/HomePage';
 import Nomatch from './Nomatch';
 import R from './components/Pages/t';
 import Profile from './components/Pages/Profile'
+import ProfileBuyer from './components/Pages/ProfileBuyer'
 import MapSeller from './components/Pages/MapSeller'
 import MapBuyer from './components/Pages/MapBuyerRedirect'
 function App() {
@@ -37,6 +38,7 @@ function App() {
           <Route path='/mapSeller'component={MapSeller}/>
           <Route path='/mapBuyer'component={MapBuyer}/>
           <Route path='/profile'component={Profile}/>
+          <Route path='/profileBuyer'component={ProfileBuyer}/>
           <Route exact path='*' component={Nomatch} />
         </Switch>
         <Footer/>

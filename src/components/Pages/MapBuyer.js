@@ -6,17 +6,61 @@ Geocode.enableDebug();
 
 class Mapb extends Component{
 
-	constructor( props ){
-		super( props );
-		this.state = {
-			searched: '',
-			mapPosition: {
-				lat: this.props.center.lat,
-				lng: this.props.center.lng
-			},
-			
-		}
-	}
+	state = {
+        searched:'',
+        markerPosition: [],   
+        mapPosition: {
+            lat: -0.023559, lng: 37.90619300000003
+        },  
+    };
+    handelChangeAuto=(e)=>{
+        this.setState({
+          searched:e.target.value,
+        })
+         }
+    handleSubmit=(e)=>{
+      
+            e.preventDefault();
+            
+            const search=(props,searchvalue)=>{
+                console.log(searchvalue)
+                    
+                  if (searchvalue==='')
+                  {return(
+                    this.setState({
+                        mapPosition: {
+                            lat: -0.023559, lng: 37.90619300000003
+                        },
+                    })
+                  )}
+                else {
+                    
+                    Geocode.fromAddress(searchvalue).then(
+                      
+                      response => {
+						const { lat, lng,northeast } = response.results[0].geometry.location;
+						console.log("results",lat)
+					   const r= response.results[0].geometry.bounds.northeast
+					   const c=response.results[0].geometry.bounds.southwest
+						this.setState({
+						  northEast:r,
+						  southWest:c
+						})
+                        
+                      },
+                      error => {
+                        console.error("error",error);
+                      }
+                    );
+                   }
+                  
+                   
+                };
+                search(this.props,this.state.searched)	
+              console.log(this.state.mapPosition,'this should work')
+              
+               
+         }
 
 	
 	
@@ -49,7 +93,6 @@ class Mapb extends Component{
             props.marks.map((mark, index) =><>
 			{console.log('let this work',mark[2],mark[1])}
 			 <Marker key={index} 
-            google={this.props.google}
             position={{ lat: mark[0], lng: mark[1]  }}
           
              />
@@ -60,7 +103,8 @@ class Mapb extends Component{
              <div>
               {mark[2]}
              </div>
-            </InfoWindow></>)}
+			</InfoWindow></>)
+		}
             
 						
 					</GoogleMap>
@@ -72,6 +116,7 @@ class Mapb extends Component{
 		if( this.props.center.lat !== undefined ) {
 			map = <div>
 				{console.log('2hello',this.state.mapPosition)}
+				
 				<AsyncMap
 					googleMapURL="http://maps.googleapis.com/maps/api/js?key=AIzaSyCd5GSrdhkRjDu53HCBVL7fh5QXa1-gIBE&libraries=places"
 					
