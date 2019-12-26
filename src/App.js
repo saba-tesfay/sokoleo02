@@ -19,6 +19,7 @@ import Profile from './components/Pages/Profile'
 import ProfileBuyer from './components/Pages/ProfileBuyer'
 import MapSeller from './components/Pages/MapSeller'
 import MapBuyer from './components/Pages/MapBuyerRedirect'
+import setMarket from './components/Pages/SetMarketRedirect';
 function App() {
   return (
     <div className="App">  
@@ -30,6 +31,7 @@ function App() {
         <Route path='/contactus'component={ContactUs}/>
           <Route path='/aboutus'component={AboutUs}/> 
           <Route path='/signin'component={SignIn}/> 
+          <Route path='/setmarket'component={setMarket}/> 
           <Route path='/chat/:id' component={Chat}/>
           <Route path='/comment/:id' component={Comment}/>
           <Route path='/signupBuyer'component={SignUpBuyer}/> 

@@ -91,7 +91,7 @@ class Mapb extends Component{
 				
 			
             props.marks.map((mark, index) =><>
-			{console.log('let this work',mark[2],mark[1])}
+			{console.log('let this work',mark[2],mark[1],mark[0])}
 			 <Marker key={index} 
             position={{ lat: mark[0], lng: mark[1]  }}
           

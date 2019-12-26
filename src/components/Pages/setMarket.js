@@ -3,32 +3,81 @@ import {sellerupload} from '../../store/actions/SellerUploadAction';
 import {getLocation} from '../../store/actions/LocationAction';
 import { withScriptjs, withGoogleMap, GoogleMap, Circle,Marker } from "react-google-maps";
 import {connect} from 'react-redux';
-import {compose} from 'redux';
-import { firestoreConnect } from 'react-redux-firebase';
-import './Products.css';
 import Geocode from "react-geocode";
+import {setmarket} from '../../store/actions/setMarketAction';
 Geocode.setApiKey( "AIzaSyCd5GSrdhkRjDu53HCBVL7fh5QXa1-gIBE" );
 Geocode.enableDebug();
 
-class MapSeller extends Component {
+class SetMarket extends Component {
     state = {
         searched:'',
+        MarketName:'',
         markerPosition: [],   
         mapPosition: {
             lat: -0.023559, lng: 37.90619300000003
-        },  
+        }, 
+        north:'',
+        south:'',
+        east:'',
+        west:''
+        
+        
+
+         
     };
 
     setMark = e => {
         
         console.log('this is it',e.latLng)
        this.setState({ markerPosition: [...this.state.markerPosition,e.latLng],
-        pos:[e.latLng.lat(),e.latLng.lng()]
+        pos:[e.latLng.lat(),e.latLng.lng()],
+        
         
     
         });
-        
-        
+        if(this.state.north===''){
+            this.setState({
+                north:e.latLng.lat(),
+                    south:e.latLng.lat(),
+                    east:e.latLng.lng(),
+                    west:e.latLng.lng(),
+            })
+        }
+        else{
+            let max=this.state.north
+            if(e.latLng.lat()>max){
+                max=e.latLng.lat()
+                this.setState({
+                    north:max
+                })
+                console.log('north',e.latLng.lat(),max)
+            }
+            
+            max=this.state.east
+            if(e.latLng.lng()>max){
+                max=e.latLng.lng()
+                this.setState({
+                    east:max
+                })
+                console.log('east',e.latLng.lng(),max)
+            }
+            let min= this.state.south
+            if(e.latLng.lat()<min){
+                min=e.latLng.lat()
+                this.setState({
+                    south:min
+                })
+            }
+            console.log(min,'south')
+            min=this.state.wast
+            if(e.latLng.lng()<min){
+                min=e.latLng.lng()
+                this.setState({
+                    west:min
+                })
+            }
+            
+        }
         console.log('the array ',this.state.pos)
     };
     handelChangeAuto=(e)=>{
@@ -36,6 +85,11 @@ class MapSeller extends Component {
           searched:e.target.value,
         })
          }
+    handelChange=(e)=>{
+            this.setState({
+              MarketName:e.target.value,
+            })
+             }
     handleSubmit=(e)=>{
       
             e.preventDefault();
@@ -52,26 +106,6 @@ class MapSeller extends Component {
                     })
                   )}
                 else {
-                    let flag=0
-                  console.log(this.props.Market)
-                  this.props.Market&&this.props.Market.map((element,index)=>{
-                    console.log(element)
-                    if(searchvalue===element.MarketName){
-                      
-                      this.setState({
-                        mapPosition:{
-                          lat:element.southWast.lat+(element.northEast.lat-element.southWast.lat)/2,
-                          lng:element.southWast.lng+(element.northEast.lng-element.southWast.lng)/2
-                        },
-                        northEast:element.northEast,
-                        southWest:element.southWast
-                      })
-                      flag=1
-                      console.log('hello i am true')
-                    }
-                  })
-                    if(flag===0){
-                  
                     
                     Geocode.fromAddress(searchvalue).then(
                       
@@ -87,8 +121,7 @@ class MapSeller extends Component {
                       error => {
                         console.error("error",error);
                       }
-                    )
-                    ;}
+                    );
                    }
                   
                    
@@ -100,16 +133,16 @@ class MapSeller extends Component {
          }
     onhandleSubmitform=e=>{
         e.preventDefault();
+        
         this.state.markerPosition.map((Element,index)=>{
+            console.log(Element.lat(),Element.lng(),'here are the elements')
             
             
-            this.props.sellerInfo.lat=Element.lat()
-            this.props.sellerInfo.lng=Element.lng()
-            console.log('akjfbsgkfeudfhbjlg',this.props.sellerInfo)
-            this.props.sellerupload(this.props.sellerInfo)
-            this.props.getLocation([Element.lat(),Element.lng(),this.props.sellerInfo.businessName])
-
         })
+       
+            console.log('this is set',this.state.north,this.state.south,this.state.east,this.state.west)
+        this.props.setmarket({MarketName:this.state.MarketName,northEast:{lat:this.state.north,lng:this.state.east},southWast:{lat:this.state.south,lng:this.state.west}})
+        
         
         
     }
@@ -121,7 +154,6 @@ class MapSeller extends Component {
     };
 
     render() {
-        const {Marker}=this.props
         const Map = withScriptjs(
             withGoogleMap(props => (
                 <GoogleMap
@@ -148,7 +180,11 @@ class MapSeller extends Component {
        
         return (
             <div >
-                
+                <div style={{marginLeft:'10%',marginBottom:'5%'}}>
+                <h4>Market Name:</h4>
+                <input type="text"  style={{width:'60%',marginRight:'10%'}}class="form-control "id='Market' onChange ={this.handelChange}  placeholder="Market name"/>
+				
+                </div>
                 <div style={{marginLeft:'10%',marginBottom:'5%'}}>
                 <input type="text"  style={{width:'60%',marginRight:'10%'}}class="form-control float-left"id='location' onChange ={this.handelChangeAuto}  placeholder="Location"/>
 				<button class="btn btn-primary  px-5 " onClick={this.handleSubmit}>Search</button>
@@ -174,20 +210,8 @@ class MapSeller extends Component {
 
   const mapDispatchToProps=(dispatch)=>{
     return{
-        sellerupload :(uploads)=>dispatch(sellerupload(uploads)),
-        getLocation :(location)=>dispatch(getLocation(location))
+        setmarket :(uploads)=>dispatch(setmarket (uploads)),
     }
   }
-  const mapStateToProps=(state)=>{
-    return{
-        
-        Market:state.firestore.ordered.setMarket,
-        
-        
-    }
-  }
-  export default compose(connect(mapStateToProps,mapDispatchToProps),firestoreConnect([
-    {collection:'sellerLocation',orderedBy:['time','desc']},
-    {collection:'setMarket',orderedBy:['time','desc']}
-  ]))(MapSeller);
-  
+ 
+  export default connect(null,mapDispatchToProps)(SetMarket);
