@@ -68,8 +68,11 @@ const ImageFormatter=(props)=>{
                  </Carousel>
                 <div  className="d-flex flex-fill">
                     <Link to={'/comment/'+imageId} className="px-5 flex-fill font-weight-bold">
-                      <ImageFormatter src={likesIcon} alt="like icon"/>
-                      <button onClick={this.handleLike}>like</button>
+                      <button onClick={this.handleLike} style={{ }}>
+                        <ImageFormatter src={likesIcon} alt="like icon"/>
+                      </button>
+                        <span className='px-2'>45</span>
+                        like
                     </Link>
                     <Link to={'/comment/'+imageId} className="px-5 flex-fill font-weight-bold text-dark">
                       <ImageFormatter src={commentIcon} alt="comment icon" />
@@ -79,7 +82,7 @@ const ImageFormatter=(props)=>{
                     <Link  to={'/chat/'+imageId} className="px-5 flex-fill font-weight-bold text-dark">
                        <ImageFormatter src={messageIcon} alt="chat icon" /> send message
                     </Link>
-                </div>
+              </div>
                 {  comments ?<div>
                 <h1>comments</h1>
                                   {console.log('comments',comments)}
