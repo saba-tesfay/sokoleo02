@@ -32,7 +32,7 @@ class Profile extends Component {
     search:'',
     location:'',
     value:[],
-    list:{}
+    list:''
   }
 
   render() {
@@ -47,6 +47,7 @@ class Profile extends Component {
       fontSize:'18px'
     }
     if(!auth.uid) return<Redirect to='/'/>
+    
     return (
    <div>
    <section class="ftco-section contact-section bg-light">

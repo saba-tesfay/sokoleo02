@@ -15,7 +15,6 @@ border:0;
 class Input extends Component {
   state = { 
           text: "",
-          CreatedAt:'',
           sender:'',
           userType:'',
           reciever:'',
@@ -23,8 +22,9 @@ class Input extends Component {
  }
   onChange(e) {
     this.setState({
+      reciever:this.props.productOwner,
       text: e.target.value,
-      userType:'',
+      userType:this.props.profile,
       imageId:this.props.imageId ,
       sender:this.props.auth
     });
@@ -35,8 +35,10 @@ class Input extends Component {
     this.setState({text: ""});
   }
   render() {
-    console.log('sender',this.state.sender)
-    console.log('imageId',this.state.imageId)
+    // console.log('sender',this.state.sender)
+    // console.log('imageId',this.state.imageId)
+    // console.log('profile from inpurt',this.state. userType)
+    // console.log('reciever from inpurt',this.state. reciever)
     return (
       <div className=" p-3 " style={{backgroundColor: '#49B84C'}}>
         <Form onSubmit={e => this.onSubmit(e)} className="py-0">

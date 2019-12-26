@@ -38,7 +38,7 @@ function App() {
           <Route path='/sellerupload'component={SellerUpload}/>      
           <Route path='/mapSeller'component={MapSeller}/>
           <Route path='/mapBuyer'component={MapBuyer}/>
-          <Route path='/profile/:id'component={Profile}/>
+          <Route path='/profile'component={Profile}/>
           <Route path='/editprofile'component={EditProfile}/>
           <Route path='/addproducts'component={AddProducts}/>
           <Route exact path='*' component={Nomatch} />

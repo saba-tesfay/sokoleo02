@@ -90,9 +90,10 @@ class SellerUpload extends Component {
           this.file=ref
       }
     render() {
-        const {auth}=this.props
+        const {auth,profile}=this.props
         const {seller}=this.props
-        
+        if(profile.userType==='Buyer') return <Redirect to='/'/>
+        if(!auth.uid) return<Redirect to='/'/>
           const styles = {
               color:'#000',
               fontFamily:'poppins,Arial,sans-serif',
@@ -200,6 +201,7 @@ const mapStateToProps=(state)=>{
     return {
       auth:state.firebase.auth,
       seller:state.firestore.data.sellerUpload,
+      profile:state.firebase.profile
     }
   }
 const mapDispatchToProps=(dispatch)=>{
