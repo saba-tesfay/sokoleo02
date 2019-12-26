@@ -17,15 +17,22 @@ class MapSeller extends Component {
         mapPosition: {
             lat: -0.023559, lng: 37.90619300000003
         },  
+        northEast:{
+            lat: '',
+             lng: ''
+        },
+		southWest:{
+            lat: '', 
+            lng: ''
+        }
     };
 
     setMark = e => {
         
-        console.log('this is it',e.latLng)
-       this.setState({ markerPosition: [...this.state.markerPosition,e.latLng],
-        pos:[e.latLng.lat(),e.latLng.lng()]
-        
-    
+        console.log('this is it',this.state.markerPosition)
+       this.setState({ 
+        markerPosition: [...this.state.markerPosition,e.latLng],
+        pos:[e.latLng.lat(),e.latLng.lng()]    
         });
         
         
