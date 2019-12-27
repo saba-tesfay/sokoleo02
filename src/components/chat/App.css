@@ -51,12 +51,13 @@
   display: inline-block !important;
   position: relative;
 }
-.Buyer .text{
+ .Buyer .text{
   background-color: #51CB7A !important;
 }
-.Buyer .text{
-  background-color: #51CB7A !important;
+.seller .text{
+  background-color: #B2D5B4 !important;
 }
+ 
  .Buyer > .Message-content >  .text:before {
   content: "";
   width: 0px;
@@ -83,8 +84,6 @@
   margin-top: -10px;
   margin-right: -20px;
 }
-.seller .text{
-  background-color: #51CB7A !important;
-}
+ 
 
 

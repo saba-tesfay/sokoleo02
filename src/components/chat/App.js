@@ -36,9 +36,30 @@ const ImageFormatter=(props)=>{
 }
 
 class App extends Component {
-     render() {
-       const {userType, auth,imageId,uploadedPhoto,profile,chatMessage}=this.props;
+  state={
+    totalComment:-1,
+     totalLike:-1
+  }
+  countLike=(like,imageId)=>{
+    const likep = like.filter(item => item.likedProuductId === imageId);
+    this.setState({totalLike : likep.length})
+    console.log('totalLike', this.state.totalLike)
+   }
+   countComment=(comments,imageId)=>{
+    const commentl = comments.filter(item => item.imageId === imageId);
+    this.setState({totalComment : commentl.length})
 
+   }
+     render() {
+       const {userType, auth,imageId,uploadedPhoto,profile,chatMessage,comments,like}=this.props;
+       if(this.state.totalLike===-1){
+        if(like){{this.countLike(like,imageId)}}       
+      }
+      if(this.state.totalComment===-1){
+        if(comments){
+          {this.countComment(comments,imageId)}
+        }       
+      }
        console.log('profile photo from chat app',profile)
       //  const { AlternateNum , PhoneNum,name  }=userType;
       //  console.log('image innnnnnd',userType.name)
@@ -57,17 +78,23 @@ class App extends Component {
                     )
                     })}
                  </Carousel>
-               <div  className="d-flex flex-fill">
-                   <Link to={'/comment/'+imageId} className="px-5 flex-fill font-weight-bold">
-                     <ImageFormatter src={likesIcon} alt="comment"/>like
-                   </Link>
-                   <Link to={'/comment/'+imageId} className="px-5 flex-fill font-weight-bold text-dark">
-                     <ImageFormatter src={commentIcon} alt="comment" />comment
-                   </Link>
-                   <Link  to={'/chat/'+imageId} className="px-5 flex-fill font-weight-bold text-dark">
-                      <ImageFormatter src={messageIcon} alt="comment" /> send message
-                   </Link>
-               </div>
+                 <div  className="d-flex flex-fill">
+                    <Link to={'/comment/'+imageId} className="px-5 flex-fill font-weight-bold text-dark">
+                      <button onClick={()=>this.handleLike(imageId)} style={{backgroundColor:'white',border:0}} className='p-0 m-0' >
+                        <ImageFormatter src={likesIcon} alt="like icon"/>
+                      </button>
+                     {" "+this.state.totalLike+" "} 
+                      <span className='text-dark'>like</span> 
+                    </Link>
+                    <Link to={'/comment/'+imageId} className="px-5 flex-fill font-weight-bold text-dark">
+                      <ImageFormatter src={commentIcon} alt="comment icon" />
+                      {" "+this.state.totalComment+" "}
+                      comment
+                    </Link>
+                    <Link  to={'/chat/'+imageId} className="px-5 flex-fill font-weight-bold text-dark">
+                       <ImageFormatter src={messageIcon} alt="chat icon" /> send message
+                    </Link>
+              </div>
                <div className="App">
             <Messages auth={auth.uid} messages={chatMessage} displayedImageId={imageId} productOwner={uploadedPhoto.authId} />
                   {/* <h1>ffffffffffffff{profile.uId}</h1> */}
@@ -100,12 +127,14 @@ const mapStateToProps=(state,ownProps)=>{
   const id=ownProps.match.params.id;
   const uPhoto=state.firestore.data.sellerUpload;
   const UPhoto=uPhoto?uPhoto[id]:null;
-  // console.log('UPhoto',UPhoto);
+  console.log('UPhoto App bbbbbbbb',UPhoto);
   return{
     userType:userType,
     imageId:id,
     uploadedPhoto:UPhoto,
     auth:state.firebase.auth,
+    comments:state.firestore.ordered.comments,
+     like:state.firestore.ordered.like,
     chatMessage:state.firestore.ordered.chat,
     profile:state.firebase.profile,
   }
@@ -115,5 +144,7 @@ export default compose(
  firestoreConnect([
     {collection:'sellerUpload'},
     {collection:'users'},
-    {collection:'chat' ,orderBy: ['createdAt','asc']}
+    {collection:'chat' ,orderBy: ['createdAt','asc']},
+    {collection:'like'},
+    {collection:'comments',orderBy: ['createdAt','asc']}
  ]))(App);

@@ -1,11 +1,12 @@
 import React from 'react';
 import Comment from "./Comment";
- const commentList=({comments,imageId,total})=>{ 
+ const commentList=({comments,imageId,total,like})=>{ 
+ 
   
     return (
         <div className="commentList">
           { comments && comments.map((comment)=>(
-              <Comment comment={comment} key={comment.id} imageId={imageId} total={total}/>
+              <Comment comment={comment} key={comment.id} imageId={imageId} total={total} like={like} />
             ))}    
         </div>
       );
