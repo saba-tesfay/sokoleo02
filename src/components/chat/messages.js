@@ -3,31 +3,32 @@ import React from "react";
 class Messages extends Component {
   renderMessage(message,displayedImageId,productOwner,auth) {
     const {userType, text,imageId,reciever,sender} = message;
-    console.log('sender',sender)
-    console.log('Reciever',reciever)
-    console.log('productOwner',productOwner)
-    console.log('signup user id',auth)
+    // console.log('sender',sender)
+    // console.log('Reciever',reciever)
+    // console.log('productOwner',productOwner)
+    // console.log('signup user id',auth)
 
     const seller='seller';
     // get the uid of the signined up user and check if he writes amessage to this prouduct
-    console.log('messsages nnnnnnnnnn',userType);
+    // console.log('messsages nnnnnnnnnn',userType);
   if(!seller.localeCompare(userType) ){
-    if(!auth.localeCompare(sender)){ 
-      if(!displayedImageId.localeCompare(imageId) ){ 
+    // if(!auth.localeCompare(sender) || !auth.localeCompare(reciever)){ 
+      if(!displayedImageId.localeCompare(imageId) ){ //if he is seller 
+        // then he writes only on his prouduct 
         return (
-          <li className=' seller Messages-message currentMember'>
+          <li className=' seller Messages-message  '>
             <span className="avatar" style={{backgroundColor: '#49B84C'}}
             />
             <div className="Message-content">
               <div className="username">
               </div>
-              <div className="text "  >{text}</div>
+              <div className="text " style={{backgroundColor:'#B2D5B4'}} >{text}</div>
             </div>
           </li>
         );}
         else{ return null}
-  }
-  else{console.log('i am not')}
+  // }
+  // else{console.log('i am not')}
   
   }
   else{
@@ -35,7 +36,7 @@ class Messages extends Component {
       if(!productOwner.localeCompare(reciever)){
         return (
           <li className= 'Messages-message Buyer '>
-            <span className="avatar" style={{backgroundColor: '#49B84C'}}
+            <span className="avatar" style={{backgroundColor: '#51CB7A '}}
             />
             <div className="Message-content">
               <div className="username">
