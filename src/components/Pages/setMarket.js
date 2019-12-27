@@ -3,36 +3,81 @@ import {sellerupload} from '../../store/actions/SellerUploadAction';
 import {getLocation} from '../../store/actions/LocationAction';
 import { withScriptjs, withGoogleMap, GoogleMap, Circle,Marker } from "react-google-maps";
 import {connect} from 'react-redux';
-import {compose} from 'redux';
-import { firestoreConnect } from 'react-redux-firebase';
-
 import Geocode from "react-geocode";
+import {setmarket} from '../../store/actions/setMarketAction';
 Geocode.setApiKey( "AIzaSyCd5GSrdhkRjDu53HCBVL7fh5QXa1-gIBE" );
 Geocode.enableDebug();
 
-class MapSeller extends Component {
+class SetMarket extends Component {
     state = {
         searched:'',
-        markerPosition:[],   
+        MarketName:'',
+        markerPosition: [],   
         mapPosition: {
             lat: -0.023559, lng: 37.90619300000003
-        },
-        markerFirst:false, 
-        fillColor:'red',
-        fillReq:''
+        }, 
+        north:'',
+        south:'',
+        east:'',
+        west:''
+        
+        
+
+         
     };
 
     setMark = e => {
         
         console.log('this is it',e.latLng)
-       this.setState({ 
-markerPosition: [...this.state.markerPosition,e.latLng],
-        pos:[e.latLng.lat(),e.latLng.lng()]
+       this.setState({ markerPosition: [...this.state.markerPosition,e.latLng],
+        pos:[e.latLng.lat(),e.latLng.lng()],
+        
         
     
         });
-        
-        
+        if(this.state.north===''){
+            this.setState({
+                north:e.latLng.lat(),
+                    south:e.latLng.lat(),
+                    east:e.latLng.lng(),
+                    west:e.latLng.lng(),
+            })
+        }
+        else{
+            let max=this.state.north
+            if(e.latLng.lat()>max){
+                max=e.latLng.lat()
+                this.setState({
+                    north:max
+                })
+                console.log('north',e.latLng.lat(),max)
+            }
+            
+            max=this.state.east
+            if(e.latLng.lng()>max){
+                max=e.latLng.lng()
+                this.setState({
+                    east:max
+                })
+                console.log('east',e.latLng.lng(),max)
+            }
+            let min= this.state.south
+            if(e.latLng.lat()<min){
+                min=e.latLng.lat()
+                this.setState({
+                    south:min
+                })
+            }
+            console.log(min,'south')
+            min=this.state.wast
+            if(e.latLng.lng()<min){
+                min=e.latLng.lng()
+                this.setState({
+                    west:min
+                })
+            }
+            
+        }
         console.log('the array ',this.state.pos)
     };
     handelChangeAuto=(e)=>{
@@ -40,6 +85,11 @@ markerPosition: [...this.state.markerPosition,e.latLng],
           searched:e.target.value,
         })
          }
+    handelChange=(e)=>{
+            this.setState({
+              MarketName:e.target.value,
+            })
+             }
     handleSubmit=(e)=>{
       
             e.preventDefault();
@@ -56,24 +106,6 @@ markerPosition: [...this.state.markerPosition,e.latLng],
                     })
                   )}
                 else {
-                    let flag=0
-                  console.log(this.props.Market)
-                  this.props.Market&&this.props.Market.map((element,index)=>{
-                    console.log(element)
-                    if(searchvalue===element.MarketName){
-                      
-                      this.setState({
-                        mapPosition:{
-                          lat:element.southWast.lat+(element.northEast.lat-element.southWast.lat)/2,
-                          lng:element.southWast.lng+(element.northEast.lng-element.southWast.lng)/2
-                        },
-                      })
-                      flag=1
-                      console.log('hello i am true')
-                    }
-                  })
-                    if(flag===0){
-                  
                     
                     Geocode.fromAddress(searchvalue).then(
                       
@@ -89,9 +121,7 @@ markerPosition: [...this.state.markerPosition,e.latLng],
                       error => {
                         console.error("error",error);
                       }
-                    )
-                    ;}
-                  
+                    );
                    }
                   
                    
@@ -104,32 +134,16 @@ markerPosition: [...this.state.markerPosition,e.latLng],
     onhandleSubmitform=e=>{
         e.preventDefault();
         
-        if(this.props.sellerInfo.discription===''||this.props.sellerInfo.PhoneNumber===''||this.props.sellerInfo.catagory===''||this.props.sellerInfo.marketName===''||this.props.sellerInfo.price===''||this.props.sellerInfo.businessName===''){
-          this.setState({
-            fillReq:'not Filed correctly',
-            fillColor:'red'
-        })
-        }
-        
-        else{
-
-          this.setState({
-            fillReq:'Product Successfully added',
-            fillColor:'green'
-        })
         this.state.markerPosition.map((Element,index)=>{
-            this.setState({
-                markerFirst:true
-            })
+            console.log(Element.lat(),Element.lng(),'here are the elements')
             
-            this.props.sellerInfo.lat=Element.lat()
-            this.props.sellerInfo.lng=Element.lng()
-            console.log('akjfbsgkfeudfhbjlg',this.props.sellerInfo)
-            this.props.sellerupload(this.props.sellerInfo)
-            this.props.getLocation([Element.lat(),Element.lng(),this.props.sellerInfo.businessName])
-
-        })}
-                
+            
+        })
+       
+            console.log('this is set',this.state.north,this.state.south,this.state.east,this.state.west)
+        this.props.setmarket({MarketName:this.state.MarketName,northEast:{lat:this.state.north,lng:this.state.east},southWast:{lat:this.state.south,lng:this.state.west}})
+        
+        
         
     }
     deleteMarkS = () => {
@@ -155,18 +169,7 @@ markerPosition: [...this.state.markerPosition,e.latLng],
                     // position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
                   
                      />)}
-                    {/* <Autocomplete
-                       style={{
-                        width: '50%',
-                        height: '40px',
-                        paddingLeft: '16px',
-                        marginTop: '10px',
-                        marginBottom: '100px'
-                       }}
-                      
-                    //    onPlaceSelected={ this.onPlaceSelected }
-                       types={['(regions)']}
-                      /> */}
+                   
                 </GoogleMap>
             ))
         );
@@ -177,7 +180,11 @@ markerPosition: [...this.state.markerPosition,e.latLng],
        
         return (
             <div >
-                
+                <div style={{marginLeft:'10%',marginBottom:'5%'}}>
+                <h4>Market Name:</h4>
+                <input type="text"  style={{width:'60%',marginRight:'10%'}}class="form-control "id='Market' onChange ={this.handelChange}  placeholder="Market name"/>
+				
+                </div>
                 <div style={{marginLeft:'10%',marginBottom:'5%'}}>
                 <input type="text"  style={{width:'60%',marginRight:'10%'}}class="form-control float-left"id='location' onChange ={this.handelChangeAuto}  placeholder="Location"/>
 				<button class="btn btn-primary  px-5 " onClick={this.handleSubmit}>Search</button>
@@ -196,26 +203,15 @@ markerPosition: [...this.state.markerPosition,e.latLng],
                 <button onClick={this.deleteMarkS}    class="btn btn-primary  px-5">Clear</button>
                 <button onClick={this.onhandleSubmitform} style={{marginLeft:'2%'}} class="btn btn-primary  px-5">Submit</button>
                 </div>
-                <div style={{marginLeft:'20%',marginTop:'8%',fontSize:'18px',color:'red'}}>
-                {this.state.fillReq}
-                </div>
             </div>
         );
     }
 }
-const mapStateToProps=(state)=>{
-    return{
-        Market:state.firestore.ordered.setMarket,
-    }
-  }
+
   const mapDispatchToProps=(dispatch)=>{
     return{
-        sellerupload :(uploads)=>dispatch(sellerupload(uploads)),
-        getLocation :(location)=>dispatch(getLocation(location))
+        setmarket :(uploads)=>dispatch(setmarket (uploads)),
     }
   }
  
-  export default compose(connect(mapStateToProps,mapDispatchToProps),firestoreConnect([
-    {collection:'sellerLocation',orderedBy:['time','desc']},
-    {collection:'setMarket',orderedBy:['time','desc']}
-  ]))(MapSeller);
+  export default connect(null,mapDispatchToProps)(SetMarket);

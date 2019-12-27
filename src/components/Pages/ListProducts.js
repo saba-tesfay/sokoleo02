@@ -68,7 +68,7 @@ const  ListProducts=(props) => {
        <div class="row"  style={{marginLeft:'10%',paddingBottom:'3%'}}>
       <div class="col-md-6 col-lg-6 ">
        <div class="product">
-       <Carousel  autoPlay   responsive={responsive} showArrows={true}   showIndicators={true} showThumbs={false}>
+       <Carousel  autoPlay   responsive={responsive} showArrows={true}  infinite="true"  showIndicators={true} showThumbs={false}>
               {list.photo&&list.photo.map((image,i)=>{
                return ( 
              
@@ -181,7 +181,7 @@ Product Description </h5>
          </div>
   <div class="col-md-6 col-lg-6">
             <div class="product">
-          <Carousel autoPlay   infiniteLoop responsive={responsive} showArrows={true} showThumbs={false}  dotColor={'red'} swipeable style={{backgroundColor:'red'}}
+          <Carousel autoPlay   infiniteLoop responsive={responsive} showArrows={true} infinite="true"  showThumbs={false}  dotColor={'red'} swipeable style={{backgroundColor:'red'}}
           renderDotsOutside={true}>
                {list.photo&&list.photo.map((image,i)=>{
                return ( 

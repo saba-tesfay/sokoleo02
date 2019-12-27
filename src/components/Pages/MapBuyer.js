@@ -13,55 +13,7 @@ class Mapb extends Component{
             lat: -0.023559, lng: 37.90619300000003
         },  
     };
-    handelChangeAuto=(e)=>{
-        this.setState({
-          searched:e.target.value,
-        })
-         }
-    handleSubmit=(e)=>{
-      
-            e.preventDefault();
-            
-            const search=(props,searchvalue)=>{
-                console.log(searchvalue)
-                    
-                  if (searchvalue==='')
-                  {return(
-                    this.setState({
-                        mapPosition: {
-                            lat: -0.023559, lng: 37.90619300000003
-                        },
-                    })
-                  )}
-                else {
-                    
-                    Geocode.fromAddress(searchvalue).then(
-                      
-                      response => {
-						const { lat, lng,northeast } = response.results[0].geometry.location;
-						console.log("results",lat)
-					   const r= response.results[0].geometry.bounds.northeast
-					   const c=response.results[0].geometry.bounds.southwest
-						this.setState({
-						  northEast:r,
-						  southWest:c
-						})
-                        
-                      },
-                      error => {
-                        console.error("error",error);
-                      }
-                    );
-                   }
-                  
-                   
-                };
-                search(this.props,this.state.searched)	
-              console.log(this.state.mapPosition,'this should work')
-              
-               
-         }
-
+   
 	
 	
 	/**
@@ -91,7 +43,7 @@ class Mapb extends Component{
 				
 			
             props.marks.map((mark, index) =><>
-			{console.log('let this work',mark[2],mark[1])}
+			{console.log('let this work',mark[2],mark[1],mark[0])}
 			 <Marker key={index} 
             position={{ lat: mark[0], lng: mark[1]  }}
           

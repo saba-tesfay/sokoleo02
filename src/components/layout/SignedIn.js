@@ -11,7 +11,7 @@ const SignedIn = (props) => {
         <AboveNavbar/>     
 <nav  class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 <div class="container">
-<a class="navbar-brand"  href="./">Sokonileo</a>
+<a class="navbar-brand"  href="./"><i  class="ion-ios-home pr-2"/>Sokoleo</a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 <span class="oi oi-menu"></span> Menu</button>
 <div class="collapse navbar-collapse" id="ftco-nav">
@@ -25,9 +25,9 @@ const SignedIn = (props) => {
 </li>:<li class="nav-item"><a href="./profile" class="nav-link"><i  class="ion-ios-person pr-2"/>Profile</a></li>}
 
 <li class="nav-item"><a href="./contactus" class="nav-link"><i  class="ion-ios-call pr-2"/>Contact us</a></li>
-<li class="nav-item"><a href="./aboutus" class="nav-link"><i  class="ion-ios-home pr-2"/>About Us</a></li>
-{(profile.userType==='Buyer')?<li class="nav-item"><a href="./mapbuyer"   class="nav-link"><i  class="ion-ios-home pr-2"/>Map</a></li>:null}
-<li class="nav-item"><a href=""onClick={props.signOut}  class="nav-link">Log Out</a></li>
+<li class="nav-item"><a href="./aboutus" class="nav-link"><i  class="ion-ios-alert pr-2"/>About Us</a></li>
+{(profile.userType==='Buyer')?<li class="nav-item"><a href="./mapbuyer"   class="nav-link"><i  class="ion-ios-map pr-2"/>Map</a></li>:null}
+<li class="nav-item"><a href=""onClick={props.signOut}  class="nav-link"><i  class="ion-ios-log-out pr-2"/>Log Out</a></li>
 </ul>
 </div>
 </div>

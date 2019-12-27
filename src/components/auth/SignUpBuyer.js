@@ -14,6 +14,7 @@ class SignUpBuyer extends Component {
       PhoneNum:'',
       AlternateNum:'',
       userType:'Buyer',
+      photo:[]
       
   }
   

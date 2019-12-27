@@ -64,7 +64,25 @@ class Products extends Component {
           }
        
           if(searchedLocation!==''){
-            
+            let flag=0
+                  console.log(this.props.Market)
+                  this.props.Market&&this.props.Market.map((element,index)=>{
+                    console.log(element)
+                    if(searchvalue===element.MarketName){
+                      
+                      this.setState({
+                        mapPosition:{
+                          lat:element.southWast.lat+(element.northEast.lat-element.southWast.lat)/2,
+                          lng:element.southWast.lng+(element.northEast.lng-element.southWast.lng)/2
+                        },
+                        northEast:element.northEast,
+                        southWest:element.southWast
+                      })
+                      flag=1
+                      console.log('hello i am true')
+                    }
+                  })
+                    if(flag===0){
             Geocode.fromAddress(searchedLocation).then(
               
               response => {
@@ -80,7 +98,7 @@ class Products extends Component {
               error => {
                 console.error("error",error);
               }
-            );
+            );}
            }
            
            console.log(searchvalue,'hellooojskdfjdjs')  
@@ -162,6 +180,7 @@ const mapStateToProps=(state,ownProps)=>{
     location:state.firestore.ordered.sellerLocation,
     authError: state.auth.authError,
     auth:state.firebase.auth,
+    Market:state.firestore.ordered.setMarket,
     profile:state.firebase.profile
 }
 }
@@ -169,6 +188,7 @@ const mapStateToProps=(state,ownProps)=>{
 export default compose(connect(mapStateToProps,null),  firestoreConnect([
   {collection:'sellerUpload',orderedBy:['time','desc']},
   {collection:'sellerLocation',orderedBy:['time','desc']},
+  {collection:'setMarket',orderedBy:['time','desc']}
 ]))(Products);
 
 
