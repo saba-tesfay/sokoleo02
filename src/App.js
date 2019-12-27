@@ -14,10 +14,8 @@ import SignUpSeller from './components/auth/SignUpSeller';
 import SignUpBuyer from './components/auth/SignUpBuyer';
 import Home from './components/Pages/HomePage';
 import Nomatch from './Nomatch';
-import R from './components/Pages/t';
 import Profile from './components/Pages/Profile'
 import EditProfile from './components/Pages/EditProfile'
-import MapSeller from './components/Pages/MapSeller'
 import MapBuyer from './components/Pages/MapBuyerRedirect'
 import setMarket from './components/Pages/SetMarketRedirect';
 function App() {
@@ -36,8 +34,7 @@ function App() {
           <Route path='/comment/:id' component={Comment}/>
           <Route path='/signupBuyer'component={SignUpBuyer}/> 
           <Route path='/signupSeller'component={SignUpSeller}/>
-          <Route path='/addproducts'component={SellerUpload}/>      
-          <Route path='/mapSeller'component={MapSeller}/>
+          <Route path='/addproducts'component={SellerUpload}/> 
           <Route path='/mapBuyer'component={MapBuyer}/>
           <Route path='/profile'component={Profile}/>
           <Route path='/editprofile'component={EditProfile}/>

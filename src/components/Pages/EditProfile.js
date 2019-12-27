@@ -1,21 +1,23 @@
 import React, { Component } from 'react'
-import {sellerupload} from '../../store/actions/SellerUploadAction';
+import {editProfile} from '../../store/actions/editProfileAction';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom'
+import {Input} from 'antd'
+
+import 'antd/dist/antd.css';
 import fbConfig from'../../config/fbConfig';
 import { Avatar, Typography, Button, Col } from 'antd';
 const { Title } = Typography;
 class EditProfile extends Component {
     state={
-        businessName:'',
-        marketName:'',
-        price:'',
-        comment:'',
-        discription:'',
-        catagory:'',
-        email:'',
-        contactperson:'',
-        photo:[]
+        name:'',
+        PhoneNum:'',
+        AlternateNum:'',
+        photo:[],
+        password:'',
+        confirmPassword:'',
+        passwordError:'',
+        flag:'black'
       }
     
     handelChange=(e)=>{
@@ -24,13 +26,51 @@ class EditProfile extends Component {
         })
      }
  handleSubmit=(e)=>{
-        if (this.file.files.length>2) {
+        if (this.file.files.length>1) {
       
-          alert("Please select max 4 photos.");
+          alert("Please select only one photo");
+          return
         }
+        
       e.preventDefault();
+      
+      
+      if(this.state.name===''){
+        this.setState({
+          name:this.props.profile.name
+        })
+        console.log(this.props.profile.name.length,'my name')
+      }
+      if(this.state.PhoneNum===''){
+        this.setState({
+          PhoneNum:this.props.profile.password
+        })
+      }
+      if(this.state.AlternateNum===''){
+        this.setState({
+          AlternateNum:this.props.profile.AlternateNum
+        })
+      }
+      if(this.state.password!==this.state.confirmPassword){
+        console.log('password error')
+        this.setState({
+          passwordError:'password mismatch'
+        })
+        return
+     }
+     if(this.state.password.length<6&&this.state.password.length!==0){
+       console.log('password error')
+       this.setState({
+         passwordError:'Password Too Short'
+       })
+       return
+    }
+      
       const storageRef=fbConfig.storage().ref();
-    
+      if(this.file.files.length>0)
+      {this.setState({
+        flag:'red'
+      })}
       for (var i =0 ; i <this.file.files.length; i++) {
        const file=this.file.files[i]
       const mainimage=storageRef.child(this.file.files[i].name)
@@ -39,13 +79,14 @@ class EditProfile extends Component {
             let photos=this.state.photo
             photos.push(url)
               this.setState({
-               photo:photos
+               photo:photos,
+               flag:'green'
               })
           })
          
       })
   }
-  this.props.sellerupload(this.state)
+  this.props.editProfile(this.state)
        console.log("upload",this.state)
       }
 
@@ -53,6 +94,7 @@ class EditProfile extends Component {
           this.file=ref
          }
    render() {
+    if(!this.props.auth.uid) return<Redirect to='/'/>
     const styles = {
         color:'#000',
         fontFamily:'poppins,Arial,sans-serif',
@@ -72,54 +114,62 @@ class EditProfile extends Component {
              <form class="p-5">
              <Col style={{ marginBottom: '80px' }} align='center'>
     <Avatar size={100} icon='user' />
-    <Title style={{ fontSize: '14px', margin: '10px 0' }}>John Smith Keller</Title>
-    <Button shape='round' style={{backgroundColor:'rgb(130, 174, 70)',color:'white'}}>Upload photo</Button>
-     <input type="file" ref={this.setRef} multiple   accept="image/*" style={{position:"absolute",left:'0',top:'0', opacity:'0',borderRadius:'10px'}}/>
+    <Title style={{ fontSize: '14px', margin: '10px 0' }}></Title>   
+    <div class="col-sm-6 " >
+                          <div class="form-group" style={{position: 'relative',  overflow:' hidden', display: 'inline-block'}}>
+                          <button type="button" class='btn btn-primary px-4' style={{backgroundColor:'gray',cursor:'pointer',color:'white'}}>Browse Photo</button>
+     
+                          
+                          <input type="file" ref={this.setRef} multiple   accept="image/*"
+                          style={{position:"absolute",left:'0',top:'0', opacity:'0',borderRadius:'10px'}}/>
+                      </div>
+      </div>
+      <div class="col-sm-6 ">
+      {this.state.flag!=='green'?<>{this.state.flag==='black'?<button type="button" onClick={this.handleSubmit} class="btn btn-primary px-4 float-right">Upload</button>:<lable class="px-4 py-2 float-right" style={{borderRadius:'20px',backgroundColor:'#82ae46'}}>Uploading</lable>}</>:
+    <lable class="px-4 py-2 float-right" style={{borderRadius:'20px',backgroundColor:'#82ae46'}}>Uploaded</lable>}</div>
     </Col>
     
              <div class="form-group row">
                 <div class="col-sm-6">
                         <label for="inputbusinessname" style={styles}>Name</label>
-                        <input type="text"  onChange={this.handelChange} class="form-control" id="businessName" placeholder="Name of your Business"/>
+                        <input type="text"  onChange={this.handelChange} class="form-control" id="name" defaultValue={this.props.profile.name}/>
                     </div>
                     <div class="col-sm-6">
                         <label for="inputmarketName" style={styles}>Phone number</label>
-                        <input type="text" onChange={this.handelChange}  class="form-control" id="marketName" placeholder="Name of the Market"/>
+                        <input type="text" onChange={this.handelChange}  class="form-control" id="PhoneNum" defaultValue={this.props.profile.PhoneNum}/>
                     </div>
     
                 </div>
+                <div class="form-group row" style={styles}>
+                    <div class="col-sm-6">
+                        <label for="inputContactperson">Alternative Phone number </label>
+                        <input type="text" onChange={this.handelChange} class="form-control" id="AlternateNum" defaultValue={this.props.profile.AlternateNum}/>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="inputmarketName" style={styles}>New Password</label>
+                        <Input.Password id="password"  className="psw-input" placeholder="Password" onChange={this.handelChange} required/>
+                        </div>
+                    
+                    </div>
                 <div class="form-group row">
                 <div class="col-sm-6">
-                        <label for="inputbusinessname" style={styles}>Name of your Business</label>
-                        <input type="text"  onChange={this.handelChange} class="form-control" id="businessName" placeholder="Name of your Business"/>
+                        {/* <label for="inputbusinessname" style={styles}>Email</label>
+                        <input type="text"  onChange={this.handelChange} class="form-control" id="email" placeholder="Email"/> */}
                     </div>
                     <div class="col-sm-6">
-                        <label for="inputmarketName" style={styles}>Name of the Market</label>
-                        <input type="text" onChange={this.handelChange}  class="form-control" id="marketName" placeholder="Name of the Market"/>
-                    </div>
+                        <label for="inputmarketName" style={styles}>Password</label>
+                        <Input.Password id="confirmPassword"  className="psw-input" placeholder="Confirm Password" onChange={this.handelChange} required/>
+                        <div style={{fontSize:'18px',color:'red'}}>
+                {this.state.passwordError}
+                </div>
+                        </div>
+                  
     
                 </div>
-                <div class="form-group row" style={styles}>
-                    <div class="col-sm-6">
-                        <label for="inputContactperson">Name For contact person</label>
-                        <input type="text" onChange={this.handelChange} class="form-control" id="contactperson" placeholder="Name For contact person"/>
-                    </div>
-                    <div class="col-sm-6" >
-                              <label for="inputemail">Email</label>
-                              <input type="email" onChange={this.handelChange} class="form-control" id="email" placeholder="Email (optional)"/>
-                          </div>
-                    </div>
-                <div class="form-group row" style={styles}>
-                    <div class="col-sm-6">
-                        <label for="inputContactNumber">Cell phone </label>
-                        <input type="number" onChange={this.handelChange} class="form-control" id="contactNumber" placeholder="Contact Number"/>
-                    </div>
-                    <div class="col-sm-6">
                 
-                </div>
-                </div>
+                
              
-                <button type="button" class="btn btn-primary px-4 float-right">Save</button>
+                <button type="button" onClick={this.handleSubmit}class="btn btn-primary px-4 float-right">Save</button>
             </form>
         </div>
     </div>
@@ -133,13 +183,14 @@ class EditProfile extends Component {
 const mapStateToProps=(state)=>{
     return {
       auth:state.firebase.auth,
+      profile:state.firebase.profile,
       seller:state.firestore.data.sellerUpload,
     }
   }
-const mapDispatchToProps=(dispatch)=>{
- 
-      return {
-        sellerupload :(uploads)=>dispatch(sellerupload(uploads))
-      }
+  const mapDispatchToProps=(dispatch)=>{
+    return{
+      
+        editProfile:(newUser)=>dispatch(editProfile(newUser))
+    }
   }
 export default connect(mapStateToProps,mapDispatchToProps)(EditProfile);

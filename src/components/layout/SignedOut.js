@@ -13,7 +13,7 @@ const SignedOut = (props) => {
 <span class="oi oi-menu"></span> Menu</button>
 <div class="collapse navbar-collapse" id="ftco-nav">
 <ul class="navbar-nav ml-auto">
-<li class="nav-item"><a href="./signin" class="nav-link"><i  class="ion-ios-person pr-2"/>Log In</a></li>
+<li class="nav-item"><a href="./signin" class="nav-link"><i  class="ion-ios-log-in pr-2"/>Log In</a></li>
 
 <li class="nav-item"><a href="./contactus" class="nav-link"><i  class="ion-ios-call pr-2"/>Contact us</a></li>
 <li class="nav-item"><a href="./aboutus" class="nav-link"><i  class="ion-ios-home pr-2"/>About Us</a></li>

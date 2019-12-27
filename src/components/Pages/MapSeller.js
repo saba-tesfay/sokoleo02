@@ -5,7 +5,7 @@ import { withScriptjs, withGoogleMap, GoogleMap, Circle,Marker } from "react-goo
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
-import './Products.css';
+
 import Geocode from "react-geocode";
 Geocode.setApiKey( "AIzaSyCd5GSrdhkRjDu53HCBVL7fh5QXa1-gIBE" );
 Geocode.enableDebug();
@@ -13,10 +13,13 @@ Geocode.enableDebug();
 class MapSeller extends Component {
     state = {
         searched:'',
-        markerPosition: [],   
+        markerPosition:[],   
         mapPosition: {
             lat: -0.023559, lng: 37.90619300000003
-        },  
+        },
+        markerFirst:false, 
+        fillColor:'red',
+        fillReq:''
     };
 
     setMark = e => {
@@ -100,8 +103,24 @@ markerPosition: [...this.state.markerPosition,e.latLng],
          }
     onhandleSubmitform=e=>{
         e.preventDefault();
+        
+        if(this.props.sellerInfo.discription===''||this.props.sellerInfo.PhoneNumber===''||this.props.sellerInfo.catagory===''||this.props.sellerInfo.marketName===''||this.props.sellerInfo.price===''||this.props.sellerInfo.businessName===''){
+          this.setState({
+            fillReq:'not Filed correctly',
+            fillColor:'red'
+        })
+        }
+        
+        else{
+
+          this.setState({
+            fillReq:'Product Successfully added',
+            fillColor:'green'
+        })
         this.state.markerPosition.map((Element,index)=>{
-            
+            this.setState({
+                markerFirst:true
+            })
             
             this.props.sellerInfo.lat=Element.lat()
             this.props.sellerInfo.lng=Element.lng()
@@ -109,8 +128,8 @@ markerPosition: [...this.state.markerPosition,e.latLng],
             this.props.sellerupload(this.props.sellerInfo)
             this.props.getLocation([Element.lat(),Element.lng(),this.props.sellerInfo.businessName])
 
-        })
-        
+        })}
+                
         
     }
     deleteMarkS = () => {
@@ -159,7 +178,7 @@ markerPosition: [...this.state.markerPosition,e.latLng],
         return (
             <div >
                 
-                <div style={{marginLeft:'10%'}}>
+                <div style={{marginLeft:'10%',marginBottom:'5%'}}>
                 <input type="text"  style={{width:'60%',marginRight:'10%'}}class="form-control float-left"id='location' onChange ={this.handelChangeAuto}  placeholder="Location"/>
 				<button class="btn btn-primary  px-5 " onClick={this.handleSubmit}>Search</button>
                 </div>
@@ -176,6 +195,9 @@ markerPosition: [...this.state.markerPosition,e.latLng],
                 <div style={{marginLeft:'10%'}}>
                 <button onClick={this.deleteMarkS}    class="btn btn-primary  px-5">Clear</button>
                 <button onClick={this.onhandleSubmitform} style={{marginLeft:'2%'}} class="btn btn-primary  px-5">Submit</button>
+                </div>
+                <div style={{marginLeft:'20%',marginTop:'8%',fontSize:'18px',color:'red'}}>
+                {this.state.fillReq}
                 </div>
             </div>
         );
