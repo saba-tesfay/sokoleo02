@@ -14,10 +14,10 @@ import SignUpSeller from './components/auth/SignUpSeller';
 import SignUpBuyer from './components/auth/SignUpBuyer';
 import Home from './components/Pages/HomePage';
 import Nomatch from './Nomatch';
-import R from './components/Pages/t';
 import Profile from './components/Pages/Profile'
-import MapSeller from './components/Pages/MapSeller'
+import EditProfile from './components/Pages/EditProfile'
 import MapBuyer from './components/Pages/MapBuyerRedirect'
+import setMarket from './components/Pages/SetMarketRedirect';
 function App() {
   return (
     <div className="App">  
@@ -29,14 +29,15 @@ function App() {
         <Route path='/contactus'component={ContactUs}/>
           <Route path='/aboutus'component={AboutUs}/> 
           <Route path='/signin'component={SignIn}/> 
+          <Route path='/setmarket'component={setMarket}/> 
           <Route path='/chat/:id' component={Chat}/>
           <Route path='/comment/:id' component={Comment}/>
           <Route path='/signupBuyer'component={SignUpBuyer}/> 
           <Route path='/signupSeller'component={SignUpSeller}/>
-          <Route path='/sellerupload'component={SellerUpload}/>      
-          <Route path='/mapSeller'component={MapSeller}/>
+          <Route path='/addproducts'component={SellerUpload}/> 
           <Route path='/mapBuyer'component={MapBuyer}/>
           <Route path='/profile'component={Profile}/>
+          <Route path='/editprofile'component={EditProfile}/>
           <Route exact path='*' component={Nomatch} />
         </Switch>
         <Footer/>

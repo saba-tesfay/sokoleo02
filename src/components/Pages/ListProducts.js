@@ -36,6 +36,7 @@ const responsive = {
 const  ListProducts=(props) => {
   const {seller,location,southWest,northEast}=props
   let flag=0
+  let counter=[]
   let url = window.location.href;
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
    const twitterUrl = `https://twitter.com/sharer/sharer.php?u=${url}`;
@@ -43,27 +44,31 @@ const  ListProducts=(props) => {
   const telegramUrl=`https://telegram.me/share/url?url=${url}`
   const whatsupUrl=`whatsapp://send?text=${url}`
   let shareUrl='https://www.facebook.com/'
+  
   return(
     <div>
  
 {seller &&seller.map((list,index)=>{
       flag=0
-            if((list.lat>northEast.lat || list.lat<southWest.lat)||(list.lng>northEast.lng || list.lng<southWest.lng))
+      if(northEast&&southWest)
+            {if((list.lat>northEast.lat || list.lat<southWest.lat)||(list.lng>northEast.lng || list.lng<southWest.lng))
             {
               console.log('i have found one',list.lat,northEast.lat,southWest.lat,list.businessName)
               flag=1
-            }
+            }else{
+              counter.push(list)
+            }}
           
       if(flag===1){
         return(<></>)
       }
       else if (index%2===0){
         return(
-      < div class="container">
+      < div class="container" style={{minHeight:'400px'}}>
        <div class="row"  style={{marginLeft:'10%',paddingBottom:'3%'}}>
       <div class="col-md-6 col-lg-6 ">
        <div class="product">
-       <Carousel  autoPlay   responsive={responsive} showArrows={true}   showIndicators={true} showThumbs={false}>
+       <Carousel  autoPlay   responsive={responsive} showArrows={true}  infinite="true"  showIndicators={true} showThumbs={false}>
               {list.photo&&list.photo.map((image,i)=>{
                return ( 
              
@@ -75,9 +80,9 @@ const  ListProducts=(props) => {
              </div>
                    </div>
                       <div class="col-md-6 col-lg-4" >
-                      <div class="product"  style={{border:'0',position:'absolute'}}>
+                      <div class="product"  style={{border:'0'}}>
       <div>
-      <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}>Seller</h3>
+      <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}>{list.businessName}</h3>
     <h5 style={{color:'#82ae46',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}>Catagory:{list.catagory}</h5>
      <h6 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}>
        @{list.marketName}</h6>
@@ -91,13 +96,13 @@ Product Description </h5>
                      <p style={{paddingTop:'27%'}}><span>Price:${list.price}</span></p>
                       </div>
                       </div>
-                 <div class=" d-flex px-3 ">
+                 <div class=" d-flex px-3 ">ios
                  <div class="m-auto d-flex" style={{paddingTop:'20%'}}>
                               <Link to={'/comment/' + list.id} class="heart d-flex justify-content-center align-items-center  pr-3 ">
                               <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-heart"></i></span>
                               </Link>
-                              <Link to={'/comment/' + list.id}  class="add-to-cart d-flex justify-content-center align-items-center text-center pr-3">
-                              <span><i style={{fontSize:'200%',color:'#82ae46'}}class="ion-ios-mail"></i></span>
+                              <Link to={'/comment/' + list.id} class="heart d-flex justify-content-center align-items-center  pr-3 ">
+                            <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-mail"></i></span>
                               </Link>
                               <Link to={'/chat/' + list.id}  class="buy-now d-flex justify-content-center align-items-center mx-1  pr-3">
                               <span><i  style={{fontSize:'200%',color:'#82ae46'}} class="ion-ios-chatbubbles" ></i></span>
@@ -123,14 +128,14 @@ Product Description </h5>
         )}else{
      
    return(
-    < div class="container">
+    < div class="container"style={{minHeight:'400px'}}>
      <div class="row"  style={{marginLeft:'10%',paddingBottom:'3%'}}>
      <div class="col-md-6 col-lg-4 " >
        <div class="product pl-3"  style={{border:'0'}}>
        <div>
          </div>
          <div>
-      <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}>Seller</h3>
+      <h3 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'400'}}>{list.businessName}</h3>
     <h5 style={{color:'#82ae46',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}>Catagory:{list.catagory}</h5>
      <h6 style={{color:'#000',fontFamily:'poppins,Arial,sans-serif',lineHeight:'1.5', fontweight:'30'}}>
        @{list.marketName}</h6>
@@ -151,11 +156,12 @@ Product Description </h5>
                         <Link to={'/comment/' + list.id} class="heart d-flex justify-content-center align-items-center  pr-3 ">
                         <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-heart"></i></span>
                         </Link>
-                        <Link to={'/comment/' + list.id}  class="add-to-cart d-flex justify-content-center align-items-center text-center pr-3">
-                        <span><i style={{fontSize:'200%',color:'#82ae46'}}class="ion-ios-mail"></i></span>
+                        <Link to={'/comment/' + list.id} class="heart d-flex justify-content-center align-items-center  pr-3 ">
+                        <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-mail"></i></span>
                         </Link>
-                        <Link to={'/chat/' + list.id}  class="buy-now d-flex justify-content-center align-items-center mx-1  pr-3">
-                        <span><i  style={{fontSize:'200%',color:'#82ae46'}} class="ion-ios-chatbubbles" ></i></span>
+                        
+                        <Link to={'/chat/' + list.id} class="heart d-flex justify-content-center align-items-center  pr-3 ">
+                        <span><i  style={{fontSize:'200%',color:'#82ae46'}}  class="ion-ios-chatbubbles"></i></span>
                         </Link>
                         <div class="dropdown dropright">
                               <a href="#"  class=" dropdown-toggle mt-5 " id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" class="buy-now d-flex justify-content-center align-items-center mx-1 pr-3">
@@ -175,7 +181,7 @@ Product Description </h5>
          </div>
   <div class="col-md-6 col-lg-6">
             <div class="product">
-          <Carousel autoPlay   infiniteLoop responsive={responsive} showArrows={true} showThumbs={false}  dotColor={'red'} swipeable style={{backgroundColor:'red'}}
+          <Carousel autoPlay   infiniteLoop responsive={responsive} showArrows={true} infinite="true"  showThumbs={false}  dotColor={'red'} swipeable style={{backgroundColor:'red'}}
           renderDotsOutside={true}>
                {list.photo&&list.photo.map((image,i)=>{
                return ( 
@@ -189,7 +195,9 @@ Product Description </h5>
   </ div>
       )
         }
+
   } )}
+  {counter.length===0?<h2 style={{textAlign:'center'}}>Product not found</h2>:null}
    </div>
     )
 

@@ -45,7 +45,6 @@ const responsive = {
    }
    handleLike=(e)=>{
      this.state.totalLike++;
-    //  console.log('like is imageid',e)
      this.props.addLike(e)
    }
    countLike=(like,imageId)=>{
@@ -69,7 +68,6 @@ const responsive = {
           {this.countComment(comments,imageId)}
         }       
       }
-      console.log('userrrr',auth);
       if(!auth.uid) return <Redirect to='/signin'/>
       if(uploadedPhoto||comments){
          if(uploadedPhoto){
@@ -132,10 +130,11 @@ const responsive = {
  }
   
  const mapStateToProps=(state,ownProps)=>{
-   console.log('ownProps from commentbox',state)
    const id=ownProps.match.params.id;
+ 
    const commentss=state.firestore.data.sellerUpload;
    const comment=commentss?commentss[id]:null
+
    return{
      imageId:id,
       uploadedPhoto:comment,

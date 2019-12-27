@@ -6,18 +6,14 @@ Geocode.enableDebug();
 
 class Mapb extends Component{
 
-	constructor( props ){
-		super( props );
-		this.state = {
-			searched: '',
-			mapPosition: {
-				lat: this.props.center.lat,
-				lng: this.props.center.lng
-			},
-			
-		}
-	}
-
+	state = {
+        searched:'',
+        markerPosition: [],   
+        mapPosition: {
+            lat: -0.023559, lng: 37.90619300000003
+        },  
+    };
+   
 	
 	
 	/**
@@ -47,20 +43,20 @@ class Mapb extends Component{
 				
 			
             props.marks.map((mark, index) =><>
-			{console.log('let this work',mark[2],mark[1])}
+			{console.log('let this work',mark[2],mark[1],mark[0])}
 			 <Marker key={index} 
-            google={this.props.google}
             position={{ lat: mark[0], lng: mark[1]  }}
           
              />
              <InfoWindow
              onClose={props.onInfoWindowClose}
-             position={{ lat: ( mark[0]+ 0.0108 ), lng: mark[1]}}
+             position={{ lat: ( mark[0]+ 0.0608 ), lng: mark[1]}}
             >
              <div>
               {mark[2]}
              </div>
-            </InfoWindow></>)}
+			</InfoWindow></>)
+		}
             
 						
 					</GoogleMap>
@@ -72,8 +68,7 @@ class Mapb extends Component{
 		if( this.props.center.lat !== undefined ) {
 			map = <div>
 				{console.log('2hello',this.state.mapPosition)}
-				<input type="text" class="form-control trys" id='location' onChange ={this.handelChange}  placeholder="Location"/>
-				<button class="search-button" onClick={this.handleSubmit}>Search</button>
+				
 				<AsyncMap
 					googleMapURL="http://maps.googleapis.com/maps/api/js?key=AIzaSyCd5GSrdhkRjDu53HCBVL7fh5QXa1-gIBE&libraries=places"
 					

@@ -39,17 +39,16 @@ const Map = withScriptjs(
 
 class SellerUpload extends Component {
     state={
-      price:'',
-       photo:[],
-        lat:'',
-        lng:'',
         businessName:'',
         marketName:'',
-        description:'',
+        price:'',
         catagory:'',
-        email:'',
-        contactperson:'',
-         progress:0
+        PhoneNumber:'',
+        photo:[],
+        lat:'',
+        lng:'',
+        discription:'',
+        flag:'black'
       }
     
     handelChange=(e)=>{
@@ -61,7 +60,14 @@ class SellerUpload extends Component {
  }
 
       handleSubmit=(e)=>{
-    
+        if (this.file.files.length>4) {
+      
+            alert("Please select maximum of 4 photos");
+            return
+          }
+          this.setState({
+              flag:'red'
+          })
       e.preventDefault();
       const storageRef=fbConfig.storage().ref();
       for (var i =0 ; i <this.file.files.length; i++) {
@@ -72,7 +78,8 @@ class SellerUpload extends Component {
             let photos=this.state.photo
             photos.push(url)
               this.setState({
-               photo:photos
+               photo:photos,
+               flag:'green'
               })
           })
          
@@ -83,16 +90,16 @@ class SellerUpload extends Component {
       //  this.props.history.push('/')
        console.log("upload",this.state)
       }
-  handleUpload=(e)=>{
-    
-      }
+ 
       setRef=ref=>{
           this.file=ref
+          
       }
     render() {
-        const {auth}=this.props
+        const {auth,profile}=this.props
         const {seller}=this.props
-        
+        if(profile.userType==='Buyer') return <Redirect to='/'/>
+        if(!auth.uid) return<Redirect to='/'/>
           const styles = {
               color:'#000',
               fontFamily:'poppins,Arial,sans-serif',
@@ -101,6 +108,7 @@ class SellerUpload extends Component {
               fontSize:'18px'
       
             }
+            console.log(this.state.photo)
             return (
            <div>
            <section class="ftco-section contact-section bg-light">
@@ -109,72 +117,61 @@ class SellerUpload extends Component {
           <div class="row ">
          <div class="col-md-10 mx-auto bg-white" >
          <h2 style={styles}  class='pb-2 pt-4 text-center'>Add your Products</h2>
-                   <form class="p-5">
-                      <div class="form-group row">
-                      <div class="col-sm-6">
-                              <label for="inputbusinessname" style={styles}>Name of your Business</label>
-                              <input type="text"  onChange={this.handelChange} class="form-control" id="businessName" placeholder="Name of your Business"/>
-                          </div>
-                          <div class="col-sm-6">
-                              <label for="inputmarketName" style={styles}>Name of the Market</label>
-                              <input type="text" onChange={this.handelChange}  class="form-control" id="marketName" placeholder="Name of the Market"/>
-                          </div>
-          
-                      </div>
-                      <div class="form-group row" style={styles}>
-                      <div class="col-sm-6">
-                              <label for="inputDiscription">description</label>
-                              <textarea id="description"  onChange={this.handelChange} cols="30" rows="2" class="form-control" placeholder="Enter comment (optional)"/>
-                          </div>
-                          <div class="col-sm-6">
-                              <label for="inputCatagory">Catagory</label>
-                              <input type="text"onChange={this.handelChange} class="form-control" id="catagory" placeholder="Catagory"/>
-                          </div>
-                        
-                      </div>
-                      <div class="form-group row" style={styles}>
-                          <div class="col-sm-6">
-                              <label for="inputDiscription">description</label>
-                              <textarea id="description"  onChange={this.handelChange} cols="30" rows="2" class="form-control" placeholder="Enter comment (optional)"/>
-                          </div>
-                          <div class="col-sm-6">
-                          <label for="inputPrice">Price</label>
-                              <input type="number" onChange={this.handelChange} class="form-control" id="price" placeholder="Price"/>
-                          </div>
-                      </div>
-                      <div class="form-group row" style={styles}>
-                          <div class="col-sm-6">
-                              <label for="inputContactperson">Name For contact person</label>
-                              <input type="text" onChange={this.handelChange} class="form-control" id="contactperson" placeholder="Name For contact person"/>
-                          </div>
-                          <div class="col-sm-6">
+         <form class="p-5">
+
+<div class="form-group row">
+   <div class="col-sm-6">
+           <label for="inputbusinessname" style={styles}>Name of Products</label>
+           <input type="text"  onChange={this.handelChange} class="form-control" id="businessName" placeholder="Name of your Business" required/>
+       </div>
+       <div class="col-sm-6">
+           <label for="inputPhoneNumber" style={styles}>Phone number</label>
+           <input type="text" onChange={this.handelChange}  class="form-control" id="PhoneNumber" placeholder="PhoneNumber" required/>
+       </div>
+
+   </div>
+   <div class="form-group row">
+   <div class="col-sm-6">
+           <label for="inputbusinessname" style={styles}>catagory</label>
+           <input type="text"  onChange={this.handelChange} class="form-control" id="catagory" placeholder="Catagory of business" required/>
+       </div>
+       <div class="col-sm-6">
                           <div class="form-group" style={{position: 'relative',  overflow:' hidden', display: 'inline-block'}}>
-                          <button  class=" bg-grey"><i style={{fontSize:'170%',fontWeight:'40',color:'white'}}
-                                          class="ion-md-arrow-up"></i>Upload photo</button>
+                          <button class=" bg-grey"><i style={{fontSize:'170%',fontWeight:'40',color:this.state.flag}}
+                                          class="ion-md-arrow-up"></i>Add photos</button>
                           
                           <input type="file" ref={this.setRef} multiple   accept="image/*"
                           style={{position:"absolute",left:'0',top:'0', opacity:'0',borderRadius:'10px'}}/>
-                      <i style={{fontSize:'170%',color:'#82ae46'}}   class="ion-md-share pl-3"></i>
                       </div>
-                      <button type="button" onClick={this.handleSubmit} class="btn btn-primary px-4 float-right">Done uploading</button>
                       </div>
-                          </div>
-                      <div class="form-group row" style={styles}>
-                          <div class="col-sm-6">
-                              <label for="inputContactNumber">Cell phone </label>
-                              <input type="number" onChange={this.handelChange} class="form-control" id="contactNumber" placeholder="Contact Number"/>
-                          </div>
-                          
-                      </div>
-                      <div class="form-group row" style={styles}>
-                      <div class="col-sm-6" >
-                              <label for="inputemail">Email</label>
-                              <input type="email" onChange={this.handelChange} class="form-control" id="email" placeholder="Email (optional)"/>
-                          </div>
-                      </div>
-                      
-                      
-                  </form>
+        
+   </div>
+   <div style={{marginRight:'40px'}}>
+
+                      {this.state.flag!=='green'?<>{this.state.flag==='black'?<button type="button" onClick={this.handleSubmit} class="btn btn-primary px-4 ">Upload</button>:<lable class="px-4" style={{borderRadius:'20px',backgroundColor:'#82ae46'}}>Uploading</lable>}</>:
+    <lable class="px-4" style={{borderRadius:'20px',backgroundColor:'#82ae46'}}>Uploaded</lable>}
+    </div>
+   <div class="form-group row" style={styles}>
+       <div class="col-sm-6">
+           <label for="inputDiscription">Discription</label>
+           <input type="text" onChange={this.handelChange} class="form-control" id="discription" placeholder="discription" required/>
+       </div>
+       <div class="col-sm-6" >
+                
+             </div>
+       </div>
+   <div class="form-group row" style={styles}>
+       <div class="col-sm-6">
+           <label for="inputPrice">Price </label>
+           <input type="text" onChange={this.handelChange} class="form-control" id="price" placeholder="Range of Price" required/>
+       </div>
+       <div class="col-sm-6">
+           <label for="inputPrice">Market Name </label>
+           <input type="text" onChange={this.handelChange} class="form-control" id="marketName" placeholder="Name of the markt located" required/>
+       </div>
+   </div>
+
+</form>
                   <div class="row "  >
                   <div class="col-md-10 mx-auto " >
                             <h3>Set Location</h3>
@@ -200,6 +197,7 @@ const mapStateToProps=(state)=>{
     return {
       auth:state.firebase.auth,
       seller:state.firestore.data.sellerUpload,
+      profile:state.firebase.profile
     }
   }
 const mapDispatchToProps=(dispatch)=>{
