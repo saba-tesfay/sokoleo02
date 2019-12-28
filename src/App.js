@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter,Switch,Route } from 'react-router-dom';
+import { HashRouter,Switch,Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from'./components/layout/Footer';
 import Products from './components/Pages/Products';
@@ -21,7 +21,7 @@ import setMarket from './components/Pages/SetMarketRedirect';
 function App() {
   return (
     <div className="App">  
-      <BrowserRouter>
+      <HashRouter>
       <Navbar/>
         <Switch>
         <Route exact path='/'component={Home}/>
@@ -41,7 +41,7 @@ function App() {
           <Route exact path='*' component={Nomatch} />
         </Switch>
         <Footer/>
-    </BrowserRouter>
+    </HashRouter>
     </div>
   );
 }
